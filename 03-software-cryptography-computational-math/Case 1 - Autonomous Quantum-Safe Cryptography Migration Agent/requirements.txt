@@ -1,0 +1,11 @@
+# Stream 3 — Software, Cryptography & Computational Math
+# Requires Python 3.10+
+numpy>=1.24
+pandas>=2.0
+networkx>=3.0
+pyyaml>=6.0
+cryptography>=41.0
+# Optional: pip install oqs  (Open Quantum Safe Python bindings; may need liboqs system libs)
+# Optional: qiskit>=1.0
+huggingface_hub>=0.20
+datasets>=2.16

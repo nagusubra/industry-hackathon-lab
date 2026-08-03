@@ -1,0 +1,12 @@
+# Stream 1 — Energy Systems & Environmental Modeling
+# Requires Python 3.10+
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+matplotlib>=3.7
+pypsa>=0.27
+networkx>=3.0
+boto3>=1.28
+h5py>=3.8
+xarray>=2023.1
+scikit-learn>=1.3
