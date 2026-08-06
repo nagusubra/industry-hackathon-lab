@@ -1,0 +1,9 @@
+# Stream 2 — Applied Physics, Aerospace & Electrical Engineering
+# Case 2 — Bridge Structural-Health Monitoring Agent
+# Requires Python 3.10+
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+matplotlib>=3.7
+scikit-learn>=1.3
+huggingface_hub>=0.20

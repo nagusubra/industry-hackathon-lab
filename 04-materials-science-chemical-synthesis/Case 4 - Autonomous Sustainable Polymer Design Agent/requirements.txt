@@ -1,0 +1,9 @@
+# Stream 4 — Materials Science & Chemical Synthesis
+# Case 4 — Sustainable Polymer Design Agent
+# Requires Python 3.10+
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+matplotlib>=3.7
+# Optional for real SMILES featurization:
+# rdkit

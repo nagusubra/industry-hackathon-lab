@@ -1,0 +1,10 @@
+# Stream 3 — Software, Cryptography & Computational Math
+# Case 2 — Compiler-Config Search Agent
+# Requires Python 3.10+
+numpy>=1.24
+pandas>=2.0
+networkx>=3.0
+huggingface_hub>=0.20
+datasets>=2.16
+# Optional: pip install torch  (for GNN encoders on TpuGraphs)
+# Optional: pip install nevergrad optuna  (search backends)

@@ -1,0 +1,9 @@
+# Stream 3 — Software, Cryptography & Computational Math
+# Case 3 — Disruption-Aware Job-Shop Scheduling Agent
+# Requires Python 3.10+
+numpy>=1.24
+pandas>=2.0
+networkx>=3.0
+huggingface_hub>=0.20
+datasets>=2.16
+# Optional: pip install ortools  (CP-SAT solver for JSSP)

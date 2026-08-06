@@ -72,30 +72,62 @@ Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRI
 
 ## Industrial Tracks (Table of Contents)
 
-| # | Stream | Case Study |
-|---|---|---|
-| 1 | [Energy Systems & Environmental Modeling](01-energy-systems-environmental-modeling/Case%201%20-%20Autonomous%20Grid-Balancing%20Agent%20for%20Renewable%20Wind%20Integration/README.md) | Autonomous Grid-Balancing Agent for Renewable Wind Integration |
-| 2 | [Applied Physics, Aerospace & Electrical Engineering](02-applied-physics-aerospace-electrical/Case%201%20-%20Autonomous%20Structural-Health%20and%20Aerodynamic-Design%20Agent/README.md) | Autonomous Structural-Health and Aerodynamic-Design Agent |
-| 3 | [Software, Cryptography & Computational Math](03-software-cryptography-computational-math/Case%201%20-%20Autonomous%20Quantum-Safe%20Cryptography%20Migration%20Agent/README.md) | Autonomous Quantum-Safe Cryptography Migration Agent |
-| 4 | [Materials Science & Chemical Synthesis](04-materials-science-chemical-synthesis/Case%201%20-%20Autonomous%20Battery%20Cathode%20Discovery%20Agent/README.md) | Autonomous Battery Cathode Discovery Agent |
-| 5 | [Life Sciences & Bio-Engineering](05-life-sciences-bio-engineering/Case%201%20-%20Autonomous%20Protein-Structure-to-Toxicity%20Screening%20Agent/README.md) | Autonomous Protein-Structure-to-Toxicity Screening Agent |
+Each stream has **four** case studies. Teams pick **one** case.
 
-### Track Overviews
+### 1. Energy Systems & Environmental Modeling
 
-**1. Energy Systems & Environmental Modeling**  
 Agents for autonomous power grid load-balancing, optimizing renewable energy storage cycles, or running complex environmental simulations to predict the impact of carbon sequestration technologies.
 
-**2. Applied Physics, Aerospace & Electrical Engineering**  
+| Case | Title |
+|---|---|
+| 1 | [Autonomous Grid-Balancing Agent for Renewable Wind Integration](01-energy-systems-environmental-modeling/Case%201%20-%20Autonomous%20Grid-Balancing%20Agent%20for%20Renewable%20Wind%20Integration/README.md) |
+| 2 | [Autonomous Storage-Dispatch Agent for Building PV and Battery](01-energy-systems-environmental-modeling/Case%202%20-%20Autonomous%20Storage-Dispatch%20Agent%20for%20Building%20PV%20and%20Battery/README.md) |
+| 3 | [Autonomous Second-Life Battery Degradation-Economics Agent](01-energy-systems-environmental-modeling/Case%203%20-%20Autonomous%20Second-Life%20Battery%20Degradation-Economics%20Agent/README.md) |
+| 4 | [Autonomous Alberta Grid Real-Time Balancing Agent](01-energy-systems-environmental-modeling/Case%204%20-%20Autonomous%20Alberta%20Grid%20Real-Time%20Balancing%20Agent/README.md) |
+
+### 2. Applied Physics, Aerospace & Electrical Engineering
+
 Agents that autonomously iteratively refine CAD designs for wind resistance, conduct real-time structural health monitoring for infrastructure, or optimize flight path dynamics for fuel efficiency in aerospace.
 
-**3. Software, Cryptography & Computational Math**  
+| Case | Title |
+|---|---|
+| 1 | [Autonomous Structural-Health and Aerodynamic-Design Agent](02-applied-physics-aerospace-electrical/Case%201%20-%20Autonomous%20Structural-Health%20and%20Aerodynamic-Design%20Agent/README.md) |
+| 2 | [Autonomous Bridge Structural-Health Monitoring Agent](02-applied-physics-aerospace-electrical/Case%202%20-%20Autonomous%20Bridge%20Structural-Health%20Monitoring%20Agent/README.md) |
+| 3 | [Autonomous Electromechanical Drive Fault-Diagnosis Agent](02-applied-physics-aerospace-electrical/Case%203%20-%20Autonomous%20Electromechanical%20Drive%20Fault-Diagnosis%20Agent/README.md) |
+| 4 | [Autonomous Battery Health and RUL Agent](02-applied-physics-aerospace-electrical/Case%204%20-%20Autonomous%20Battery%20Health%20and%20RUL%20Agent/README.md) |
+
+### 3. Software, Cryptography & Computational Math
+
 Agents that automate the transition to quantum-safe encryption protocols, optimize low-level compiler performance for specialized hardware, or solve high-dimensional optimization problems in industrial logistics and robotics.
 
-**4. Materials Science & Chemical Synthesis**  
+| Case | Title |
+|---|---|
+| 1 | [Autonomous Quantum-Safe Cryptography Migration Agent](03-software-cryptography-computational-math/Case%201%20-%20Autonomous%20Quantum-Safe%20Cryptography%20Migration%20Agent/README.md) |
+| 2 | [Autonomous Compiler-Config Search Agent](03-software-cryptography-computational-math/Case%202%20-%20Autonomous%20Compiler-Config%20Search%20Agent/README.md) |
+| 3 | [Autonomous Disruption-Aware Job-Shop Scheduling Agent](03-software-cryptography-computational-math/Case%203%20-%20Autonomous%20Disruption-Aware%20Job-Shop%20Scheduling%20Agent/README.md) |
+| 4 | [Autonomous Combinatorial Optimization Search Agent](03-software-cryptography-computational-math/Case%204%20-%20Autonomous%20Combinatorial%20Optimization%20Search%20Agent/README.md) |
+
+### 4. Materials Science & Chemical Synthesis
+
 Agents that autonomously search for new battery cathode materials, optimize catalyst performance in chemical reactors, or design sustainable polymers with specific heat-resistance properties.
 
-**5. Life Sciences & Bio-Engineering**  
+| Case | Title |
+|---|---|
+| 1 | [Autonomous Battery Cathode Discovery Agent](04-materials-science-chemical-synthesis/Case%201%20-%20Autonomous%20Battery%20Cathode%20Discovery%20Agent/README.md) |
+| 2 | [Autonomous Reaction-Condition Optimizer](04-materials-science-chemical-synthesis/Case%202%20-%20Autonomous%20Reaction-Condition%20Optimizer/README.md) |
+| 3 | [Autonomous Catalyst Discovery Agent](04-materials-science-chemical-synthesis/Case%203%20-%20Autonomous%20Catalyst%20Discovery%20Agent/README.md) |
+| 4 | [Autonomous Sustainable Polymer Design Agent](04-materials-science-chemical-synthesis/Case%204%20-%20Autonomous%20Sustainable%20Polymer%20Design%20Agent/README.md) |
+
+### 5. Life Sciences & Bio-Engineering
+
 Agents for autonomous protein folding analysis, automating wet-lab to dry-lab data loops, or predicting toxicological profiles of new compounds.
+
+| Case | Title |
+|---|---|
+| 1 | [Autonomous Protein-Structure-to-Toxicity Screening Agent](05-life-sciences-bio-engineering/Case%201%20-%20Autonomous%20Protein-Structure-to-Toxicity%20Screening%20Agent/README.md) |
+| 2 | [Autonomous Enzyme Stability Engineering Agent](05-life-sciences-bio-engineering/Case%202%20-%20Autonomous%20Enzyme%20Stability%20Engineering%20Agent/README.md) |
+| 3 | [Autonomous Multi-Endpoint ADMET Risk Triage Agent](05-life-sciences-bio-engineering/Case%203%20-%20Autonomous%20Multi-Endpoint%20ADMET%20Risk%20Triage%20Agent/README.md) |
+| 4 | [Autonomous Binding-Affinity Discovery Agent](05-life-sciences-bio-engineering/Case%204%20-%20Autonomous%20Binding-Affinity%20Discovery%20Agent/README.md) |
 
 ---
 
