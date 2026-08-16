@@ -97,4 +97,4 @@ Submissions close **Sunday, October 4, 2026 @ 12:00 PM MST**. Incomplete package
 Questions for organizers or sponsorship interest:  
 **Subramanian Narayanan**, IEEE SAS YP Chair — [nagusubra@ieee.org](mailto:nagusubra@ieee.org)
 
-*IEEE YP Industry Hackathon | southern-alberta.ieee.ca*
+*IEEE YP Industry Hackathon | [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/)*

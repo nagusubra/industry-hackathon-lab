@@ -4,7 +4,19 @@
 **Dates:** Friday, October 2 – Sunday, October 4, 2026  
 **Duration:** 48-hour hackathon  
 **Location:** InceptionU, Calgary, Alberta  
-**Website:** [southern-alberta.ieee.ca](https://southern-alberta.ieee.ca)
+**Website:** [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/)
+
+---
+
+## Partners
+
+| Partner | Role | Link |
+|---|---|---|
+| **IEEE** | Host / Organizer | [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/) |
+| **TechConnect Alberta** | Ecosystem partner | [techconnect.amgfoundation.ca](https://techconnect.amgfoundation.ca/) |
+| **Eudaimonia** | Community volunteers | [luma.com/eudaimonia](https://luma.com/eudaimonia) |
+| **Young Energy Infrastructure Professionals** | Community partner | [yeip.energy](https://yeip.energy/) |
+| **Cursor** | AI coding partner | [cursor.com/home](https://cursor.com/home) |
 
 ---
 
@@ -170,4 +182,4 @@ This laboratory repository is released under the [MIT License](LICENSE).
 
 ---
 
-*IEEE YP Industry Hackathon | southern-alberta.ieee.ca*
+*IEEE YP Industry Hackathon | [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/)*
