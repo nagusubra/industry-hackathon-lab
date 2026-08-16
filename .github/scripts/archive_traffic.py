@@ -91,13 +91,16 @@ def read_all(path: str) -> list[dict]:
         return [r for r in csv.DictReader(f) if r]
 
 
-def archive_views() -> None:
+def archive_views() -> str:
+    """Merge the 14-day views window; return the as-of date (latest day)."""
     data = api_get(f"/repos/{REPO}/traffic/views?per=day") or {}
     rows = [
         {"date": d["timestamp"][:10], "views": d["count"], "uniques": d["uniques"]}
         for d in data.get("views", [])
     ]
     merge_into(os.path.join(DATA_DIR, "views.csv"), VIEWS_FIELDS, ["date"], rows)
+    dates = [d["timestamp"][:10] for d in data.get("views", [])]
+    return max(dates) if dates else date.today().isoformat()
 
 
 def archive_clones() -> None:
@@ -109,22 +112,20 @@ def archive_clones() -> None:
     merge_into(os.path.join(DATA_DIR, "clones.csv"), CLONES_FIELDS, ["date"], rows)
 
 
-def archive_referrers() -> None:
-    today = date.today().isoformat()
+def archive_referrers(asof: str) -> None:
     data = api_get(f"/repos/{REPO}/traffic/popular/referrers") or []
     rows = [
-        {"date": today, "referrer": r.get("referrer", ""), "count": r.get("count", 0), "uniques": r.get("uniques", 0)}
+        {"date": asof, "referrer": r.get("referrer", ""), "count": r.get("count", 0), "uniques": r.get("uniques", 0)}
         for r in data
     ]
     merge_into(os.path.join(DATA_DIR, "referrers.csv"), REFERRERS_FIELDS, ["date", "referrer"], rows)
 
 
-def archive_paths() -> None:
-    today = date.today().isoformat()
+def archive_paths(asof: str) -> None:
     data = api_get(f"/repos/{REPO}/traffic/popular/paths") or []
     rows = [
         {
-            "date": today,
+            "date": asof,
             "path": p.get("path", ""),
             "title": p.get("title", ""),
             "count": p.get("count", 0),
@@ -195,10 +196,10 @@ def main() -> int:
     if not os.environ.get("CI"):
         log(f"local run | repo={REPO} | token={'present' if TOKEN else 'MISSING (traffic endpoints will be skipped)'}")
     log(f"archiving traffic for {REPO}")
-    archive_views()
+    asof = archive_views()
     archive_clones()
-    archive_referrers()
-    archive_paths()
+    archive_referrers(asof)
+    archive_paths(asof)
     archive_repo()
     refresh_badge()
     log("done")

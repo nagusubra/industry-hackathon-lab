@@ -23,7 +23,9 @@ jobs:
 
       - name: Archive traffic
         env:
-          GH_TOKEN: ${{ github.token }}
+          # github.token 403s on the traffic endpoints; a fine-grained PAT with
+          # "Administration: read" (secret GH_TRAFFIC_TOKEN) is required.
+          GH_TOKEN: ${{ secrets.GH_TRAFFIC_TOKEN || github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python3 .github/scripts/archive_traffic.py
 
