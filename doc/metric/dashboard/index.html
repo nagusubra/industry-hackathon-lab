@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repo Traffic Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --blue: #58a6ff;
+    --green: #3fb950;
+    --gold: #d29922;
+    --purple: #bc8cff;
+    --red: #f85149;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    padding: 24px 16px 48px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+  h1 { font-size: 22px; font-weight: 700; }
+  header p { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .range { display: flex; gap: 12px; align-items: center; font-size: 13px; color: var(--muted); }
+  .range input {
+    background: var(--card); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px 8px; font-size: 13px;
+  }
+  .headline { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; text-align: center;
+  }
+  .card .label { display: block; color: var(--muted); font-size: 12px; letter-spacing: .4px; text-transform: uppercase; margin-bottom: 6px; }
+  .card .value { display: block; font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .card.big .value { font-size: 40px; }
+  .card.big .sub { color: var(--muted); font-size: 12px; }
+  .card .hint { color: var(--muted); font-size: 11px; }
+  .headline .card.big { padding: 22px; }
+  .headline .card:nth-child(1) .value { color: var(--blue); }
+  .headline .card:nth-child(2) .value { color: var(--green); }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; min-height: 320px;
+  }
+  .chart h2 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+  .chart.full { grid-column: 1 / -1; }
+  .chart .holder { position: relative; height: 280px; }
+  .chart.tall .holder { height: 340px; }
+  .empty { color: var(--muted); text-align: center; padding: 70px 0; font-size: 14px; }
+  footer { margin-top: 28px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+  footer code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+  @media (max-width: 760px) {
+    .headline { grid-template-columns: 1fr; }
+    .charts { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>industry-hackathon-lab · Traffic Dashboard</h1>
+      <p>All-time repository traffic &amp; activity · archived hourly via GitHub Actions</p>
+    </div>
+    <div class="range">
+      <label>From <input type="date" id="from"></label>
+      <label>To <input type="date" id="to"></label>
+    </div>
+  </header>
+
+  <section class="headline">
+    <div class="card big">
+      <span class="label">Total Views</span>
+      <span class="value" id="totalViews">&mdash;</span>
+      <span class="sub">all-time</span>
+    </div>
+    <div class="card big">
+      <span class="label">Total Visitors</span>
+      <span class="value" id="totalVisitors">&mdash;</span>
+      <span class="sub">all-time unique</span>
+    </div>
+  </section>
+
+  <section class="cards">
+    <div class="card"><span class="label">Total Clones</span><span class="value" id="totalClones">&mdash;</span></div>
+    <div class="card"><span class="label">Unique Cloners</span><span class="value" id="uniqueCloners">&mdash;</span></div>
+    <div class="card"><span class="label">Stars</span><span class="value" id="totalStars">&mdash;</span></div>
+    <div class="card"><span class="label">Forks</span><span class="value" id="totalForks">&mdash;</span></div>
+    <div class="card"><span class="label">Watchers</span><span class="value" id="totalWatchers">&mdash;</span></div>
+  </section>
+
+  <section class="charts">
+    <div class="chart tall">
+      <h2>Views per day</h2>
+      <div class="holder"><canvas id="viewsChart"></canvas></div>
+    </div>
+    <div class="chart tall">
+      <h2>Clones per day</h2>
+      <div class="holder"><canvas id="clonesChart"></canvas></div>
+    </div>
+    <div class="chart tall">
+      <h2>Stars &amp; forks over time</h2>
+      <div class="holder"><canvas id="repoChart"></canvas></div>
+    </div>
+    <div class="chart tall">
+      <h2>Top referrers</h2>
+      <div class="holder"><canvas id="referrersChart"></canvas></div>
+    </div>
+    <div class="chart tall full">
+      <h2>Top paths</h2>
+      <div class="holder"><canvas id="pathsChart"></canvas></div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Notes</strong></p>
+    <p>&bull; Headline numbers are <em>all-time</em>; charts and secondary cards follow the selected date range (default: full history).</p>
+    <p>&bull; &ldquo;Unique visitors/cloners&rdquo; is the sum of GitHub&rsquo;s <em>daily</em> uniques &mdash; one person returning on 3 days counts as 3. Same limitation as GitHub&rsquo;s own Insights.</p>
+    <p>&bull; Archive started <code id="startDate">&mdash;</code>. GitHub only exposes 14 days of traffic, so totals cover everything since archiving began.</p>
+  </footer>
+
+</div>
+
+<script>
+(() => {
+  const REPO = "nagusubra/industry-hackathon-lab";
+  const BRANCH = "main";
+  const BASE = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/.metrics/data/`;
+
+  const fmt = n => (n == null ? "&mdash;" : Number(n).toLocaleString("en-US"));
+  const $ = id => document.getElementById(id);
+  const C = window.Chart;
+  const charts = {};
+  let all = { views: [], clones: [], referrers: [], paths: [], repo: [] };
+
+  const palette = { blue: "#58a6ff", green: "#3fb950", gold: "#d29922", purple: "#bc8cff", red: "#f85149", muted: "#8b949e" };
+  const gridColor = "rgba(110,118,129,.15)";
+  const tickColor = "#8b949e";
+
+  async function fetchCSV(name) {
+    const res = await fetch(BASE + name + ".csv");
+    if (!res.ok) return [];
+    const text = await res.text();
+    const lines = text.trim().split(/\r?\n/).filter(Boolean);
+    if (lines.length < 2) return [];
+    const header = lines[0].split(",").map(s => s.trim());
+    return lines.slice(1).map(l => {
+      const cells = l.split(",").map(s => s.trim());
+      const row = {};
+      header.forEach((h, i) => (row[h] = cells[i]));
+      return row;
+    });
+  }
+
+  function inRange(d) {
+    const f = $("from").value, t = $("to").value;
+    return (!f || d >= f) && (!t || d <= t);
+  }
+
+  function sum(rows, col) {
+    return rows.reduce((a, r) => a + (parseInt(r[col], 10) || 0), 0);
+  }
+
+  function topBy(rows, keyCol, countCol, labelFn, limit) {
+    const agg = {};
+    for (const r of rows) {
+      const k = (r[keyCol] || "").trim();
+      if (!k) continue;
+      if (!agg[k]) agg[k] = { label: labelFn ? labelFn(k, r) : k, count: 0 };
+      agg[k].count += parseInt(r[countCol], 10) || 0;
+    }
+    return Object.values(agg).sort((a, b) => b.count - a.count).slice(0, limit || 10);
+  }
+
+  function axisOpts(tooltipTitle) {
+    return {
+      responsive: true, maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { labels: { color: tickColor, boxWidth: 10, font: { size: 11 } } },
+        tooltip: { callbacks: { title: items => (items[0] ? items[0].label : "") } }
+      },
+      scales: {
+        x: { ticks: { color: tickColor, maxTicksLimit: 10 }, grid: { color: gridColor } },
+        y: { ticks: { color: tickColor, precision: 0 }, grid: { color: gridColor }, beginAtZero: true }
+      }
+    };
+  }
+
+  function makeLine(key, rows, datasets, opts) {
+    const ctx = $(key).getContext("2d");
+    if (charts[key]) charts[key].destroy();
+    if (!rows.length) {
+      renderEmpty(key, "No data yet \u2014 first archive run populates this chart.");
+      return;
+    }
+    charts[key] = new C(ctx, {
+      type: "line",
+      data: { labels: rows.map(r => r.date), datasets },
+      options: opts
+    });
+  }
+
+  function makeHBar(key, rows, label, color) {
+    const ctx = $(key).getContext("2d");
+    if (charts[key]) charts[key].destroy();
+    if (!rows.length) {
+      renderEmpty(key, "No data yet.");
+      return;
+    }
+    charts[key] = new C(ctx, {
+      type: "bar",
+      data: {
+        labels: rows.map(r => r.label),
+        datasets: [{ label, data: rows.map(r => r.count), backgroundColor: color, borderRadius: 3 }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { display: false }, tooltip: {} },
+        scales: {
+          x: { ticks: { color: tickColor, precision: 0 }, grid: { color: gridColor }, beginAtZero: true },
+          y: { ticks: { color: tickColor }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  function renderEmpty(key, msg) {
+    const holder = $(key).parentElement;
+    holder.innerHTML = `<div class="empty">${msg}</div>`;
+  }
+
+  function render() {
+    const views = all.views.filter(r => inRange(r.date));
+    const clones = all.clones.filter(r => inRange(r.date));
+    const refs = all.referrers.filter(r => inRange(r.date));
+    const paths = all.paths.filter(r => inRange(r.date));
+    const repo = all.repo.filter(r => inRange(r.date));
+
+    $("totalClones").innerHTML = fmt(sum(all.clones, "clones"));
+    $("uniqueCloners").innerHTML = fmt(sum(all.clones, "uniques"));
+    $("totalStars").innerHTML = fmt(all.repo.length ? all.repo[all.repo.length - 1].stars : null);
+    $("totalForks").innerHTML = fmt(all.repo.length ? all.repo[all.repo.length - 1].forks : null);
+    $("totalWatchers").innerHTML = fmt(all.repo.length ? all.repo[all.repo.length - 1].watchers : null);
+
+    makeLine("viewsChart", views, [
+      { label: "Views", data: views.map(r => r.views), borderColor: palette.blue, backgroundColor: "rgba(88,166,255,.12)", fill: true, tension: .2, pointRadius: 0, borderWidth: 2 },
+      { label: "Unique visitors", data: views.map(r => r.uniques), borderColor: palette.green, tension: .2, pointRadius: 0, borderWidth: 2 }
+    ], axisOpts());
+
+    makeLine("clonesChart", clones, [
+      { label: "Clones", data: clones.map(r => r.clones), borderColor: palette.green, backgroundColor: "rgba(63,185,80,.12)", fill: true, tension: .2, pointRadius: 0, borderWidth: 2 },
+      { label: "Unique cloners", data: clones.map(r => r.uniques), borderColor: palette.purple, tension: .2, pointRadius: 0, borderWidth: 2 }
+    ], axisOpts());
+
+    const repoD = repo.length ? repo : all.repo;
+    makeLine("repoChart", repoD, [
+      { label: "Stars", data: repoD.map(r => r.stars), borderColor: palette.gold, tension: .2, pointRadius: 0, borderWidth: 2 },
+      { label: "Forks", data: repoD.map(r => r.forks), borderColor: palette.purple, tension: .2, pointRadius: 0, borderWidth: 2 }
+    ], axisOpts());
+
+    makeHBar("referrersChart", topBy(refs, "referrer", "count"), "Views", palette.blue);
+    makeHBar("pathsChart", topBy(paths, "path", "count", (k, r) => r.title || k), "Views", palette.green);
+  }
+
+  async function init() {
+    try {
+      const [v, c, ref, p, repo] = await Promise.all([
+        fetchCSV("views"), fetchCSV("clones"), fetchCSV("referrers"), fetchCSV("paths"), fetchCSV("repo")
+      ]);
+      all = { views: v, clones: c, referrers: ref, paths: p, repo };
+
+      $("totalViews").innerHTML = fmt(sum(v, "views"));
+      $("totalVisitors").innerHTML = fmt(sum(v, "uniques"));
+
+      const dates = [...v, ...c].map(r => r.date).filter(Boolean).sort();
+      if (dates.length) {
+        $("from").value = dates[0];
+        $("to").value = dates[dates.length - 1];
+        $("startDate").textContent = dates[0];
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    render();
+  }
+
+  ["from", "to"].forEach(id => $(id).addEventListener("change", render));
+  init();
+})();
+</script>
+</body>
+</html>
