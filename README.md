@@ -1,6 +1,6 @@
 # IEEE YP Industry Hackathon: Autonomous Intelligence for Industrial Innovation
 
-[![Repo traffic](https://raw.githubusercontent.com/nagusubra/industry-hackathon-lab/traffic-data/doc/metric/badge.svg)](https://nagusubra.github.io/industry-hackathon-lab/doc/metric/dashboard/)
+[![Repo traffic](https://raw.githubusercontent.com/nagusubra/traffic/main/doc/metric/industry-hackathon-lab/badge.svg)](https://nagusubra.github.io/traffic/doc/metric/industry-hackathon-lab/)
 
 **Hosted by:** IEEE Southern Alberta Section Young Professionals (IEEE SAS YP)  
 **Dates:** Friday, October 2 – Sunday, October 4, 2026  
