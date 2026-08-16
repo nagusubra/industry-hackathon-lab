@@ -27,7 +27,7 @@ from datetime import date, datetime, timezone
 
 API = "https://api.github.com"
 DEFAULT_REPO = "nagusubra/industry-hackathon-lab"
-BRANCH = "main"
+BRANCH = "traffic-data"
 
 HERE = os.path.dirname(os.path.abspath(__file__))          # <root>/.github/scripts
 ROOT = os.path.dirname(os.path.dirname(HERE))              # <root>
