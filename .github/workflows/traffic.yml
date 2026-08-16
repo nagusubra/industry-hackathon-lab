@@ -34,7 +34,9 @@ jobs:
           git add .metrics doc/metric
           if ! git diff --cached --quiet; then
             git commit -m "chore(metrics): archive traffic data ($(date -u +%Y-%m-%dT%H:%MZ))"
-            git push
+            # main is protected (PRs required); the bot writes the archive to the
+            # dedicated traffic-data branch, which the dashboard and badge read from.
+            git push --force origin HEAD:traffic-data
           else
             echo "No changes to commit"
           fi

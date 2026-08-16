@@ -35,7 +35,7 @@ mkdir -p "05-life-sciences-bio-engineering/Case 1 - Autonomous Protein-Structure
 cat << 'EOF' > "$ROOT/README.md"
 # IEEE YP Industry Hackathon: Autonomous Intelligence for Industrial Innovation
 
-[![Repo traffic](doc/metric/badge.svg)](https://nagusubra.github.io/industry-hackathon-lab/doc/metric/dashboard/)
+[![Repo traffic](https://raw.githubusercontent.com/nagusubra/industry-hackathon-lab/traffic-data/doc/metric/badge.svg)](https://nagusubra.github.io/industry-hackathon-lab/doc/metric/dashboard/)
 
 **Hosted by:** IEEE Southern Alberta Section Young Professionals (IEEE SAS YP)  
 **Dates:** Friday, October 2 – Sunday, October 4, 2026  

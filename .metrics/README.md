@@ -17,10 +17,14 @@ The archiver is `.github/scripts/archive_traffic.py`, triggered hourly by
 `.github/workflows/traffic.yml` (also on push to `main` and manually via the
 workflow dispatch button). It backfills GitHub's 14-day window on the first run.
 
+`main` is protected (PRs required), so the workflow writes the archive to the
+**`traffic-data` branch**, which the dashboard and badge read from via
+`raw.githubusercontent.com`.
+
 ## Public URLs
 
 - Dashboard: `https://nagusubra.github.io/industry-hackathon-lab/doc/metric/dashboard/`
-- Badge (all-time total views, auto-refreshed hourly): `https://raw.githubusercontent.com/nagusubra/industry-hackathon-lab/main/doc/metric/badge.svg`
+- Badge (all-time total views, auto-refreshed hourly): `https://raw.githubusercontent.com/nagusubra/industry-hackathon-lab/traffic-data/doc/metric/badge.svg`
 
 ## How to add another repo
 
