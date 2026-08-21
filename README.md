@@ -86,7 +86,7 @@ Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRI
 
 ## Industrial Tracks (Table of Contents)
 
-Each stream has **four** case studies. Teams pick **one** case.
+Each stream has multiple case studies (Energy Systems has seven; Software/Math has five; the others have four). Teams pick **one** case.
 
 ### 1. Energy Systems & Environmental Modeling
 
@@ -98,6 +98,9 @@ Agents for autonomous power grid load-balancing, optimizing renewable energy sto
 | 2 | [Autonomous Storage-Dispatch Agent for Building PV and Battery](01-energy-systems-environmental-modeling/Case%202%20-%20Autonomous%20Storage-Dispatch%20Agent%20for%20Building%20PV%20and%20Battery/README.md) |
 | 3 | [Autonomous Second-Life Battery Degradation-Economics Agent](01-energy-systems-environmental-modeling/Case%203%20-%20Autonomous%20Second-Life%20Battery%20Degradation-Economics%20Agent/README.md) |
 | 4 | [Autonomous Alberta Grid Real-Time Balancing Agent](01-energy-systems-environmental-modeling/Case%204%20-%20Autonomous%20Alberta%20Grid%20Real-Time%20Balancing%20Agent/README.md) |
+| 5 | [Autonomous Day-Ahead Battery Arbitrage and Bidding Agent](01-energy-systems-environmental-modeling/Case%205%20-%20Autonomous%20Day-Ahead%20Battery%20Arbitrage%20and%20Bidding%20Agent/README.md) |
+| 6 | [Autonomous Interconnection-Queue Risk-Triage Agent](01-energy-systems-environmental-modeling/Case%206%20-%20Autonomous%20Interconnection-Queue%20Risk-Triage%20Agent/README.md) |
+| 7 | [Autonomous Building-Stock Electrification and Retrofit-Prioritization Agent](01-energy-systems-environmental-modeling/Case%207%20-%20Autonomous%20Building-Stock%20Electrification%20and%20Retrofit-Prioritization%20Agent/README.md) |
 
 ### 2. Applied Physics, Aerospace & Electrical Engineering
 
@@ -120,6 +123,7 @@ Agents that automate the transition to quantum-safe encryption protocols, optimi
 | 2 | [Autonomous Compiler-Config Search Agent](03-software-cryptography-computational-math/Case%202%20-%20Autonomous%20Compiler-Config%20Search%20Agent/README.md) |
 | 3 | [Autonomous Disruption-Aware Job-Shop Scheduling Agent](03-software-cryptography-computational-math/Case%203%20-%20Autonomous%20Disruption-Aware%20Job-Shop%20Scheduling%20Agent/README.md) |
 | 4 | [Autonomous Combinatorial Optimization Search Agent](03-software-cryptography-computational-math/Case%204%20-%20Autonomous%20Combinatorial%20Optimization%20Search%20Agent/README.md) |
+| 5 | [Autonomous OPF Solver-Configuration and Scaling Agent](03-software-cryptography-computational-math/Case%205%20-%20Autonomous%20OPF%20Solver-Configuration%20and%20Scaling%20Agent/README.md) |
 
 ### 4. Materials Science & Chemical Synthesis
 
