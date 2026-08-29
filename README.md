@@ -24,7 +24,11 @@
 
 ## Mission
 
-Unlike typical hackathons that yield surface-level chat interfaces or basic productivity apps, our mission is to deliver **hard-science technical value**. Collaborative teams of 2 to 5 young professionals and recent graduates will spend 48 hours building **Autonomous AI Agents** (or agent frameworks) designed to solve complex scientific and engineering bottlenecks across modern industrial sectors — moving beyond chat wrappers into deep physical infrastructure, computational science, and industrial systems.
+Unlike typical hackathons that yield chat wrappers or generic productivity apps, this event asks teams to ship something a **real operator in Calgary, Alberta, or Canadian industry** could use: a ranked list, a schedule, a flag, a mix — backed by public data and a number you can defend.
+
+You will spend 48 hours building a small **decision loop** (read data → propose an action → score it → revise). Cursor is the coding partner so the barrier is the *industrial problem*, not the boilerplate.
+
+Open to **high school students through industry professionals**. One common prize track.
 
 ---
 
@@ -42,7 +46,7 @@ Unlike typical hackathons that yield surface-level chat interfaces or basic prod
 
 ## Eligibility & Teams
 
-- **Eligibility:** Open to all — students, professionals, IEEE members, and non-members. We welcome local innovators, recent graduates, and brilliant young professionals.
+- **Eligibility:** Open to all — high school students, university students, professionals, IEEE members, and non-members.
 - **Team size:** Collaborative teams of **2 to 5 members**.
 - **Format:** In-person, 48-hour build sprint at InceptionU.
 
@@ -73,79 +77,80 @@ If you have any suggestions or would like to become a sponsor for the hackathon,
 
 ---
 
+## How to participate (pick a stream, then a path)
+
+**Step 1 — Form a team of 2–5 and choose exactly one industrial stream** (the three themes below).
+
+**Step 2 — Choose Option A or Option B.**
+
+### Option A — Bring your own problem
+
+Find your own problem statement and public dataset, build a solution, and present it to the judges. Stay inside your stream's theme. You are scored on the **same rubric** as prepared cases.
+
+Your project must:
+
+1. Fit the **stream theme** (one-liners below).
+2. Use a **real public dataset** (prefer [Open Calgary](https://data.calgary.ca/), [AESO](https://www.aeso.ca/market/market-and-system-reporting/data-requests/), Alberta Open Government, ECCC, CER, or Statistics Canada). Cite the source.
+3. Beat a **named naive baseline** (yesterday's value, random, greedy, always-on, nearest-neighbor, first-come-first-served, or majority class).
+4. Run **at least one propose → score → revise** cycle in code (not a single chat answer).
+5. Name **who would use it** (a City business unit, AESO, a retailer, a plant, a contractor).
+
+### Option B — Pick a prepared case
+
+Choose **one** case from your stream's folder. Follow that case `README.md` and `data/README.md`.
+
+---
+
 ## Judging
 
-Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md) for full criteria and submission requirements.
+Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md). Option A and Option B use the same criteria.
 
 **Required submission package (by Sunday, Oct 4 @ 12:00 PM MST):**
+
 1. GitHub repository link
 2. Project details / documentation
 3. Working demo video link
 
 ---
 
-## Industrial Tracks (Table of Contents)
+## Industrial Streams
 
-Each stream has multiple case studies (Energy Systems has seven; Software/Math has five; the others have four). Teams pick **one** case.
+### 1. Energy and Infrastructure Systems
 
-### 1. Energy Systems & Environmental Modeling
-
-Agents for autonomous power grid load-balancing, optimizing renewable energy storage cycles, or running complex environmental simulations to predict the impact of carbon sequestration technologies.
+**Theme:** Alberta electricity is cheap some hours and very expensive in others; Calgary’s buildings, buses, roads, and street lights also need a plan. Build something that decides **when to run, store, or retrofit energy**, or **what physical infrastructure to inspect or fix first**.
 
 | Case | Title |
 |---|---|
-| 1 | [Autonomous Grid-Balancing Agent for Renewable Wind Integration](01-energy-systems-environmental-modeling/Case%201%20-%20Autonomous%20Grid-Balancing%20Agent%20for%20Renewable%20Wind%20Integration/README.md) |
-| 2 | [Autonomous Storage-Dispatch Agent for Building PV and Battery](01-energy-systems-environmental-modeling/Case%202%20-%20Autonomous%20Storage-Dispatch%20Agent%20for%20Building%20PV%20and%20Battery/README.md) |
-| 3 | [Autonomous Second-Life Battery Degradation-Economics Agent](01-energy-systems-environmental-modeling/Case%203%20-%20Autonomous%20Second-Life%20Battery%20Degradation-Economics%20Agent/README.md) |
-| 4 | [Autonomous Alberta Grid Real-Time Balancing Agent](01-energy-systems-environmental-modeling/Case%204%20-%20Autonomous%20Alberta%20Grid%20Real-Time%20Balancing%20Agent/README.md) |
-| 5 | [Autonomous Day-Ahead Battery Arbitrage and Bidding Agent](01-energy-systems-environmental-modeling/Case%205%20-%20Autonomous%20Day-Ahead%20Battery%20Arbitrage%20and%20Bidding%20Agent/README.md) |
-| 6 | [Autonomous Interconnection-Queue Risk-Triage Agent](01-energy-systems-environmental-modeling/Case%206%20-%20Autonomous%20Interconnection-Queue%20Risk-Triage%20Agent/README.md) |
-| 7 | [Autonomous Building-Stock Electrification and Retrofit-Prioritization Agent](01-energy-systems-environmental-modeling/Case%207%20-%20Autonomous%20Building-Stock%20Electrification%20and%20Retrofit-Prioritization%20Agent/README.md) |
+| 1 | [When should we use electricity in Alberta?](01-energy-and-infrastructure-systems/Case%201%20-%20Autonomous%20Alberta%20Peak-Price%20Load-Shift%20Agent/README.md) |
+| 2 | [Which Calgary buildings should we retrofit first?](01-energy-and-infrastructure-systems/Case%202%20-%20Autonomous%20Calgary%20Building%20Retrofit-Prioritization%20Agent/README.md) |
+| 3 | [When is Alberta short of wind?](01-energy-and-infrastructure-systems/Case%203%20-%20Autonomous%20Alberta%20Wind-and-Demand%20Balancing%20Agent/README.md) |
+| 4 | [How many more trips can this engine make?](01-energy-and-infrastructure-systems/Case%204%20-%20Autonomous%20Transit-Fleet%20Remaining-Life%20Agent/README.md) |
+| 5 | [Which Calgary intersections keep hurting people?](01-energy-and-infrastructure-systems/Case%205%20-%20Autonomous%20Calgary%20Collision-Hotspot%20Ranking%20Agent/README.md) |
+| 6 | [Which street lights will go dark?](01-energy-and-infrastructure-systems/Case%206%20-%20Autonomous%20Street-Light%20Outage%20Dispatch%20Agent/README.md) |
 
-### 2. Applied Physics, Aerospace & Electrical Engineering
+Option A examples: AESO pool price vs a City facility; [Corporate Energy Consumption](https://data.calgary.ca/Environment/Corporate-Energy-Consumption/crbp-innf); [Traffic Incidents](https://data.calgary.ca/Transportation-Transit/Traffic-Incidents/35ra-9556); [Traffic Volumes](https://data.calgary.ca/dataset/Traffic-Volumes-for-2024/cauu-7hnw).
 
-Agents that autonomously iteratively refine CAD designs for wind resistance, conduct real-time structural health monitoring for infrastructure, or optimize flight path dynamics for fuel efficiency in aerospace.
+### 2. Software and Computational Math
 
-| Case | Title |
-|---|---|
-| 1 | [Autonomous Structural-Health and Aerodynamic-Design Agent](02-applied-physics-aerospace-electrical/Case%201%20-%20Autonomous%20Structural-Health%20and%20Aerodynamic-Design%20Agent/README.md) |
-| 2 | [Autonomous Bridge Structural-Health Monitoring Agent](02-applied-physics-aerospace-electrical/Case%202%20-%20Autonomous%20Bridge%20Structural-Health%20Monitoring%20Agent/README.md) |
-| 3 | [Autonomous Electromechanical Drive Fault-Diagnosis Agent](02-applied-physics-aerospace-electrical/Case%203%20-%20Autonomous%20Electromechanical%20Drive%20Fault-Diagnosis%20Agent/README.md) |
-| 4 | [Autonomous Battery Health and RUL Agent](02-applied-physics-aerospace-electrical/Case%204%20-%20Autonomous%20Battery%20Health%20and%20RUL%20Agent/README.md) |
-
-### 3. Software, Cryptography & Computational Math
-
-Agents that automate the transition to quantum-safe encryption protocols, optimize low-level compiler performance for specialized hardware, or solve high-dimensional optimization problems in industrial logistics and robotics.
+**Theme:** The City has too few crews, trucks, and hours. Build a **scheduler, dispatcher, or router** that still works when a truck breaks or a blizzard hits.
 
 | Case | Title |
 |---|---|
-| 1 | [Autonomous Quantum-Safe Cryptography Migration Agent](03-software-cryptography-computational-math/Case%201%20-%20Autonomous%20Quantum-Safe%20Cryptography%20Migration%20Agent/README.md) |
-| 2 | [Autonomous Compiler-Config Search Agent](03-software-cryptography-computational-math/Case%202%20-%20Autonomous%20Compiler-Config%20Search%20Agent/README.md) |
-| 3 | [Autonomous Disruption-Aware Job-Shop Scheduling Agent](03-software-cryptography-computational-math/Case%203%20-%20Autonomous%20Disruption-Aware%20Job-Shop%20Scheduling%20Agent/README.md) |
-| 4 | [Autonomous Combinatorial Optimization Search Agent](03-software-cryptography-computational-math/Case%204%20-%20Autonomous%20Combinatorial%20Optimization%20Search%20Agent/README.md) |
-| 5 | [Autonomous OPF Solver-Configuration and Scaling Agent](03-software-cryptography-computational-math/Case%205%20-%20Autonomous%20OPF%20Solver-Configuration%20and%20Scaling%20Agent/README.md) |
+| 1 | [Who should 311 send next?](02-software-and-computational-math/Case%201%20-%20Autonomous%20311%20Work-Order%20Dispatch%20Agent/README.md) |
+| 2 | [In what order should we plow or deliver?](02-software-and-computational-math/Case%202%20-%20Autonomous%20Calgary%20Snow-and-Delivery%20Routing%20Agent/README.md) |
 
-### 4. Materials Science & Chemical Synthesis
+Option A examples: Calgary Transit GTFS as a *small* subset of stops; waste-collection routing; a tiny factory job-shop CSV you publish with the repo.
 
-Agents that autonomously search for new battery cathode materials, optimize catalyst performance in chemical reactors, or design sustainable polymers with specific heat-resistance properties.
+### 3. Chemical Systems and Material Science
 
-| Case | Title |
-|---|---|
-| 1 | [Autonomous Battery Cathode Discovery Agent](04-materials-science-chemical-synthesis/Case%201%20-%20Autonomous%20Battery%20Cathode%20Discovery%20Agent/README.md) |
-| 2 | [Autonomous Reaction-Condition Optimizer](04-materials-science-chemical-synthesis/Case%202%20-%20Autonomous%20Reaction-Condition%20Optimizer/README.md) |
-| 3 | [Autonomous Catalyst Discovery Agent](04-materials-science-chemical-synthesis/Case%203%20-%20Autonomous%20Catalyst%20Discovery%20Agent/README.md) |
-| 4 | [Autonomous Sustainable Polymer Design Agent](04-materials-science-chemical-synthesis/Case%204%20-%20Autonomous%20Sustainable%20Polymer%20Design%20Agent/README.md) |
-
-### 5. Life Sciences & Bio-Engineering
-
-Agents for autonomous protein folding analysis, automating wet-lab to dry-lab data loops, or predicting toxicological profiles of new compounds.
+**Theme:** Alberta industry has to pick mixes, metals, and chemistries that are strong enough, clean enough, and cheap enough. Build something that **ranks or designs a material, mix, or water sample against a number** (strength, voltage, a legal limit).
 
 | Case | Title |
 |---|---|
-| 1 | [Autonomous Protein-Structure-to-Toxicity Screening Agent](05-life-sciences-bio-engineering/Case%201%20-%20Autonomous%20Protein-Structure-to-Toxicity%20Screening%20Agent/README.md) |
-| 2 | [Autonomous Enzyme Stability Engineering Agent](05-life-sciences-bio-engineering/Case%202%20-%20Autonomous%20Enzyme%20Stability%20Engineering%20Agent/README.md) |
-| 3 | [Autonomous Multi-Endpoint ADMET Risk Triage Agent](05-life-sciences-bio-engineering/Case%203%20-%20Autonomous%20Multi-Endpoint%20ADMET%20Risk%20Triage%20Agent/README.md) |
-| 4 | [Autonomous Binding-Affinity Discovery Agent](05-life-sciences-bio-engineering/Case%204%20-%20Autonomous%20Binding-Affinity%20Discovery%20Agent/README.md) |
+| 1 | [Which battery material is good enough for Alberta storage?](03-chemical-systems-and-material-science/Case%201%20-%20Autonomous%20Alberta%20Storage%20Cathode%20Shortlist%20Agent/README.md) |
+| 2 | [Is the Bow or Elbow over the limit today?](03-chemical-systems-and-material-science/Case%202%20-%20Autonomous%20Bow-Elbow%20Water-Quality%20Flag%20Agent/README.md) |
+
+Option A examples: City Roads concrete / paving mix tables; Alberta waste-diversion tonnes; industrial air-emission rates from [Alberta AEIR](https://open.alberta.ca/opendata/aeirairemissionrates).
 
 ---
 
@@ -156,27 +161,24 @@ industry-hackathon-lab/
 ├── README.md
 ├── LICENSE
 ├── JUDGING_RUBRIC.md
-├── build_repo.sh
-├── 01-energy-systems-environmental-modeling/
-├── 02-applied-physics-aerospace-electrical/
-├── 03-software-cryptography-computational-math/
-├── 04-materials-science-chemical-synthesis/
-└── 05-life-sciences-bio-engineering/
+├── 01-energy-and-infrastructure-systems/
+├── 02-software-and-computational-math/
+└── 03-chemical-systems-and-material-science/
 ```
 
-Each case folder includes a problem brief (`README.md`), dataset guide (`data/README.md`), Python dependency list (`requirements.txt`), and a starter agent skeleton (`agent_starter.py`).
+Each prepared case includes a problem brief (`README.md`), a seed CSV in `data/`, `agent_starter.py`, and `requirements.txt`.
 
 ---
 
 ## Getting Started
 
-**Requires Python 3.10+ (3.11 recommended).**
+**Requires Python 3.10+ (3.11 recommended).** You may use Cursor or another AI coding tool.
 
 1. Register via the registration link above (when published).
-2. Form a team of 2–5 members and pick **one** industrial stream/case.
-3. Clone this lab repository and follow the case `README.md` + `data/README.md`.
-4. Create a venv, install the case `requirements.txt`, and extend `agent_starter.py`.
-5. Build an autonomous agent that reasons, tools, and acts on real industrial data.
+2. Form a team of 2–5 and pick **one** stream.
+3. Choose **Option A** (your problem) or **Option B** (one prepared case).
+4. Clone this lab repository. For Option B, `pip install -r requirements.txt` in the case folder and run `python agent_starter.py`, then follow the case `README.md` + `data/README.md`.
+5. Build a loop that reads real data, proposes an action, scores it, and revises at least once.
 6. Submit your GitHub repo, project write-up, and demo video by **Sunday, Oct 4 @ 12:00 PM MST**.
 
 ---

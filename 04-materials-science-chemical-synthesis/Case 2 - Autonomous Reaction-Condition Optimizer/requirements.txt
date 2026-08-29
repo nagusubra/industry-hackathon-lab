@@ -1,9 +1,0 @@
-# Stream 4 — Materials Science & Chemical Synthesis
-# Case 2 — Reaction-Condition Optimizer
-# Requires Python 3.10+
-numpy>=1.24
-pandas>=2.0
-matplotlib>=3.7
-# Optional for real data:
-datasets>=2.14
-huggingface_hub>=0.20
