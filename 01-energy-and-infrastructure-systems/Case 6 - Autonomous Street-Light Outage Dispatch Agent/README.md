@@ -1,62 +1,83 @@
-# Case 6 — Autonomous Street-Light Outage Dispatch Agent
+# Case 6 — Which street lights should we fix this week?
 
 **Stream:** Energy and Infrastructure Systems  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-When a street light is out, Calgarians call **311**. Crews cannot visit every pole the same day. If dispatch is “oldest ticket first,” a dark corridor by a school can wait behind a single lamp on a quiet street.
+When a street light is out, people call **311**. Crews cannot visit every pole the same day. If you always take the **oldest** ticket, a dark stretch by a school can wait behind one lamp on a quiet street.
 
-**Your challenge:** From 311 requests about street lights (and similar electrical tickets), build a **this-week dispatch list**. Beat “oldest ticket first.” Then pretend one crew calls in sick (drop 20% capacity) and **rebuild the list**.
-
----
-
-## Industrial Significance
-
-- 311 is how The City hears about failed electrical assets in the public realm. Repeat outages in the same community are a signal, not noise.
-- **Who would use this:** City of Calgary Roads / Street Lighting. **What is sold:** fewer dark nights per crew-hour.
+**Your challenge:** Build a **this-week list**. Beat oldest-first. Then pretend one crew is sick (20% fewer visits) and **rebuild the list**.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load 311 service requests. Filter to street lighting / electrical (inspect `service_name` or equivalent). Keep community, open date, status.
-2. **Reason:** Score tickets (age, repeats in the same community, open vs closed). State the formula.
-3. **Act:** Assume `N` crew-slots for the week (you pick `N`, e.g. 40). Output the chosen tickets. Baseline = oldest `N` tickets.
-4. **Iterate:** Set `N` to `0.8 * N` and re-select; report which communities lost coverage.
-5. **Explain:** A dispatcher paragraph: why these tickets, what you skipped.
-
-Stretch: predict next week’s volume by community (simple counts by month) vs last month’s count.
+City of Calgary Roads / Street Lighting. You are selling **fewer dark nights per crew-hour**.
 
 ---
 
-## Recommended Architecture
+## Steps
 
-```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Score      │ -> │  Fill N slots  │ -> │  Cut N      │
-│ 311 lights  │    │ age + repeats│    │ vs oldest-first│    │ 20% and     │
-│ tickets     │    │              │    │                │    │ re-pick     │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
+1. Load 311 lighting tickets. Keep community and date.
+2. Score each ticket (age, and how many times that community called). Write the formula in one line.
+3. Fill `N` slots (the starter uses 40). Baseline = oldest `N`.
+4. Set `N` to 80% and pick again. Which communities lost a visit?
+5. Write a dispatcher paragraph: why these tickets, what you skipped.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load 311 light tickets] --> B[Score age + repeats]
+  B --> C[Fill N crew slots]
+  C --> D[20% fewer crews]
+  D --> C
 ```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md).
-
-**Requires Python 3.10+ (3.11 recommended).**
+**FIFO** = first in, first out = oldest ticket first. That is the plan you must beat.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Baseline | Oldest-first (`FIFO`) for the same `N` |
-| Your list | Show average ticket age **and** repeat-community coverage vs FIFO |
-| Loop | ≥ 1 capacity shock (sick crew) |
-| Filter | Document how you identified lighting tickets |
-| Demo | Table: community, ticket id, score, selected yes/no |
+| FIFO | Oldest request first |
+| Dispatch | Choosing which jobs the crew does today |
+| Repeat | The same community calling again |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+---
+
+## Watch or read (optional)
+
+- [Calgary 311](https://www.calgary.ca/311.html)
+- [Queues: first in, first out (Wikipedia)](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Baseline | Oldest-first for the same `N` |
+| Your list | Age **and** repeat-community coverage vs FIFO |
+| Loop | One sick-crew cut |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change `N` or the score and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

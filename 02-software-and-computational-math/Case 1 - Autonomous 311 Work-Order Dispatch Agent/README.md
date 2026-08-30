@@ -1,63 +1,88 @@
-# Case 1 — Autonomous 311 Work-Order Dispatch Agent
+# Case 1 — Who should 311 send next?
 
 **Stream:** Software and Computational Math  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-Calgary 311 is a pile of potholes, ice, garbage, signs, and “other.” If every crew takes the **oldest ticket**, a safety issue sits behind a backlog of small complaints. Then a blizzard hits — or a crew calls in sick — and the plan you made at 7 a.m. is wrong.
+Calgary 311 is a pile of potholes, ice, garbage, and signs. If every crew takes the **oldest** ticket, a safety problem sits behind a backlog of small complaints. Then a blizzard hits — or a crew calls in sick — and the 7 a.m. plan is wrong.
 
-This is a **tiny job shop** in City clothes: jobs (tickets), machines (crews), and a disruption.
+This is a tiny **job shop**: jobs (tickets), machines (crews), and one disruption.
 
-**Your challenge:** Score open tickets and assign them to a small number of crews for one day. Beat first-come-first-served. Then apply one disruption (blizzard: ice/snow tickets jump in priority, **or** one crew disappears) and **reassign**. Report how many jobs moved.
-
----
-
-## Industrial Significance
-
-- 311 / Roads / Waste & Recycling already live in this world. A dispatcher’s job is priority + geography + who is available.
-- **Who would use this:** 311 operations, Roads, Waste & Recycling. **What is sold:** more of the *right* work done when capacity drops.
+**Your challenge:** Score open tickets and assign them to a few crews for one day. Beat oldest-first. Then apply **one** disruption (blizzard: ice/snow jumps, **or** one crew disappears) and **reassign**. Report how many jobs moved.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load 311 (current year is enough). Filter to a handful of service types (e.g. potholes, snow/ice, waste). Keep community and dates.
-2. **Reason:** Give each ticket a priority score (age, service type, maybe community). Assign up to `C` crews × `K` jobs each (you pick `C` and `K`).
-3. **Act:** Produce a day plan. Baseline = oldest tickets first, ignore type.
-4. **Iterate:** Disruption. Replan. Measure: jobs completed proxy, and % of jobs that changed crew or slot.
-5. **Explain:** What you would tell the supervisor at 8 a.m. and at noon.
-
-Keep geography simple: optional “same community preferred” bonus — do not build a full GIS router here (that is Case 2).
+311, Roads, or Waste & Recycling. You are selling **the right work done** when capacity drops.
 
 ---
 
-## Recommended Architecture
+## Steps
 
+1. Load the 311 sample. Keep service type, community, date.
+2. Give each ticket a priority (safety types higher). Assign up to `C` crews × `K` jobs each.
+3. Baseline = oldest tickets first, ignore type.
+4. Disruption. Replan. Count jobs that changed crew or dropped.
+5. What you would tell the supervisor at 8 a.m. and at noon.
+
+Keep geography simple (optional “same community” bonus). Full street routing is Case 2.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load tickets] --> B[Priority vs oldest-first]
+  B --> C[Assign crews]
+  C --> D[Blizzard or sick crew]
+  D --> C
 ```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Prioritize │ -> │  Assign crews  │ -> │  Disrupt    │
-│ 311 subset  │    │ vs FIFO      │    │ day plan       │    │ and replan  │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
-```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md).
-
-**Requires Python 3.10+ (3.11 recommended).**
+**FIFO** = first in, first out = oldest ticket first.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Baseline | FIFO (oldest first) for the same crew capacity |
-| Your plan | Higher total priority points (your score) than FIFO, or same points with better safety-type coverage |
-| Disruption | Replan in code; report % jobs moved |
-| Loop | ≥ 1 disruption cycle |
-| Size | Use a **sample** of tickets (e.g. 80–200), not the full 311 history |
+| FIFO | Oldest request first |
+| Dispatch | Matching jobs to crews |
+| Disruption | Something that breaks the morning plan |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+---
+
+## Watch or read (optional)
+
+- [Calgary 311](https://www.calgary.ca/311.html)
+- [FIFO queues (Wikipedia)](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Baseline | Oldest-first for the same crew capacity |
+| Your plan | Higher priority points, or better safety-type coverage |
+| Loop | One disruption; % of jobs that moved |
+| Size | A sample of tickets (about 80–200), not all of 311 history |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change crew count or the disruption and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

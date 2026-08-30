@@ -1,64 +1,88 @@
-# Case 1 — Autonomous Alberta Storage Cathode Shortlist Agent
+# Case 1 — Which battery material is good enough for Alberta storage?
 
 **Stream:** Chemical Systems and Material Science  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-Alberta is adding **grid batteries** so wind and solar can be stored when the pool price is low. Battery teams still have to pick a cathode chemistry: high energy is good; unstable or rare-element recipes are not.
+Alberta is adding **grid batteries** so wind and solar can be stored when the pool price is low. Teams still have to pick a **cathode** (the positive side of a lithium-ion cell): high energy is good; unstable or rare-metal recipes are not.
 
-You will not call a materials API and you will not run a lab. You will use a **table of already-computed properties** and produce a shortlist a storage developer can argue about.
+You will not call a materials website and you will not run a lab. You will use a **table of already-computed properties** and make a shortlist a storage developer can argue about.
 
-**Your challenge:** From a cathode properties CSV, output a **top 10**. Beat “sort by energy density only.” Then change one filter (minimum voltage, or ban a critical element) and show how the top 10 changes.
+**Your challenge:** Output a **top 10**. Beat “sort by energy only.” Then change one filter (minimum voltage, or ban a metal like cobalt) and show how the top 10 changes.
 
----
-
-## Industrial Significance
-
-- AESO’s market is energy-only and volatile; storage is a local industrial story (YEIP, utilities, developers).
-- **Who would use this:** a storage developer or Alberta materials startup doing first-pass screening. **What is sold:** a transparent shortlist, not a magic “best battery.”
+These are table values, not cells you built in a lab.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load the electrode table (voltage, capacity, energy, stability, working ion, formula). Drop incomplete rows.
-2. **Reason:** Score with at least two objectives (e.g. energy density **and** a penalty for listed critical elements). Write the score in one line.
-3. **Act:** Top 10 with reasons. Baseline = sort by gravimetric energy only.
-4. **Iterate:** Raise minimum voltage **or** exclude Co/Ni (you choose); re-rank.
-5. **Explain:** What you would tell a chemist vs what you would tell a project financier.
-
-Stretch: plot a simple Pareto (energy vs stability) and pick the knee.
+A storage developer doing a first pass. You are selling a **transparent shortlist**, not a magic “best battery.”
 
 ---
 
-## Recommended Architecture
+## Steps
 
+1. Load the electrode table. Drop incomplete rows.
+2. Score with at least two ideas (energy **and** a penalty for listed metals or big volume change). One-line formula.
+3. Top 10 vs energy-only.
+4. Raise minimum voltage **or** drop Co/Ni formulas; re-rank.
+5. What you would tell a chemist vs a project financier.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load cathode table] --> B[Score energy + other]
+  B --> C[Top 10 vs energy-only]
+  C --> D[Ban a metal or raise voltage]
+  D --> C
 ```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Score      │ -> │  Top 10        │ -> │  Change     │
-│ cathode CSV │    │ energy minus │    │ vs energy-only │    │ one filter  │
-│             │    │ penalties    │    │                │    │             │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
-```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md). **No Materials Project API key** for this case.
-
-**Requires Python 3.10+ (3.11 recommended).**
+A **cathode** is one electrode in a rechargeable battery. Higher energy density means more stored energy for the same weight.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Baseline | Top 10 by energy density (or capacity) alone |
-| Your list | Overlap vs baseline + why the new names appeared |
-| Loop | ≥ 1 filter/weight change |
-| Provenance | Keep formula / id from the source table |
-| Honesty | These are database values, not lab-validated cells |
+| Cathode | The positive electrode in this table |
+| Energy density | Watt-hours per kilogram — more is more storage per kg |
+| Critical element | A metal that is expensive or hard to source (example: cobalt) |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+---
+
+## Watch or read (optional)
+
+- [Lithium-ion battery (Wikipedia, start at “Electrodes”)](https://en.wikipedia.org/wiki/Lithium-ion_battery)
+- Short video: [What’s inside a lithium-ion battery? (Veritasium)](https://www.youtube.com/watch?v=AGglJehON5g)
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Baseline | Top 10 by energy (or capacity) alone |
+| Your list | Overlap vs baseline + why new names appeared |
+| Loop | One filter or weight change |
+| Honesty | Database / literature values, not a lab cell |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Drop a different metal or change the score and run it again.
+
+**No API key.** Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

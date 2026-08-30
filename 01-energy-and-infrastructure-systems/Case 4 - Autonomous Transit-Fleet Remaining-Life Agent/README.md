@@ -1,64 +1,89 @@
-# Case 4 — Autonomous Transit-Fleet Remaining-Life Agent
+# Case 4 — How many more trips can this engine make?
 
 **Stream:** Energy and Infrastructure Systems  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-Calgary Transit and City Fleet cannot wait for a bus or a truck to die on 17th Avenue. The honest problem is: **how many more trips before we pull this vehicle in?**
+A bus or a truck should not die on 17th Avenue. The real question is: **how many more trips before we pull it in?**
 
-The City does not publish engine-sensor CSVs. NASA published a public jet-engine wear set that is the same *job* (readings over time → remaining life → inspect now vs later). You will practice on that open file and tell the story as a **fleet maintenance** tool.
+Calgary Transit does not publish engine-sensor spreadsheets. NASA published a public jet-engine wear set that is the **same job**: readings over time → remaining life → inspect now vs later. You practice on that file and tell the story as a **fleet shop** tool.
 
-**Your challenge:** Predict remaining useful life (how many cycles are left). Draw an “inspect this week” line. Count missed failures vs false alarms. **Move the line once** and show the new trade-off.
+**Your challenge:** Guess remaining life (how many cycles are left). Draw an “inspect this week” line. Count missed failures vs extra inspections. **Move the line once** and show the new trade-off.
 
----
-
-## Industrial Significance
-
-- Unplanned downtime is expensive for Transit, Roads, and any Alberta trucking or oilfield fleet.
-- **Who would use this:** Calgary Transit / Fleet Services (method), or a private shop. **What is sold:** fewer roadside failures without inspecting every vehicle every night.
+This case is **harder** than the others (it uses a small linear model). Ask a mentor if you have not seen a line of best fit.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load NASA C-MAPSS **FD001 only** (one operating condition, one fault mode). Columns: engine id, cycle, settings, sensors.
-2. **Reason:** Compute remaining useful life on the training engines (last cycle = failure). A simple model is enough (linear model or random forest on a few sensors). No deep learning required.
-3. **Act:** On the test set, predict RUL. Flag engines below a threshold as “inspect now.”
-4. **Iterate:** Change the threshold; report missed failures vs extra inspections.
-5. **Explain:** Which sensors mattered; what a shop would do with the list.
-
-Stretch: compare to “use only the last cycle’s sensor 11” as a naive baseline.
+Calgary Transit / Fleet (the method), or a private shop. You are selling **fewer roadside failures** without checking every vehicle every night.
 
 ---
 
-## Recommended Architecture
+## Steps
 
+1. Load NASA C-MAPSS **FD001 only** (one condition, one fault type).
+2. Remaining life on training engines = last cycle minus current cycle.
+3. Fit a simple model (the starter uses a straight line on a few sensors). No deep learning.
+4. On the test engines, flag “inspect now” if predicted life is below a number you pick.
+5. Change that number; report missed failures vs extra inspections.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load engine sensors] --> B[Guess remaining cycles]
+  B --> C[Inspect if guess is low]
+  C --> D[Move the inspect line]
+  D --> C
 ```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Predict    │ -> │  Flag inspect  │ -> │  Move       │
-│ FD001 train │    │ remaining    │    │ vs held-out    │    │ threshold   │
-│ + test      │    │ cycles       │    │ RUL labels     │    │             │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
-```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md). Do **not** download FD002–FD004 for day one.
-
-**Requires Python 3.10+ (3.11 recommended).**
+If you inspect too early, you waste shop time. If you inspect too late, the engine fails on the road.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| RUL error | MAE or RMSE on FD001 test engines vs NASA `RUL_FD001.txt` |
-| Baseline | Persistence or a single-sensor linear trend — report both |
-| Threshold | Precision/recall of “inspect now” after one revision |
-| Loop | ≥ 1 threshold change |
+| Remaining useful life (RUL) | How many cycles until failure |
+| MAE | Mean absolute error — average how far off your guess is |
+| Threshold | The cutoff that means “bring it in this week” |
+
+---
+
+## Watch or read (optional)
+
+- [Predictive maintenance (Wikipedia)](https://en.wikipedia.org/wiki/Predictive_maintenance)
+- [Linear regression, clearly explained (StatQuest on YouTube)](https://www.youtube.com/watch?v=7ArmBVF2dCs)
+- NASA C-MAPSS is the bundled `train_FD001.txt` / `test_FD001.txt` in `data/` — do **not** download FD002–FD004 on hour one.
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| RUL error | MAE or RMSE vs NASA’s `RUL_FD001.txt` |
+| Baseline | A single-sensor guess, plus your model |
+| Loop | Move the inspect line at least once |
 | Scope | FD001 only |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change the inspect cutoff (30 vs 50 cycles) and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

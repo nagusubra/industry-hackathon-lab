@@ -1,4 +1,8 @@
-"""Fleet RUL: linear model on last-cycle sensors; inspect threshold; move it once."""
+"""Fleet remaining life: fit a straight line on a few sensors, then move the inspect line.
+
+RUL = remaining useful life (cycles left). MAE = average how far off we are.
+Raising the inspect cutoff catches more tired engines and also inspects extra healthy ones.
+"""
 from pathlib import Path
 
 import numpy as np

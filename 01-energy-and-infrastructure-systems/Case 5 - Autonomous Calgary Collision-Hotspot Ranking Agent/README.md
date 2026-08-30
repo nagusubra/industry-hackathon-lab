@@ -1,62 +1,84 @@
-# Case 5 — Autonomous Calgary Collision-Hotspot Ranking Agent
+# Case 5 — Which Calgary intersections keep hurting people?
 
 **Stream:** Energy and Infrastructure Systems  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-Some Calgary corners show up in crash reports again and again. Roads has a **limited safety budget**. Ranking by “most crashes” alone can hide a quieter intersection where crashes are getting *worse*, or where injuries are more serious.
+Some corners show up in crash reports again and again. Roads has a **limited safety budget**. If you only rank “most crashes,” you can miss a quieter intersection that is getting *worse*.
 
-**Your challenge:** From open traffic-incident records, produce a **top 20 locations** for this year’s safety budget. Beat a ranking that only counts total incidents. Then change the score (for example add severity or a year-over-year trend) and show how the top 20 moves.
+**Your challenge:** Make a **top 20** list for this year’s safety money. Beat a list that only counts total incidents. Change the score once (for example, give extra weight to recent crashes) and show how many of the top 20 stay the same.
 
----
-
-## Industrial Significance
-
-- The City already publishes traffic incidents on Open Calgary. Traffic safety teams use this kind of list to argue for signals, lighting, or geometric changes.
-- **Who would use this:** City of Calgary Roads / traffic safety. **What is sold:** a defensible shortlist so limited capital hits the worst places first.
+You ranked locations. You did **not** reduce crashes.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load Traffic Incidents. Parse location (community, intersection text, or lat/lon). Drop incomplete rows; say how many.
-2. **Reason:** Aggregate to a location key you define (rounded lat/lon, or `INCIDENT INFO` text). Compute count, and at least one extra signal (severity if present, or recent-year share).
-3. **Act:** Output top 20 with scores. Baseline = sort by count only.
-4. **Iterate:** Change weights; report overlap between the two top-20 lists (how many locations stayed).
-5. **Explain:** Three locations that rose or fell and why.
-
-Stretch: join [Traffic Volumes for 2024](https://data.calgary.ca/dataset/Traffic-Volumes-for-2024/cauu-7hnw) to get crashes per volume if the join is feasible.
+City of Calgary Roads / traffic safety. You are selling a **shortlist** so limited money hits the worst places first.
 
 ---
 
-## Recommended Architecture
+## Steps
 
+1. Load traffic incidents. Drop rows with no location. Say how many you dropped.
+2. Group by a location key you define (rounded lat/lon, or the incident text).
+3. Count crashes. Add one extra signal (share that are recent, or severity if you have it).
+4. Print top 20 vs count-only. Change weights; count overlap.
+5. Explain three locations that rose or fell.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load crash reports] --> B[Group by corner]
+  B --> C[Top 20 by count]
+  C --> D[Add recent or severity]
+  D --> C
 ```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Aggregate  │ -> │  Rank top 20   │ -> │  Re-weight  │
-│ incidents   │    │ by location  │    │ vs count-only  │    │ severity /  │
-│ CSV         │    │              │    │                │    │ trend       │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
-```
-
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md).
-
-**Requires Python 3.10+ (3.11 recommended).**
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Baseline | Top 20 by incident count only |
-| Your list | Document the extra factor; show Jaccard or overlap vs baseline |
-| Transparency | Map or table with location, count, score |
-| Loop | ≥ 1 re-weight |
-| Honesty | Do not claim you reduced crashes — you ranked locations |
+| Hotspot | A place with many incidents |
+| Overlap | How many locations appear on both top-20 lists |
+| Baseline | Rank by count only |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+---
+
+## Watch or read (optional)
+
+- [City of Calgary — traffic safety](https://www.calgary.ca/roads.html)
+- [Open Calgary — Traffic Incidents](https://data.calgary.ca/Transportation-Transit/Traffic-Incidents/35ra-9556)
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Baseline | Top 20 by count |
+| Your list | Extra factor + overlap vs baseline |
+| Loop | Re-weight at least once |
+| Honesty | Ranking, not “we prevented crashes” |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change the “recent” weight and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

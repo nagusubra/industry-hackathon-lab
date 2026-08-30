@@ -1,63 +1,88 @@
-# Case 2 — Autonomous Bow-Elbow Water-Quality Flag Agent
+# Case 2 — Is the Bow or Elbow over the limit today?
 
 **Stream:** Chemical Systems and Material Science  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-Calgary drinks from the **Bow** and **Elbow**. The City already sends samples to an accredited lab. The remaining job is simple and high-stakes: **is this number over the limit, and which site should we resample?**
+Calgary drinks from the **Bow** and **Elbow** rivers. The City already sends samples to a lab. The remaining job is simple and high-stakes: **is this number over the limit, and which site should we sample again?**
 
-You are not being asked to invent new chemistry. You are being asked to compare lab results to a **small table of limits** and produce a red / yellow / green list.
+You are not inventing new chemistry. You compare lab results to a **small table of limits** and make a red / yellow / green list.
 
-**Your challenge:** Flag sites (or samples) that exceed a guideline. Beat “flag anything above the average.” Then **tighten or loosen one limit** and show how the list of red sites changes.
+**Your challenge:** Flag samples over a guideline. Beat “flag anything above the average” (that rule is noisy). Then **tighten or loosen one limit** and show how the red list changes.
 
----
-
-## Industrial Significance
-
-- City of Calgary Water Quality Services publishes watershed monitoring (Bow, Elbow, Glenmore, Bearspaw) on DataStream. This is real compliance-style work.
-- **Who would use this:** City water quality staff, or a consultant preparing a weekly exception report. **What is sold:** fewer missed exceedances and a list a manager can act on Monday morning.
+Do **not** recommend dumping chemicals or “treating the river.” Stay on **monitor and resample**.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load watershed sample rows (site, date, parameter, value, unit). Harmonize units if needed; drop rows you cannot interpret.
-2. **Reason:** Join to a **limit table** (we list starter limits in the data guide; you may add CCME/Alberta citations). Flag over / near / under.
-3. **Act:** Output a dashboard table: site, parameter, value, limit, status. Baseline = flag if value > column mean (a bad rule — show that it is noisy).
-4. **Iterate:** Change one limit by ±20% (or switch to a stricter CCME number) and re-flag.
-5. **Explain:** Which sites you would resample this week and why.
-
-Do **not** recommend dumping chemicals or “treating the river.” Stay on monitoring and resampling.
+City water-quality staff. You are selling **fewer missed exceedances** and a Monday-morning list.
 
 ---
 
-## Recommended Architecture
+## Steps
 
+1. Load sample rows (site, date, parameter, value). Drop rows you cannot read.
+2. Join to `limits.csv`. Flag over / near / under.
+3. Baseline = flag if value > the average for that parameter (show that this is a weak rule).
+4. Change one limit (the starter tightens phosphorus). Re-flag.
+5. Which sites would you resample this week, and why?
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load lab samples] --> B[Compare to a limit table]
+  B --> C[Red list vs average-flag]
+  C --> D[Change one limit]
+  D --> C
 ```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Compare    │ -> │  Red/yellow    │ -> │  Change     │
-│ lab CSV     │    │ to limits    │    │ vs mean-flag   │    │ one limit   │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
-```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md).
-
-**Requires Python 3.10+ (3.11 recommended).**
+A **limit** is a number from a guideline (example: phosphorus should stay below X). An **exceedance** means the sample is over that number.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Baseline | Flag if value > mean of that parameter (show why this is a weak rule) |
-| Your flags | Count of exceedances vs baseline; list of sites |
-| Loop | ≥ 1 limit sensitivity run |
-| Safety | Monitoring / resample recommendations only |
-| Demo | Table + one time-series plot for a single site |
+| Parameter | What was measured (phosphorus, pH, …) |
+| Exceedance | The value is past the limit |
+| Baseline | Flag if above the average — usually too many false alarms |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+---
+
+## Watch or read (optional)
+
+- [Canadian water quality guidelines (CCME)](https://ccme.ca/en/current-activities/canadian-environmental-quality-guidelines)
+- [City of Calgary — drinking water](https://www.calgary.ca/water/drinking-water.html)
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Baseline | Flag > mean (show why it is weak) |
+| Your flags | Count vs baseline; list of sites |
+| Loop | One limit change |
+| Safety | Resample / monitor only |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change one number in `limits.csv` or the script and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

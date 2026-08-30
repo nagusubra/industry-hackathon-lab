@@ -1,63 +1,89 @@
-# Case 2 — Autonomous Calgary Snow-and-Delivery Routing Agent
+# Case 2 — In what order should we plow or deliver?
 
 **Stream:** Software and Computational Math  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-After a storm, Calgary cannot treat every street at once. Snow-and-ice control has **priority routes**. The same math is a courier with 20 stops: you need an order that is short, and you need to **improve it once** when a road closes or a stop is added.
+After a storm, Calgary cannot treat every street at once. Snow control has **priority routes**. The same math is a courier with 20 stops: you need a short tour, then you need to **change it** when a road closes.
 
-You will not solve Calgary’s entire plow network. You will route **about 15–25 stops**.
+You will not solve the whole plow network. You will route **about 15–25 stops**.
 
-**Your challenge:** Build a tour (or a capacity-limited route) for a small set of Calgary points. Beat nearest-neighbour. Then swap two stops (or drop one blocked stop) and show the new distance.
-
----
-
-## Industrial Significance
-
-- City of Calgary Roads publishes snow-and-ice priority routes. Couriers and Waste & Recycling run the same “short tour” problem every day.
-- **Who would use this:** Roads SNIC planners, or a local delivery firm. **What is sold:** fewer kilometres and a plan that can change when a street is impassable.
+**Your challenge:** Build a tour. Beat nearest-neighbour (always go to the closest leftover stop). Improve it once (swap two stops). Then drop a blocked stop and show the new distance.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load 15–25 stop coordinates (community centroids, a sample of snow-priority vertices, or a table you build from Open Calgary). Compute a distance matrix (haversine km is enough).
-2. **Reason:** Nearest-neighbour tour from a depot (e.g. downtown or a City yard you pick).
-3. **Act:** Improve with one **2-opt** or pairwise swap. Report km before and after.
-4. **Iterate:** Remove one stop (“road closed”) or add a high-priority stop; rebuild from the last tour instead of from scratch if you can.
-5. **Explain:** Map or ordered list; km saved vs nearest-neighbour.
-
-Stretch: two trucks with a simple capacity; snow priority class must be visited before residential samples.
+Roads snow planners, or a local delivery firm. You are selling **fewer kilometres** and a plan that can change.
 
 ---
 
-## Recommended Architecture
+## Steps
 
-```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   NN tour    │ -> │  2-opt / swap  │ -> │  Road closed│
-│ 15–25 stops │    │ (baseline)   │    │  shorter km    │    │  replan     │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
+1. Load 15–25 Calgary points. Distance = haversine km (straight-line on the globe — good enough).
+2. Nearest-neighbour from a depot (downtown in the seed).
+3. Improve with **2-opt** (the starter does this) or a pairwise swap. Report km before and after.
+4. Remove one stop (“road closed”) and rebuild.
+5. Ordered list or a simple map sketch; km saved vs nearest-neighbour.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load 15-25 stops] --> B[Nearest-neighbour tour]
+  B --> C[2-opt shorter tour]
+  C --> D[One road closed]
+  D --> C
 ```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md). Do not ingest full Calgary Transit `stop_times.txt` (~60 MB) for day one.
-
-**Requires Python 3.10+ (3.11 recommended).**
+Nearest-neighbour is greedy: always the closest next stop. It is fast and often not the shortest.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
+|---|---|
+| Tour | A loop that visits each stop and returns to the depot |
+| Nearest-neighbour | Always go to the closest stop you have not visited |
+| 2-opt | Untwist two edges of the tour to make it shorter |
+| Haversine | A formula for km between two lat/lon points |
+
+---
+
+## Watch or read (optional)
+
+- [Travelling salesman problem (Wikipedia, with pictures)](https://en.wikipedia.org/wiki/Travelling_salesman_problem)
+- [Nearest-neighbour tour (Wikipedia)](https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm)
+- [City of Calgary — snow and ice](https://www.calgary.ca/roads/conditions/snow-ice-salt.html)
+- Picture-heavy overview: stay on the Wikipedia TSP page above (the maps at the top of the article are enough)
+
+---
+
+## How we score this case
+
+| What we look for | Target |
 |---|---|
 | Baseline | Nearest-neighbour from a stated depot |
-| Improvement | Lower total km after 2-opt/swap (report both numbers) |
-| Disruption | One closed stop or extra stop; new tour |
-| Feasibility | Visit each stop once (TSP) or respect a simple capacity (CVRP stretch) |
-| Loop | ≥ 1 improve **and** ≥ 1 disruption |
+| Improvement | Lower km after 2-opt/swap |
+| Disruption | One closed or extra stop; new tour |
+| Loop | At least one improve **and** one disruption |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Close a different stop and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

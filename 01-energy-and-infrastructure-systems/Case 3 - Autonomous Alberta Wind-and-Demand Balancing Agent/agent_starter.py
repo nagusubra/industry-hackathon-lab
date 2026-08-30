@@ -1,4 +1,8 @@
-"""Wind vs demand: flag tight hours; beat yesterday-same-hour; retune once."""
+"""Wind vs demand: flag tight hours; beat last-week-same-hour; retune once.
+
+Tight = expensive hour (top 10% price). Persistence = was it tight 168 hours ago?
+v1/v2 = low wind share. Change the quantile if you want a different rule.
+"""
 from pathlib import Path
 
 import pandas as pd

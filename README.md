@@ -24,11 +24,21 @@
 
 ## Mission
 
-Unlike typical hackathons that yield chat wrappers or generic productivity apps, this event asks teams to ship something a **real operator in Calgary, Alberta, or Canadian industry** could use: a ranked list, a schedule, a flag, a mix — backed by public data and a number you can defend.
+Build something a **real operator in Calgary, Alberta, or Canadian industry** could use: a ranked list, a schedule, a flag, or a mix — with public data and a number you can defend. Not a chatbot wrapper.
 
-You will spend 48 hours building a small **decision loop** (read data → propose an action → score it → revise). Cursor is the coding partner so the barrier is the *industrial problem*, not the boilerplate.
+You spend 48 hours on a small **decision loop**:
 
-Open to **high school students through industry professionals**. One common prize track.
+```mermaid
+flowchart LR
+  A[Read the data] --> B[Make a plan]
+  B --> C[Score it]
+  C --> D[Change one rule]
+  D --> C
+```
+
+Cursor (or another AI coding tool) is allowed so the hard part is the **industrial problem**, not the boilerplate.
+
+Open to **high school students through industry professionals**. One common prize track. Every prepared case is written so a high-school team can start; a few cases (wind flags, remaining life) are a bit harder — that is marked in the case README.
 
 ---
 
@@ -79,6 +89,16 @@ If you have any suggestions or would like to become a sponsor for the hackathon,
 
 ## How to participate (pick a stream, then a path)
 
+```mermaid
+flowchart TB
+  T[Form a team of 2 to 5] --> S[Pick one stream]
+  S --> P{Option A or B?}
+  P -->|A| A[Your own problem + public data]
+  P -->|B| B[One prepared case folder]
+  A --> L[Loop: plan, score, revise]
+  B --> L
+```
+
 **Step 1 — Form a team of 2–5 and choose exactly one industrial stream** (the three themes below).
 
 **Step 2 — Choose Option A or Option B.**
@@ -91,8 +111,8 @@ Your project must:
 
 1. Fit the **stream theme** (one-liners below).
 2. Use a **real public dataset** (prefer [Open Calgary](https://data.calgary.ca/), [AESO](https://www.aeso.ca/market/market-and-system-reporting/data-requests/), Alberta Open Government, ECCC, CER, or Statistics Canada). Cite the source.
-3. Beat a **named naive baseline** (yesterday's value, random, greedy, always-on, nearest-neighbor, first-come-first-served, or majority class).
-4. Run **at least one propose → score → revise** cycle in code (not a single chat answer).
+3. Beat a **named naive baseline** (the lazy plan: yesterday’s value, random, always-on, nearest-neighbour, oldest-first, or majority class).
+4. Run **at least one plan → score → change the plan** cycle in **code** (not a single chat answer).
 5. Name **who would use it** (a City business unit, AESO, a retailer, a plant, a contractor).
 
 ### Option B — Pick a prepared case
@@ -117,7 +137,7 @@ Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRI
 
 ### 1. Energy and Infrastructure Systems
 
-**Theme:** Alberta electricity is cheap some hours and very expensive in others; Calgary’s buildings, buses, roads, and street lights also need a plan. Build something that decides **when to run, store, or retrofit energy**, or **what physical infrastructure to inspect or fix first**.
+**Theme:** Alberta power is cheap some hours and very expensive in others. Calgary also has to decide **which building, road, light, water main, or permit file to fix first**.
 
 | Case | Title |
 |---|---|
@@ -126,24 +146,28 @@ Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRI
 | 3 | [When is Alberta short of wind?](01-energy-and-infrastructure-systems/Case%203%20-%20Autonomous%20Alberta%20Wind-and-Demand%20Balancing%20Agent/README.md) |
 | 4 | [How many more trips can this engine make?](01-energy-and-infrastructure-systems/Case%204%20-%20Autonomous%20Transit-Fleet%20Remaining-Life%20Agent/README.md) |
 | 5 | [Which Calgary intersections keep hurting people?](01-energy-and-infrastructure-systems/Case%205%20-%20Autonomous%20Calgary%20Collision-Hotspot%20Ranking%20Agent/README.md) |
-| 6 | [Which street lights will go dark?](01-energy-and-infrastructure-systems/Case%206%20-%20Autonomous%20Street-Light%20Outage%20Dispatch%20Agent/README.md) |
+| 6 | [Which street lights should we fix this week?](01-energy-and-infrastructure-systems/Case%206%20-%20Autonomous%20Street-Light%20Outage%20Dispatch%20Agent/README.md) |
+| 7 | [Which housing permits should planners review next?](01-energy-and-infrastructure-systems/Case%207%20-%20Autonomous%20Calgary%20Development-Permit%20Triage%20Agent/README.md) |
+| 8 | [Which water mains should we repair first?](01-energy-and-infrastructure-systems/Case%208%20-%20Autonomous%20Calgary%20Water-Main%20Repair-Ranking%20Agent/README.md) |
 
-Option A examples: AESO pool price vs a City facility; [Corporate Energy Consumption](https://data.calgary.ca/Environment/Corporate-Energy-Consumption/crbp-innf); [Traffic Incidents](https://data.calgary.ca/Transportation-Transit/Traffic-Incidents/35ra-9556); [Traffic Volumes](https://data.calgary.ca/dataset/Traffic-Volumes-for-2024/cauu-7hnw).
+Option A examples: AESO pool price vs a City facility; [Corporate Energy Consumption](https://data.calgary.ca/Environment/Corporate-Energy-Consumption/crbp-innf); [Traffic Incidents](https://data.calgary.ca/Transportation-Transit/Traffic-Incidents/35ra-9556); [Traffic Volumes](https://data.calgary.ca/dataset/Traffic-Volumes-for-2024/cauu-7hnw); [Development Permits](https://data.calgary.ca/Government/Development-Permits/6933-unw5); [Water Main Breaks](https://data.calgary.ca/Environment/Water-Main-Breaks/dpcu-jr23).
 
 ### 2. Software and Computational Math
 
-**Theme:** The City has too few crews, trucks, and hours. Build a **scheduler, dispatcher, or router** that still works when a truck breaks or a blizzard hits.
+**Theme:** Too few crews, trucks, and hours — including **hail, smoke, and wildfire**. Build a **schedule, dispatch list, flag list, or route** that still works when a truck breaks or a storm hits.
 
 | Case | Title |
 |---|---|
 | 1 | [Who should 311 send next?](02-software-and-computational-math/Case%201%20-%20Autonomous%20311%20Work-Order%20Dispatch%20Agent/README.md) |
 | 2 | [In what order should we plow or deliver?](02-software-and-computational-math/Case%202%20-%20Autonomous%20Calgary%20Snow-and-Delivery%20Routing%20Agent/README.md) |
+| 3 | [Which wildfires get the next crew?](02-software-and-computational-math/Case%203%20-%20Autonomous%20Alberta%20Wildfire%20Crew-Ranking%20Agent/README.md) |
+| 4 | [Which neighbourhoods get a smoke or hail flag?](02-software-and-computational-math/Case%204%20-%20Autonomous%20Neighbourhood%20Smoke-and-Hail%20Flag%20Agent/README.md) |
 
-Option A examples: Calgary Transit GTFS as a *small* subset of stops; waste-collection routing; a tiny factory job-shop CSV you publish with the repo.
+Option A examples: Calgary Transit GTFS as a *small* subset of stops; waste-collection routing; a tiny factory job-shop CSV you publish with the repo; [Open Calgary air quality](https://data.calgary.ca/Environment/Air-Quality-Data-near-real-time-/g9s5-qhu5); Alberta historical wildfire CSV (2006–2025) if you want a different fire or smoke cut than Case 3–4.
 
 ### 3. Chemical Systems and Material Science
 
-**Theme:** Alberta industry has to pick mixes, metals, and chemistries that are strong enough, clean enough, and cheap enough. Build something that **ranks or designs a material, mix, or water sample against a number** (strength, voltage, a legal limit).
+**Theme:** Pick a mix, metal, or water sample that is strong enough, clean enough, and cheap enough — **against a number** (strength, voltage, or a legal limit).
 
 | Case | Title |
 |---|---|
@@ -166,7 +190,7 @@ industry-hackathon-lab/
 └── 03-chemical-systems-and-material-science/
 ```
 
-Each prepared case includes a problem brief (`README.md`), a seed CSV in `data/`, `agent_starter.py`, and `requirements.txt`.
+Each prepared case includes a plain-language brief (`README.md` with a flowchart), a seed CSV in `data/`, `agent_starter.py`, and `requirements.txt`. **Open the case folder first**, then install and run.
 
 ---
 
@@ -177,7 +201,14 @@ Each prepared case includes a problem brief (`README.md`), a seed CSV in `data/`
 1. Register via the registration link above (when published).
 2. Form a team of 2–5 and pick **one** stream.
 3. Choose **Option A** (your problem) or **Option B** (one prepared case).
-4. Clone this lab repository. For Option B, `pip install -r requirements.txt` in the case folder and run `python agent_starter.py`, then follow the case `README.md` + `data/README.md`.
+4. Clone this lab. For Option B, **cd into the case folder**, then:
+
+   ```bash
+   pip install -r requirements.txt
+   python agent_starter.py
+   ```
+
+   Read that case `README.md` and `data/README.md`.
 5. Build a loop that reads real data, proposes an action, scores it, and revises at least once.
 6. Submit your GitHub repo, project write-up, and demo video by **Sunday, Oct 4 @ 12:00 PM MST**.
 

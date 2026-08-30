@@ -1,64 +1,86 @@
-# Case 2 — Autonomous Calgary Building Retrofit-Prioritization Agent
+# Case 2 — Which Calgary buildings should we retrofit first?
 
 **Stream:** Energy and Infrastructure Systems  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-The City of Calgary owns offices, rec centres, fire halls, and more. Some buildings use far more energy per square metre than others. The retrofit budget **cannot** fix every building this year.
+The City owns offices, rec centres, and fire halls. Some use a lot more energy for their size than others. The retrofit budget **cannot** fix every building this year.
 
-This is the same job a corporate energy manager does with a spreadsheet — except your program should **re-rank** after you change the budget or the goal (save kWh vs save dollars vs cut emissions).
+This is a spreadsheet job: pick the buildings that save the most energy for the money. Then **re-rank** if the budget or the goal changes (save energy vs cut emissions).
 
-**Your challenge:** Rank City buildings so a limited dollar budget (you pick a number and state it) cuts the most energy use. Beat “fix the biggest building first.” Then change the budget or the scoring rule once and show how the funded list changes.
-
----
-
-## Industrial Significance
-
-- Calgary has published environmental performance for City-owned buildings and corporate energy consumption on Open Calgary — the same class of data building operators use in ENERGY STAR / BenchmarkYYC programs.
-- **Who would use this:** City of Calgary Corporate Properties, Community Energy Programs, or a contractor bidding retrofit packages. **What is sold:** more kWh (or GHG) saved per dollar of public money.
+**Your challenge:** Rank buildings under a dollar budget you pick and write down. Beat “fix the biggest building first.” Change the budget or the score once and show which buildings drop off the list.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load Open Calgary building energy / emissions / floor-area fields. Clean missing rows; do not invent numbers.
-2. **Reason:** Score each building (for example kWh per m², or $/year, or GHG). State the formula in one sentence.
-3. **Act:** Given budget `B`, pick a set of buildings (simple knapsack: take next-best until money runs out). Assume a retrofit cost if the City file has no cost — **state the assumption** (e.g. $50 / m²).
-4. **Iterate:** Change `B` or switch from “energy first” to “emissions first” and re-run.
-5. **Explain:** Which buildings got funded, estimated savings, leftover budget.
-
-Stretch: join [Corporate Energy Consumption](https://data.calgary.ca/Environment/Corporate-Energy-Consumption/crbp-innf) if it adds a time trend.
+City Corporate Properties or a contractor. You are selling **more energy saved per public dollar**.
 
 ---
 
-## Recommended Architecture
+## Steps
 
-```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Score      │ -> │  Fill budget   │ -> │  Re-rank    │
-│ Open Calgary│    │ kWh per $    │    │ greedy vs your │    │ new budget  │
-│ buildings   │    │ or GHG per $ │    │ rule           │    │ or weights  │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
+1. Load the City building file. Drop rows with missing names, area, or energy. Do not invent numbers.
+2. Score each building in one sentence (example: energy saved per dollar).
+3. The City file has no retrofit cost — **state an assumption** (the starter uses $50 per m²). Fill the budget without going over.
+4. Change the budget (for example 80%) or switch “energy first” vs “emissions first.”
+5. List who got funded, estimated savings, leftover dollars.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load buildings] --> B[Score energy per dollar]
+  B --> C[Fill the budget]
+  C --> D[Smaller budget or new goal]
+  D --> C
 ```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md).
-
-**Requires Python 3.10+ (3.11 recommended).**
+Think of a backpack: you cannot take every item. Take the best value until the bag is full.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Baseline | Greedy “largest kWh first” (or largest floor area) under the same budget |
-| Your list | Higher estimated kWh or GHG saved per dollar, or same savings at lower spend — report both |
-| Feasibility | Do not spend more than `B`; no duplicate buildings |
-| Loop | ≥ 1 re-rank after changing budget or weights |
-| Demo | Table of funded buildings + leftover $ |
+| Retrofit | Upgrade a building so it uses less energy |
+| Baseline | Fix the largest building first |
+| kWh / GJ | Units of energy (like litres, but for energy) |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+---
+
+## Watch or read (optional)
+
+- [ENERGY STAR for buildings (Natural Resources Canada)](https://natural-resources.canada.ca/energy-efficiency/energy-star)
+- [Open Calgary — City building energy](https://data.calgary.ca/) (search “building energy” or use the file in `data/`)
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Baseline | Biggest-first under the same budget |
+| Your list | More energy saved per dollar, or same savings for less spend |
+| Loop | Re-rank after one budget or weight change |
+| Honesty | Do not spend more than `B`; no duplicate buildings |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change the budget or the score and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

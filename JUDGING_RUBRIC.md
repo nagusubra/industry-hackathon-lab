@@ -25,7 +25,7 @@ Judges score projects out of **100 total points**. Option A (bring your own prob
 
 ### 1. Technical Depth — 20%
 
-Does the solution address a genuine industrial bottleneck with real data, constraints, and numbers — not a chatbot wrapper?
+Does the solution address a real industrial bottleneck with real data, constraints, and numbers — not a chatbot wrapper? A high-school team can score well here with a clear spreadsheet loop.
 
 **Judges should look for:**
 
@@ -49,8 +49,8 @@ How robust is the loop? A single LLM answer with no evaluation does not score we
 
 **Judges should look for:**
 
-- A defined loop: perceive → reason → act / simulate → evaluate
-- At least one revise step (the team changes a threshold, a filter, a route, or a ranking after seeing a score)
+- A defined loop: read data → make a plan → score it → change the plan
+- At least one revise step (change a cutoff, a filter, a route, or a ranking after seeing a score)
 - Tooling against CSVs, a simple simulator, or a solver — not slides alone
 
 ### 4. Execution, Code Quality & Practicality — 20%

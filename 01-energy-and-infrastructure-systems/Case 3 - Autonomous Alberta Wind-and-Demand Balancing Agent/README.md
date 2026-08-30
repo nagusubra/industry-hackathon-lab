@@ -1,63 +1,88 @@
-# Case 3 — Autonomous Alberta Wind-and-Demand Balancing Agent
+# Case 3 — When is Alberta short of wind?
 
 **Stream:** Energy and Infrastructure Systems  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-Alberta now has a lot of wind. That is good — until a still, cold evening when people get home, the wind drops, and gas plants have to scramble. Those hours are when prices spike and the grid feels “tight.”
+Alberta has a lot of wind power. That is good — until a still, cold evening when people get home, the wind drops, and gas plants have to scramble. Prices often spike in those hours.
 
-You are not being asked to run a full grid simulator. You are being asked to **spot the tight hours** from history: high demand, low wind, and (optional) Calgary weather that often goes with both.
+You are **not** running a full grid model. You are spotting **tight hours** from history: high demand and low wind.
 
-**Your challenge:** Flag hours when Alberta load is high and wind is low. Recommend a simple action (hold a storage window, or ask a factory to wait). Beat “yesterday at the same hour” as a forecast. Then change your definition of “tight” once and show how many hours you would have warned.
-
----
-
-## Industrial Significance
-
-- AESO publishes hourly metered generation (including wind) and AIL. Calgary weather from ECCC is a free extra signal.
-- **Who would use this:** a storage operator, a retailer, or an industrial load that can shift a few hours. **What is sold:** fewer surprise expensive hours; a one-page “tight evening” warning.
+**Your challenge:** Flag hours when load is high and wind is low. Beat “same hour last week” as a guess. Change what “tight” means once and show how many warnings you would have sent.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Hourly AIL, wind MW (and optional solar), from AESO. Optional: Calgary International hourly temperature / wind speed from ECCC.
-2. **Reason:** Define a tightness score (example: AIL percentile high **and** wind percentile low). Keep the formula on one line.
-3. **Act:** For a held-out week, output “tight / not tight” and a recommended window (e.g. “18:00–21:00, reduce load or pre-charge”).
-4. **Iterate:** Loosen or tighten the percentile cut, re-score missed spikes vs false alarms.
-5. **Explain:** How many tight hours, how they line up with high pool price (if you also load price from Case 1’s file).
-
-Stretch: persistence baseline (same hour yesterday) vs a tiny sklearn model; do not overfit.
+A storage operator, a retailer, or a factory that can wait a few hours. You are selling a one-page **“tight evening” warning**.
 
 ---
 
-## Recommended Architecture
+## Steps
 
-```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Score      │ -> │  Warn hours    │ -> │  Retune     │
-│ AIL + wind  │    │ tight vs not │    │ vs persistence │    │ percentiles │
-│ (+ weather) │    │              │    │                │    │             │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
+1. Load hourly demand (AIL) and wind from the AESO file.
+2. Write a one-line score (example: demand in the top 20% **and** wind in the bottom 20%).
+3. For a held-out week, mark tight / not tight.
+4. Compare to last week’s same clock hour. Then loosen or tighten your cutoff.
+5. Count hits, misses, and false alarms. Optional: check if tight hours were also expensive.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load demand and wind] --> B[Flag tight hours]
+  B --> C[Compare to last week]
+  C --> D[Change the cutoff]
+  D --> C
 ```
 
-Run [`agent_starter.py`](agent_starter.py). See [`data/README.md`](data/README.md).
-
-**Requires Python 3.10+ (3.11 recommended).**
+**Precision** = of the hours you warned, how many were really tight.  
+**Recall** = of the really tight hours, how many did you catch.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Baseline | Persistence: yesterday’s same clock hour for load or for “tight” |
-| Your flags | Precision/recall **or** a simple count of high-price hours caught vs missed (if price is loaded) |
-| Loop | ≥ 1 threshold change after seeing false alarms |
-| Demo | Plot of one week: AIL, wind, your flags |
+| AIL | Alberta Internal Load — how much power the province is using |
+| Persistence | Guessing that this hour will look like the same hour last week |
+| False alarm | You warned, but it was not actually a tight / expensive hour |
 
-See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+This case is a bit harder (precision and recall). Ask a mentor if those words are new.
+
+---
+
+## Watch or read (optional)
+
+- [AESO — understanding electricity in Alberta](https://www.aeso.ca/aeso/understanding-electricity-in-alberta/)
+- [Precision and recall (Wikipedia, short)](https://en.wikipedia.org/wiki/Precision_and_recall)
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Baseline | Last week, same hour |
+| Your flags | Precision/recall **or** expensive hours caught vs missed |
+| Loop | Change the cutoff after you see false alarms |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change the wind-share cutoff and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).

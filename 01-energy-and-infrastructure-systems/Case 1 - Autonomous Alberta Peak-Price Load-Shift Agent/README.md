@@ -1,65 +1,85 @@
-# Case 1 — Autonomous Alberta Peak-Price Load-Shift Agent
+# Case 1 — When should we use electricity in Alberta?
 
 **Stream:** Energy and Infrastructure Systems  
-**Event:** IEEE YP Industry Hackathon — Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta
+**Event:** IEEE YP Industry Hackathon  
+**Dates:** October 2–4, 2026 | InceptionU, Calgary
 
 ---
 
-## Problem Statement & Core Challenge
+## The problem (in plain words)
 
-In Alberta, the wholesale electricity price (the **pool price**) can be a few dollars one hour and hundreds of dollars the next. A Calgary factory, a downtown office, or a City recreation centre that runs the same way every hour is leaving money on the table — and often burning extra gas when the grid is tight.
+In Alberta, the **pool price** is the wholesale price of electricity. It can be a few dollars one hour and hundreds of dollars the next.
 
-You do not need to model the whole power system. You need a **simple rule that can change**: look at past prices and load, mark the expensive hours, and say when to run machines, charge a battery, or wait.
+If a factory, office, or City rec centre runs the same way every hour, it pays extra on the expensive hours. You do **not** need to model the whole grid. You need a simple rule: look at past prices, mark the expensive hours, and say **run now** or **wait**.
 
-**Your challenge:** Build a small decision loop that reads AESO hourly prices (and load), recommends when to use electricity vs wait, scores the bill against a naive “always on” plan, then **changes the rule once** and shows whether the bill got better.
-
----
-
-## Industrial Significance
-
-- Hackathon is in Calgary. AESO is the operator of Alberta’s wholesale market. Local plants, data centres, and City facilities all pay into this price.
-- Storage pilots and flexible industrial load are growing; a 48-hour tool that flags expensive hours is something a facilities manager can understand on Monday.
-- **Who would use this:** a City of Calgary energy manager, an industrial load customer, or a retailer hedging pool-price risk. **What is sold:** fewer dollars spent on the same kWh by shifting *when* work happens.
+**Your challenge:** Read hourly prices. Make a plan for when to use power. Compare the bill to “always on.” Then **change the rule once** and show whether the bill got better.
 
 ---
 
-## What to Solve For / Technical Objectives
+## Who would use this
 
-1. **Perceive:** Load a CSV of hourly Alberta pool price and Alberta Internal Load (AIL). Use a held-out week or month you do not tune on.
-2. **Reason:** Define “expensive” in a way you can explain (for example top 10% of hours, or price above a dollar threshold).
-3. **Act:** Output a schedule: charge / run / idle for each hour. Keep it physically simple (you cannot charge and discharge at the same time; optional battery with a size you pick).
-4. **Iterate:** After you score the first schedule, change one thing (threshold, battery size, or “never run 5–8 p.m.”) and score again.
-5. **Explain:** A short operator note: dollars saved vs always-on, hours shifted, and when the rule fails (for example an unexpected price spike).
-
-Stretch: add wind or gas share from the same AESO files; compare to a second naive rule (“never run after 5 p.m.”).
+A City energy manager, a plant, or a retailer. You are selling **the same work, cheaper**, by shifting *when* it happens.
 
 ---
 
-## Recommended Architecture
+## Steps
 
-```
-┌─────────────┐    ┌──────────────┐    ┌────────────────┐    ┌─────────────┐
-│  Perceive   │ -> │   Reason     │ -> │  Score bill    │ -> │  Revise     │
-│ AESO price  │    │ expensive    │    │ vs always-on   │    │ threshold   │
-│ + AIL hours │    │ hour flags   │    │                │    │ or window   │
-└─────────────┘    └──────────────┘    └────────────────┘    └─────────────┘
+1. Load the AESO price spreadsheet (a week you did not use to pick the rule).
+2. Call an hour “expensive” in one sentence (example: the top 10% of prices).
+3. For each hour: run, wait, or (optional) charge a small battery. You cannot charge and use the battery at the same time.
+4. Score dollars vs always-on. Change one thing (the cutoff, or “never run 5–8 p.m.”) and score again.
+5. Write three sentences: dollars saved, hours moved, when the rule would fail.
+
+---
+
+## Picture of the loop
+
+```mermaid
+flowchart LR
+  A[Load prices] --> B[Mark expensive hours]
+  B --> C[Score the bill vs always-on]
+  C --> D[Change one rule]
+  D --> C
 ```
 
-Run [`agent_starter.py`](agent_starter.py) (`pip install -r requirements.txt`). See [`data/README.md`](data/README.md) for the bundled 2024 AESO CSV.
-
-**Requires Python 3.10+ (3.11 recommended).**
+**Always-on** means the machine never turns off. Your job is to beat that lazy plan.
 
 ---
 
-## Success Criteria & Quantitative Evaluation Metrics
+## New words
 
-| Metric | Target / Guidance |
+| Word | Meaning |
 |---|---|
-| Cost vs always-on | Report $ (or $ / MWh) on held-out hours; show a table |
-| Second baseline | Also beat or report vs a fixed clock rule (e.g. never run 17:00–20:00) |
-| Feasibility | No impossible battery actions if you model storage |
-| Loop | ≥ 1 revise after seeing the first score |
-| Demo | Runnable in the 48-hour window |
+| Pool price | Alberta’s hourly wholesale electricity price (dollars per megawatt-hour) |
+| Baseline | The simple plan you must beat (here: always on) |
+| AESO | The organization that runs Alberta’s power market |
 
-Judges will prioritize **a clear dollar story + one honest revision** over a complex model. See [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+---
+
+## Watch or read (optional)
+
+- [How Alberta’s electricity market works (AESO)](https://www.aeso.ca/aeso/understanding-electricity-in-alberta/)
+- [What is a wholesale electricity market? (U.S. EIA, same idea)](https://www.eia.gov/energyexplained/electricity/electricity-in-the-us-generation-capacity-and-sales.php)
+
+---
+
+## How we score this case
+
+| What we look for | Target |
+|---|---|
+| Cost vs always-on | Show dollars on the held-out week |
+| Second plan | Also try a clock rule (e.g. never run 5–8 p.m.) |
+| Loop | Change the rule at least once after you see the first score |
+
+Full rubric: [JUDGING_RUBRIC.md](../../JUDGING_RUBRIC.md).
+
+---
+
+## Start here
+
+1. Open a terminal **in this folder**.
+2. `pip install -r requirements.txt`
+3. `python agent_starter.py`
+4. Change one number in the script and run it again.
+
+Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).
