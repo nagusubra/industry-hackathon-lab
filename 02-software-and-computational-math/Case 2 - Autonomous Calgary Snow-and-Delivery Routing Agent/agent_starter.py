@@ -69,8 +69,7 @@ def main():
 
     # Disruption: close stop_id 10 (drop that node, keep depot).
     closed = 10
-    keep = [i for i in range(len(stops)) if i != closed]
-    sub = stops.iloc[keep].reset_index(drop=True)
+    sub = stops.loc[stops["stop_id"] != closed].reset_index(drop=True)
     d2 = dist_matrix(sub)
     nn2 = nearest_neighbour(d2)
     opt2 = two_opt(nn2, d2)
