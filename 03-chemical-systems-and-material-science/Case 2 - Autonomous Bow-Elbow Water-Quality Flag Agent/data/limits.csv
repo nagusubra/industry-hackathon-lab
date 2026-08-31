@@ -1,0 +1,6 @@
+parameter,limit_value,unit,comparator,source_note,limit_value_low,limit_value_high
+E.coli,200.0,MPN/100mL,<=,Health Canada Guidelines for Canadian Recreational Water Quality (primary-contact geometric-mean style action level). Confirm current factsheet before operational use.,,
+Nitrate (NO3-N),13.0,mg/L,<=,"CCME Canadian Water Quality Guideline for the Protection of Aquatic Life, nitrate (as N), long-term freshwater. Confirm current CCME table.",,
+Total Phosphorus (TP),0.05,mg/L,<=,Illustrative Alberta-style trigger used in many river nutrient discussions (0.05 mg/L). Not a single legal Bow/Elbow MAC — replace if you cite a site-specific objective.,,
+pH,,pH units,range,CCME freshwater pH range 6.5–9.0 (protection of aquatic life). Confirm current CCME table.,6.5,9.0
+Dissolved Oxygen (Field),6.5,mg/L,>=,CCME cold-water early-life dissolved oxygen 6.5 mg/L (other life stages differ). Confirm current CCME table.,,

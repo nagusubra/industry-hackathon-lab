@@ -1,8 +1,0 @@
-# Stream 1 — Energy Systems & Environmental Modeling (Case 5)
-# Requires Python 3.10+
-# Do NOT install epftoolbox (AGPL-3.0). Use the Zenodo CSV only.
-numpy>=1.24
-pandas>=2.0
-scipy>=1.10
-matplotlib>=3.7
-scikit-learn>=1.3

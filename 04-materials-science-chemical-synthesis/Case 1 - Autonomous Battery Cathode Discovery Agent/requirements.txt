@@ -1,9 +1,0 @@
-# Stream 4 — Materials Science & Chemical Synthesis
-# Requires Python 3.10+
-numpy>=1.24
-pandas>=2.0
-scipy>=1.10
-matplotlib>=3.7
-pymatgen>=2023.0
-mp-api>=0.41
-# Optional: matgl, ase

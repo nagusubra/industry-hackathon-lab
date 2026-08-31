@@ -1,5 +1,6 @@
 # Data downloads (keep READMEs only)
 **/data/raw/
+_downloads/
 *.h5
 *.hdf5
 *.nc

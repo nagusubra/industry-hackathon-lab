@@ -1,0 +1,37 @@
+battery_id,formula,working_ion,average_voltage_v,capacity_grav_mah_g,energy_grav_wh_kg,cycle_life_proxy,abundance_score,volume_change_pct,source,notes
+demo-001,LiFePO4,Li,3.4,170,578,95,95,6.8,literature_typical_demo,LFP; common grid/EV chemistry; Fe-abundant
+demo-002,LiMnPO4,Li,4.1,170,697,70,90,8.5,literature_typical_demo,"olivine Mn; higher V than LFP, slower kinetics"
+demo-003,LiCoPO4,Li,4.8,167,802,45,35,7.0,literature_typical_demo,high V olivine; Co cost/stability issues
+demo-004,LiNiPO4,Li,5.1,167,852,30,55,7.2,literature_typical_demo,very high V; electrolyte stability limited
+demo-005,LiCoO2,Li,3.9,145,566,60,25,2.6,literature_typical_demo,LCO; layered oxide; Co supply risk
+demo-006,LiNiO2,Li,3.8,180,684,40,55,9.0,literature_typical_demo,layered Ni; cycling/thermal issues
+demo-007,LiMn2O4,Li,4.0,120,480,65,90,7.3,literature_typical_demo,spinel LMO; Mn-abundant; fade in some electrolytes
+demo-008,LiNi0.33Mn0.33Co0.33O2,Li,3.7,160,592,75,40,3.5,literature_typical_demo,NMC111
+demo-009,LiNi0.5Mn0.3Co0.2O2,Li,3.7,170,629,72,38,4.0,literature_typical_demo,NMC532
+demo-010,LiNi0.6Mn0.2Co0.2O2,Li,3.7,180,666,70,36,4.5,literature_typical_demo,NMC622
+demo-011,LiNi0.8Mn0.1Co0.1O2,Li,3.8,200,760,62,34,5.5,literature_typical_demo,"NMC811; high energy, tighter stability"
+demo-012,LiNi0.8Co0.15Al0.05O2,Li,3.7,200,740,68,32,5.0,literature_typical_demo,NCA
+demo-013,Li2MnO3,Li,3.5,250,875,35,90,8.0,literature_typical_demo,"Li-rich Mn; high capacity, voltage fade"
+demo-014,LiVPO4F,Li,4.2,156,655,80,70,4.0,literature_typical_demo,vanadium fluorophosphate
+demo-015,Li3V2(PO4)3,Li,3.8,132,502,85,70,6.0,literature_typical_demo,NASICON-like vanadyl phosphate
+demo-016,LiTi2(PO4)3,Li,2.5,138,345,90,75,3.0,literature_typical_demo,low V phosphate; long life
+demo-017,LiFeSO4F,Li,3.6,151,544,75,85,7.5,literature_typical_demo,tavorite-like fluorosulfate
+demo-018,Na3V2(PO4)3,Na,3.4,117,398,88,70,8.3,literature_typical_demo,Na-ion NASICON cathode
+demo-019,NaFePO4,Na,2.9,154,447,80,95,15.0,literature_typical_demo,maricite/olivine NaFePO4 variants
+demo-020,Na2FePO4F,Na,3.0,124,372,82,90,4.0,literature_typical_demo,layered fluorophosphate
+demo-021,Na0.44MnO2,Na,3.1,120,372,70,90,10.0,literature_typical_demo,tunnel Mn oxide
+demo-022,NaMnO2,Na,2.8,180,504,50,90,18.0,literature_typical_demo,layered Na-Mn; large volume swing
+demo-023,Na3V2(PO4)2F3,Na,3.9,128,499,85,68,2.9,literature_typical_demo,NVPF; higher V Na-ion
+demo-024,KFePO4,K,3.2,140,448,55,95,12.0,literature_typical_demo,K-ion olivine-style (illustrative)
+demo-025,Li4Ti5O12,Li,1.55,175,271,98,80,0.2,literature_typical_demo,LTO; often anode; included as zero-strain reference
+demo-026,FeF3,Li,2.7,237,640,40,95,25.0,literature_typical_demo,"conversion-ish fluoride; high capacity, poor cycle"
+demo-027,Li2S,Li,2.3,1166,2682,25,70,80.0,literature_typical_demo,S cathode theoretical; not a practical cell table row
+demo-028,Na2/3Ni1/3Mn2/3O2,Na,3.3,140,462,65,60,9.0,literature_typical_demo,P2-type Na layered oxide
+demo-029,LiMn1.5Ni0.5O4,Li,4.7,147,691,70,70,6.2,literature_typical_demo,high-V spinel LNMO
+demo-030,LiFe0.5Mn0.5PO4,Li,3.6,160,576,85,92,7.2,literature_typical_demo,mixed olivine
+demo-031,Na3Fe2(PO4)3,Na,2.7,110,297,78,95,7.0,literature_typical_demo,alluaudite-related Fe phosphate
+demo-032,LiV3O8,Li,2.8,250,700,45,70,12.0,literature_typical_demo,"vanadium bronze; high cap, fade"
+demo-033,MgFeSiO4,Mg,2.4,160,384,50,90,10.0,literature_typical_demo,Mg-ion olivine-style (harder insertion)
+demo-034,LiNi0.5Mn1.5O4,Li,4.7,135,635,68,70,6.0,literature_typical_demo,ordered/disordered high-V spinel
+demo-035,Na2Fe2(SO4)3,Na,3.8,120,456,75,90,5.5,literature_typical_demo,alluaudite sulfate
+demo-036,Li2FeSiO4,Li,2.8,166,465,60,95,4.0,literature_typical_demo,orthosilicate; two-Li theoretical higher

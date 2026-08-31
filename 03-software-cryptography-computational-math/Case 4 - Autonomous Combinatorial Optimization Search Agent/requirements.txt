@@ -1,8 +1,0 @@
-# Stream 3 — Software, Cryptography & Computational Math
-# Case 4 — Combinatorial Optimization Search Agent
-# Requires Python 3.10+
-numpy>=1.24
-pandas>=2.0
-networkx>=3.0
-huggingface_hub>=0.20
-datasets>=2.16
