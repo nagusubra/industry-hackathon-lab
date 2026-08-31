@@ -7,8 +7,7 @@ DATA = Path(__file__).parent / "data" / "calgary_housing_development_permits.csv
 N = 50
 # Stated targets (days): developing 100, established/complete 186 — matching public wait-time range.
 TARGET = {"DEVELOPING": 100, "ESTABLISHED": 186, "COMPLETE": 186}
-AS_OF = pd.Timestamp("2026-08-29")
-
+AS_OF = pd.Timestamp.today().normalize()
 
 def housing_weight(category: str) -> int:
     c = str(category).lower()
