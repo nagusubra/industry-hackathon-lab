@@ -1,7 +1,7 @@
 # Judging Rubric — IEEE YP Industry Hackathon
 
 **Event:** Autonomous Intelligence for Industrial Innovation  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary, Alberta  
+**Dates:** October 2–4, 2026 | TBA (we will keep you informed), Calgary, AB  
 **Hosted by:** IEEE Southern Alberta Section Young Professionals
 
 Judges score projects out of **100 total points**. Option A (bring your own problem) and Option B (prepared case) use **this same rubric**. Submissions must include a **GitHub repository link**, **project details**, and a **working demo video link**.
