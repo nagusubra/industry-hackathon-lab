@@ -5,40 +5,25 @@
 **Hosted by:** IEEE Southern Alberta Section Young Professionals (IEEE SAS YP)  
 **Dates:** Friday, October 2 – Sunday, October 4, 2026  
 **Duration:** 48-hour hackathon  
-**Location:** InceptionU, Calgary, Alberta  
+**Location:** TBA (we will keep you informed), Calgary, AB  
 **Website:** [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/)
 
 ---
 
-## Partners
+## Our Sponsors
 
-| Partner | Role | Link |
+| Sponsor | Role | Link |
 |---|---|---|
-| **IEEE** | Host / Organizer | [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/) |
-| **TechConnect Alberta** | Ecosystem partner | [techconnect.amgfoundation.ca](https://techconnect.amgfoundation.ca/) |
-| **Eudaimonia** | Community volunteers | [luma.com/eudaimonia](https://luma.com/eudaimonia) |
-| **Young Energy Infrastructure Professionals** | Community partner | [yeip.energy](https://yeip.energy/) |
-| **Cursor** | AI coding partner | [cursor.com/home](https://cursor.com/home) |
+| **TechConnect** | Venue Sponsor | [techconnect.amgfoundation.ca](https://techconnect.amgfoundation.ca/) |
+| **Databricks** | Cloud Sponsor | [databricks.com](https://www.databricks.com/) |
+| **Cursor** | AI Coding Sponsor | [cursor.com/home](https://cursor.com/home) |
+| **Eudaimonia** | Community Sponsor | [eudaimoniayyc.vercel.app](https://eudaimoniayyc.vercel.app/) |
 
 ---
 
 ## Mission
 
-Build something a **real operator in Calgary, Alberta, or Canadian industry** could use: a ranked list, a schedule, a flag, or a mix — with public data and a number you can defend. Not a chatbot wrapper.
-
-You spend 48 hours on a small **decision loop**:
-
-```mermaid
-flowchart LR
-  A[Read the data] --> B[Make a plan]
-  B --> C[Score it]
-  C --> D[Change one rule]
-  D --> C
-```
-
-Cursor (or another AI coding tool) is allowed so the hard part is the **industrial problem**, not the boilerplate.
-
-Open to **high school students through industry professionals**. One common prize track. Every prepared case is written so a high-school team can start; a few cases (wind flags, remaining life) are a bit harder — that is marked in the case README.
+Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackathon focused on developing Autonomous AI Agents to solve critical "hard science" bottlenecks across modern industrial sectors. Designed to move beyond basic productivity tools and simple chat interfaces, teams of 2 to 5 members will build advanced agent frameworks capable of reasoning through complex physical, mathematical, and engineering challenges.
 
 ---
 
@@ -46,43 +31,40 @@ Open to **high school students through industry professionals**. One common priz
 
 | Phase / Event | Date & Time (MST) | Notes |
 |---|---|---|
-| Official Kickoff | Friday, Oct 2 @ 5:00 PM | Opening remarks, track briefing, team formation |
-| Submissions Close | Sunday, Oct 4 @ 12:00 PM | Teams submit projects, GitHub links & video demos |
-| Judging Window (Active) | Sunday, Oct 4 @ 1:00 PM – 4:00 PM | Mandatory scoring & deliberation |
-| Winners Announced | Sunday, Oct 4 @ 4:00 PM | Judges present awards |
-| Hackathon Wrap-up | Sunday, Oct 4 @ 5:00 PM | Closing remarks and networking |
+| Official Kickoff & Team Formation | Friday, Oct 2 @ 5:00 PM | Opening remarks, track briefing, team formation |
+| Hacking, Mentorship & Technical Support | Saturday, Oct 3 (All Day) | Build, iterate, and get help from mentors |
+| Project Submissions Close | Sunday, Oct 4 @ 12:00 PM | GitHub links & demo video due |
+| Project Judging & Deliberation | Sunday, Oct 4 @ 1:00 PM – 4:00 PM | Judges score and deliberate |
+| Winners Announced & Awards Presentation | Sunday, Oct 4 @ 4:00 PM | Judges present awards |
+| Hackathon Wrap-up, Closing Remarks & Networking | Sunday, Oct 4 @ 5:00 PM | Closing remarks and networking |
 
 ---
 
 ## Eligibility & Teams
 
-- **Eligibility:** Open to all — high school students, university students, professionals, IEEE members, and non-members.
+- **Eligibility:** Open to all — Innovators, Students, Professionals, and Researchers.
 - **Team size:** Collaborative teams of **2 to 5 members**.
-- **Format:** In-person, 48-hour build sprint at InceptionU.
+- **Note:** Please ask your team members to register as well. If you don't have any team members, we will find you a team.
+- **Food:** Meals and refreshments provided!
 
 ---
 
 ## Prizes
 
-| Place | Prize (CAD) |
-|---|---|
-| 1st Place | $200 |
-| 2nd Place | $150 |
-| 3rd Place | $100 |
+Over **$650+ in Prizes!**
 
 ---
 
-## Judges & Sponsors
+## Registration
 
-Judges & Sponsors: **to be announced**.
+**[Register Here!](https://events.vtools.ieee.org/m/572071)**
 
-If you have any suggestions or would like to become a sponsor for the hackathon, please contact the Chair (below).
+> Please ask your team members to register as well. If you don't have any team members, we will find you a team.
 
 ---
 
-## Registration & Contact
+## Contact
 
-- **Registration:** `[REGISTRATION LINK - TBD]`
 - **Contact / Sponsorship:** Subramanian Narayanan, IEEE SAS YP Chair — [nagusubra@ieee.org](mailto:nagusubra@ieee.org)
 
 ---
@@ -154,7 +136,7 @@ Option A examples: AESO pool price vs a City facility; [Corporate Energy Consump
 
 ### 2. Software and Computational Math
 
-**Theme:** Too few crews, trucks, and hours — including **hail, smoke, and wildfire**. Build a **schedule, dispatch list, flag list, or route** that still works when a truck breaks or a storm hits.
+**Theme:** Too few crews, trucks, and hours — including **hail, smoke, wildfire, and age-assurance flags**. Build a **schedule, dispatch list, flag list, route, or teen/adult classifier** that still works when a truck breaks, a storm hits, or someone lies about their birthday.
 
 | Case | Title |
 |---|---|
@@ -162,8 +144,9 @@ Option A examples: AESO pool price vs a City facility; [Corporate Energy Consump
 | 2 | [In what order should we plow or deliver?](02-software-and-computational-math/Case%202%20-%20Autonomous%20Calgary%20Snow-and-Delivery%20Routing%20Agent/README.md) |
 | 3 | [Which wildfires get the next crew?](02-software-and-computational-math/Case%203%20-%20Autonomous%20Alberta%20Wildfire%20Crew-Ranking%20Agent/README.md) |
 | 4 | [Which neighbourhoods get a smoke or hail flag?](02-software-and-computational-math/Case%204%20-%20Autonomous%20Neighbourhood%20Smoke-and-Hail%20Flag%20Agent/README.md) |
+| 5 | [Is this account a teen? (No birthday, no camera.)](02-software-and-computational-math/Case%205%20-%20Autonomous%20Teen-vs-Adult%20Behavior%20Signal%20Agent/README.md) |
 
-Option A examples: Calgary Transit GTFS as a *small* subset of stops; waste-collection routing; a tiny factory job-shop CSV you publish with the repo; [Open Calgary air quality](https://data.calgary.ca/Environment/Air-Quality-Data-near-real-time-/g9s5-qhu5); Alberta historical wildfire CSV (2006–2025) if you want a different fire or smoke cut than Case 3–4.
+Option A examples: Calgary Transit GTFS as a *small* subset of stops; waste-collection routing; a tiny factory job-shop CSV you publish with the repo; [Open Calgary air quality](https://data.calgary.ca/Environment/Air-Quality-Data-near-real-time-/g9s5-qhu5); Alberta historical wildfire CSV (2006–2025) if you want a different fire or smoke cut than Case 3–4; [Blog Authorship Corpus](https://huggingface.co/datasets/barilan/blog_authorship_corpus) for a larger writing-style age task than Case 5.
 
 ### 3. Chemical Systems and Material Science
 
@@ -198,7 +181,7 @@ Each prepared case includes a plain-language brief (`README.md` with a flowchart
 
 **Requires Python 3.10+ (3.11 recommended).** You may use Cursor or another AI coding tool.
 
-1. Register via the registration link above (when published).
+1. [Register for the hackathon](https://events.vtools.ieee.org/m/572071).
 2. Form a team of 2–5 and pick **one** stream.
 3. Choose **Option A** (your problem) or **Option B** (one prepared case).
 4. Clone this lab. For Option B, **cd into the case folder**, then:

@@ -2,7 +2,7 @@
 
 **Stream:** Energy and Infrastructure Systems  
 **Event:** IEEE YP Industry Hackathon  
-**Dates:** October 2–4, 2026 | InceptionU, Calgary
+**Dates:** October 2–4, 2026 | TBA (we will keep you informed), Calgary, AB
 
 ---
 
