@@ -3,9 +3,9 @@
 [![Repo traffic](https://raw.githubusercontent.com/nagusubra/traffic/main/doc/metric/industry-hackathon-lab/badge.svg)](https://nagusubra.github.io/traffic/doc/metric/industry-hackathon-lab/)
 
 **Hosted by:** IEEE Southern Alberta Section Young Professionals (IEEE SAS YP)  
-**Dates:** Friday, October 2 – Sunday, October 4, 2026  
-**Duration:** 48-hour hackathon  
-**Location:** TBA (we will keep you informed), Calgary, AB  
+**Dates:** Friday, October 2 – Sunday, October 4, 2026 (Fri, Oct 2nd – Sun, Oct 4th)  
+**Duration:** 48-hour hackathon (48 hours)  
+**Location:** Collision Space, Hunter Hub, University of Calgary  
 **Website:** [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/)
 
 ---
@@ -15,8 +15,8 @@
 | Sponsor | Role | Link |
 |---|---|---|
 | **TechConnect** | Venue Sponsor | [techconnect.amgfoundation.ca](https://techconnect.amgfoundation.ca/) |
+| **ElevenLabs** | AI Sponsor | [elevenlabs.io/about](https://elevenlabs.io/about) |
 | **Databricks** | Cloud Sponsor | [databricks.com](https://www.databricks.com/) |
-| **Cursor** | AI Coding Sponsor | [cursor.com/home](https://cursor.com/home) |
 | **Eudaimonia** | Community Sponsor | [eudaimoniayyc.vercel.app](https://eudaimoniayyc.vercel.app/) |
 
 ---
@@ -51,7 +51,10 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
 
 ## Prizes
 
-Over **$650+ in Prizes!**
+- **1st prize:** $200 + 3 months of ElevenLabs Pro tier (~$300 per team member)
+- **2nd prize:** $150
+- **3rd prize:** $100
+- **Best Project Built with ElevenLabs:** 3 months of ElevenLabs Scale tier (~$900 per team member)
 
 ---
 
@@ -117,7 +120,13 @@ Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRI
 
 ## Industrial Streams
 
+Teams of 2–5 can either bring their own problem using public data (**Option A**) for the tracks below or solve a prepared case (**Option B**) for these tracks.
+
+More tracks and cases will be revealed soon!
+
 ### 1. Energy and Infrastructure Systems
+
+**Track examples:** Agents for autonomous power grid load-balancing, optimizing renewable energy storage cycles, or running complex environmental simulations to predict the impact of carbon sequestration technologies.
 
 **Theme:** Alberta power is cheap some hours and very expensive in others. Calgary also has to decide **which building, road, light, water main, or permit file to fix first**.
 
@@ -134,7 +143,11 @@ Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRI
 
 Option A examples: AESO pool price vs a City facility; [Corporate Energy Consumption](https://data.calgary.ca/Environment/Corporate-Energy-Consumption/crbp-innf); [Traffic Incidents](https://data.calgary.ca/Transportation-Transit/Traffic-Incidents/35ra-9556); [Traffic Volumes](https://data.calgary.ca/dataset/Traffic-Volumes-for-2024/cauu-7hnw); [Development Permits](https://data.calgary.ca/Government/Development-Permits/6933-unw5); [Water Main Breaks](https://data.calgary.ca/Environment/Water-Main-Breaks/dpcu-jr23).
 
+Prepared cases cover: power grid optimization, building retrofits, wind shortage flags, engine lifespan prediction, traffic incident hot-spots, street light repair schedules, housing permit routing, and water main break prioritization.
+
 ### 2. Software and Computational Math
+
+**Track examples:** Agents that automate the transition to quantum-safe encryption protocols, optimize low-level compiler performance for specialized hardware, or solve high-dimensional optimization problems in industrial logistics and robotics.
 
 **Theme:** Too few crews, trucks, and hours — including **hail, smoke, wildfire, and age-assurance flags**. Build a **schedule, dispatch list, flag list, route, or teen/adult classifier** that still works when a truck breaks, a storm hits, or someone lies about their birthday.
 
@@ -148,7 +161,11 @@ Option A examples: AESO pool price vs a City facility; [Corporate Energy Consump
 
 Option A examples: Calgary Transit GTFS as a *small* subset of stops; waste-collection routing; a tiny factory job-shop CSV you publish with the repo; [Open Calgary air quality](https://data.calgary.ca/Environment/Air-Quality-Data-near-real-time-/g9s5-qhu5); Alberta historical wildfire CSV (2006–2025) if you want a different fire or smoke cut than Case 3–4; [Blog Authorship Corpus](https://huggingface.co/datasets/barilan/blog_authorship_corpus) for a larger writing-style age task than Case 5.
 
+Prepared cases cover: 311 service request dispatching, snowplow and delivery routing, wildfire crew allocation, and smoke or hail risk flagging.
+
 ### 3. Chemical Systems and Material Science
+
+**Track examples:** Agents that autonomously search for new battery cathode materials, optimize catalyst performance in chemical reactors, or design sustainable polymers with specific heat-resistance properties.
 
 **Theme:** Pick a mix, metal, or water sample that is strong enough, clean enough, and cheap enough — **against a number** (strength, voltage, or a legal limit).
 
@@ -158,6 +175,14 @@ Option A examples: Calgary Transit GTFS as a *small* subset of stops; waste-coll
 | 2 | [Is the Bow or Elbow over the limit today?](03-chemical-systems-and-material-science/Case%202%20-%20Autonomous%20Bow-Elbow%20Water-Quality%20Flag%20Agent/README.md) |
 
 Option A examples: City Roads concrete / paving mix tables; Alberta waste-diversion tonnes; industrial air-emission rates from [Alberta AEIR](https://open.alberta.ca/opendata/aeirairemissionrates).
+
+Prepared cases cover: battery cathode selection for Alberta storage and real-time Bow/Elbow River water quality monitoring.
+
+### 4. Add your own track!
+
+You can provide us with a problem statement, sample dataset, and the desired goals and results.
+
+**This option is only for interested sponsors.**
 
 ---
 
@@ -179,7 +204,7 @@ Each prepared case includes a plain-language brief (`README.md` with a flowchart
 
 ## Getting Started
 
-**Requires Python 3.10+ (3.11 recommended).** You may use Cursor or another AI coding tool.
+**Requires Python 3.10+ (3.11 recommended).** You may use an AI coding tool.
 
 1. [Register for the hackathon](https://events.vtools.ieee.org/m/572071).
 2. Form a team of 2–5 and pick **one** stream.
