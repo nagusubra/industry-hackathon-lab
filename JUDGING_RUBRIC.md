@@ -23,55 +23,52 @@ Judges score projects out of **100 total points**. Option A (bring your own prob
 
 ## Criteria & Evaluation Guidance
 
-### 1. Technical Depth — 20%
+### 1. Technical Depth — 20% / 20 Points
 
-Does the solution address a real industrial bottleneck with real data, constraints, and numbers — not a chatbot wrapper? A high-school team can score well here with a clear spreadsheet loop.
-
-**Judges should look for:**
-
-- A clear mapping to energy, infrastructure, operations, materials, or chemistry (not a generic productivity app)
-- Use of a real dataset, a named baseline, and at least one engineering constraint (budget, time, a legal limit, a physical bound)
-- Evidence that the output would matter to a practitioner (a ranked list, a schedule, a flag, a mix — not only a dashboard)
-
-### 2. Practical Application / Commercialization in Industry — 15%
-
-Would someone in Calgary, Alberta, or Canadian industry actually use this?
+Does the solution address a real industrial bottleneck with real data and engineering constraints?
 
 **Judges should look for:**
 
-- A named user (City business unit, AESO, a retailer, a plant, a contractor)
-- A sentence on who pays, who saves, or who is safer if the tool works
-- Honest scope: a 48-hour prototype that could grow into a product or internal tool
+- Clear domain mapping. Not a generic dashboard or productivity wrapper.
+- Integration of a real dataset, a named baseline method, and at least one hard constraint (budget, time, physical bound, legal limit).
 
-### 3. Autonomous Reasoning & Agent Architecture — 30%
+### 2. Practical Application / Commercialization in Industry — 15% / 15 Points
 
-How robust is the loop? A single LLM answer with no evaluation does not score well here.
-
-**Judges should look for:**
-
-- A defined loop: read data → make a plan → score it → change the plan
-- At least one revise step (change a cutoff, a filter, a route, or a ranking after seeing a score)
-- Tooling against CSVs, a simple simulator, or a solver — not slides alone
-
-### 4. Execution, Code Quality & Practicality — 20%
-
-Is the prototype runnable in the 48-hour window?
+Would an industry stakeholder actually deploy or commercialize this solution?
 
 **Judges should look for:**
 
-- Clear install/run instructions and a coherent repo
-- Reproducible numbers (seed, date range, baseline)
-- Evidence the demo is not purely mocked
+- Clear understanding of the target user, operational workflow, and deployment environment.
+- Defined value proposition (who pays, who saves costs, or what safety/operational risk is reduced).
+- Realistic scaling pathway from a 48-hour prototype to commercial use.
 
-### 5. Presentation & Demo Quality — 15%
+### 3. Autonomous Reasoning & Agent Architecture — 30% / 30 Points
 
-Can the team explain their own numbers?
+How well defined is the software architecture? How robust is the agentic loop deployed?
 
 **Judges should look for:**
 
-- A crisp problem statement a non-specialist can follow
+- A defined loop: data ETL → make a plan → score it → change the plan
+- At least one active revision step/epoch based on automated evaluation feedback (e.g., adjusting filters, cutoffs, or routes after scoring).
+
+### 4. Execution, Code Quality & Practicality — 20% / 20 Points
+
+Is the prototype functional, reproducible, and technically sound?
+
+**Judges should look for:**
+
+- Reproducible setup and execution (verifiable seeds, datasets, baselines, and clean GitHub repository instructions).
+- Demo is not purely mocked.
+- Effective use of tech stack for the problem.
+
+### 5. Presentation & Demo Quality — 15% / 15 Points
+
+Can the team articulate their solution effectively?
+
+**Judges should look for:**
+
+- A crisp problem statement
 - Walkthrough of the loop and the baseline comparison
-- A time-boxed demo video and honest limitations
 
 ---
 
