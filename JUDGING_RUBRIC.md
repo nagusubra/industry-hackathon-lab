@@ -77,13 +77,15 @@ Can the team explain their own numbers?
 
 ## Submission Requirements
 
-Submissions close **Sunday, October 4, 2026 @ 12:00 PM MST**. Incomplete packages may be ineligible for scoring.
+Submissions close **Sunday, October 4, 2026 @ 12:00 PM MDT**. Incomplete packages may be ineligible for scoring.
 
-### Required Checklist
+### Required Checklist (via the Hackathon Submission issue form — see SUBMISSIONS.md)
 
-- [ ] **GitHub repository link** — public or judge-accessible repo containing source code, README, and run instructions
-- [ ] **Project details** — problem statement, architecture overview, datasets used, quantitative results / metrics
-- [ ] **Working demo video link** — screen recording or presentation walkthrough (recommended ≤ 5 minutes)
+- [ ] **Team name + 2–5 members with GitHub handles**, project title, tagline (3 lines max)
+- [ ] **GitHub repository link** — public repo containing source code, README, and run instructions
+- [ ] **About the project** — inspiration, learnings, build approach, challenges (Markdown + LaTeX)
+- [ ] **Screenshots** — min 2, max 5 images proving the app works
+- [ ] **Demo video / live-site link** — YouTube/Loom URL (recommended ≤ 5 minutes)
 
 ### Recommended Repository Contents
 
@@ -96,7 +98,7 @@ Submissions close **Sunday, October 4, 2026 @ 12:00 PM MST**. Incomplete package
 
 ## Judging Timeline
 
-| Event | Time (MST) |
+| Event | Time (MDT) |
 |---|---|
 | Submissions Close | Sunday, Oct 4 @ 12:00 PM |
 | Judging Window (Active) | Sunday, Oct 4 @ 1:00 PM – 4:00 PM |

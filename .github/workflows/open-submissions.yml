@@ -1,0 +1,62 @@
+# Opens submissions: restores the issue form from archive (pre-staged while private).
+# Primary trigger is MANUAL (organizer clicks Run workflow right after flipping repo public ~5 PM MDT Oct 2).
+# Cron is a safety net: 22:55 UTC Oct 2 = 4:55 PM MDT (early-open buffer for cron delay).
+# Free-plan safe: ubuntu-latest standard runner, ~1 min/run.
+name: Open Submissions
+
+on:
+  schedule:
+    - cron: "55 22 2 10 *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: submissions-gate
+  cancel-in-progress: false
+
+jobs:
+  open:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore submission template from archive
+        run: |
+          mkdir -p .github/ISSUE_TEMPLATE
+          cp .github/ISSUE_TEMPLATE_ARCHIVE/submission.yml .github/ISSUE_TEMPLATE/submission.yml
+          cp .github/ISSUE_TEMPLATE_ARCHIVE/config.yml .github/ISSUE_TEMPLATE/config.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/ISSUE_TEMPLATE/submission.yml .github/ISSUE_TEMPLATE/config.yml
+          git diff --cached --quiet || git commit -m "chore: open hackathon submissions (Oct 2 5PM MDT)"
+          git push || echo "nothing to push"
+
+      - name: Announce submissions open
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const title = "Submissions OPEN — due Sun Oct 4, 12:00 PM MDT (grace to 12:10 PM)";
+            const body = [
+              "Submissions are OPEN. One issue per team via **Issues → New Issue → Hackathon Submission**.",
+              "",
+              "- Required: team name, 2–5 members with @handles, project title, tagline (3 lines max), public repo link, About (Markdown + LaTeX `$...$`), **min 2 / max 5 screenshots**, demo video/live-site **link** (YouTube/Loom), eligibility checkboxes.",
+              "- Only the author can edit the issue body; teammates post updates as comments.",
+              "- Deadline: **Sun Oct 4, 12:00 PM MDT** with a 10-min grace to 12:10 PM MDT. Issues lock at close.",
+              "- Guide: SUBMISSIONS.md. Register all members: https://events.vtools.ieee.org/m/572071"
+            ].join("\n");
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: "open", per_page: 100
+            });
+            if (!issues.some(i => i.title === title)) {
+              const { data: created } = await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ["submission"]
+              });
+              try {
+                await github.rest.issues.pin({ owner: context.repo.owner, repo: context.repo.repo, issue_number: created.number });
+              } catch (e) { core.info("pin skipped: " + e.message); }
+            } else { core.info("open notice already exists"); }

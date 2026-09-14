@@ -40,12 +40,12 @@ Please ask your team members to register as well. If you don't have any team mem
 
 | Event | Date & Time |
 |---|---|
-| Official Kickoff & Team Formation | Friday, Oct 2 @ 5:00 PM |
+| Official Kickoff & Team Formation | Friday, Oct 2 @ 5:00 PM MDT (repo goes public; submissions open) |
 | Hacking, Mentorship & Technical Support | Saturday, Oct 3 (All Day) |
-| Project Submissions Close (GitHub links & demo video due) | Sunday, Oct 4 @ 12:00 PM |
-| Project Judging & Deliberation | Sunday, Oct 4 @ 1:00 PM – 4:00 PM |
-| Winners Announced & Awards Presentation | Sunday, Oct 4 @ 4:00 PM |
-| Hackathon Wrap-up, Closing Remarks & Networking | Sunday, Oct 4 @ 5:00 PM |
+| Project Submissions Close (submission Issue due; grace to 12:10 PM MDT) | Sunday, Oct 4 @ 12:00 PM MDT |
+| Project Judging & Deliberation | Sunday, Oct 4 @ 1:00 PM – 4:00 PM MDT |
+| Winners Announced & Awards Presentation | Sunday, Oct 4 @ 4:00 PM MDT |
+| Hackathon Wrap-up, Closing Remarks & Networking | Sunday, Oct 4 @ 5:00 PM MDT |
 
 ---
 

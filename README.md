@@ -27,9 +27,9 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
 
 ---
 
-## Event Schedule (MST)
+## Event Schedule (MDT)
 
-| Phase / Event | Date & Time (MST) | Notes |
+| Phase / Event | Date & Time (MDT) | Notes |
 |---|---|---|
 | Official Kickoff & Team Formation | Friday, Oct 2 @ 5:00 PM | Opening remarks, track briefing, team formation |
 | Hacking, Mentorship & Technical Support | Saturday, Oct 3 (All Day) | Build, iterate, and get help from mentors |
@@ -110,11 +110,19 @@ Choose **one** case from your stream's folder. Follow that case `README.md` and 
 
 Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md). Option A and Option B use the same criteria.
 
-**Required submission package (by Sunday, Oct 4 @ 12:00 PM MST):**
+**Required submission package (by Sunday, Oct 4 @ 12:00 PM MDT, grace to 12:10 PM MDT):**
 
-1. GitHub repository link
-2. Project details / documentation
-3. Working demo video link
+Submit via **Issues → New Issue → Hackathon Submission** (one issue per team; repo goes public Fri Oct 2 @ 5:00 PM MDT). See [SUBMISSIONS.md](SUBMISSIONS.md) and [RULES.md](RULES.md).
+
+1. Team name
+2. Team member names + GitHub handles (2–5 members)
+3. Project title
+4. Short tagline (3 lines max)
+5. Public GitHub repository link
+6. About the project (inspiration, what you learned, how you built it, challenges — Markdown + LaTeX)
+7. Project pictures/screenshots (min 2, max 5)
+8. Demo video or live-site link (YouTube/Loom URL)
+9. Additional info (stream/track, datasets, test accounts) — optional
 
 ---
 
@@ -218,7 +226,7 @@ Each prepared case includes a plain-language brief (`README.md` with a flowchart
 
    Read that case `README.md` and `data/README.md`.
 5. Build a loop that reads real data, proposes an action, scores it, and revises at least once.
-6. Submit your GitHub repo, project write-up, and demo video by **Sunday, Oct 4 @ 12:00 PM MST**.
+6. Submit your Hackathon Submission issue (all 9 fields) by **Sunday, Oct 4 @ 12:00 PM MDT** (grace to 12:10 PM MDT).
 
 ---
 

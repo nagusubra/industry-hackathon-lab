@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Hackathon Questions / Help
+    url: https://github.com/nagusubra/industry-hackathon-lab/discussions
+    about: Ask organizers for help instead of opening a blank issue.
+  - name: Registration
+    url: https://events.vtools.ieee.org/m/572071
+    about: Register your team here (all 2–5 members must register).
+  - name: Submission Guide
+    url: https://github.com/nagusubra/industry-hackathon-lab/blob/main/SUBMISSIONS.md
+    about: How to submit, edit rules, deadlines (MDT), and resubmit policy.
