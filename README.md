@@ -190,7 +190,7 @@ Prepared cases cover: battery cathode selection for Alberta storage and real-tim
 
 You can provide us with a problem statement, sample dataset, and the desired goals and results.
 
-**This option is only for interested sponsors.**
+**This option is only for interested sponsors.** Sponsors: please fill in **[SPONSOR_CASE_TEMPLATE.md](SPONSOR_CASE_TEMPLATE.md)** (one file, about 45-60 min) and email it to [nagusubra@ieee.org](mailto:nagusubra@ieee.org).
 
 ---
 
