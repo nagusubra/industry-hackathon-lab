@@ -6,7 +6,7 @@ All times are **MDT (Calgary local, UTC-6)**.
 ## How to submit (one issue per team)
 
 1. Go to **Issues → New Issue → Hackathon Submission → Get started** (repo goes public at 5 PM Oct 2; the form is invisible while private).
-2. Fill all 9 fields: team name, 2–5 members with `@handles`, project title, tagline (3 lines max), public repo link, About (Markdown + LaTeX `$...$`), **min 2 / max 5 screenshots** (10 MB each on GitHub Free), demo video/live-site **link** (YouTube unlisted or Loom — direct upload capped at 10 MB on Free), additional info.
+2. Fill all 10 fields: team name, 2–5 members with `@handles`, project stream, project title, tagline (3 lines max), public repo link, About (Markdown + LaTeX `$...$`), **min 2 / max 5 screenshots** (10 MB each on GitHub Free), demo video/live-site **link** (YouTube unlisted or Loom — direct upload capped at 10 MB on Free), additional info.
 3. The validator bot comments within a minute (`needs-review`, or `needs-fix` / `grace-period` / `late` as applicable).
 
 ## Editing rules

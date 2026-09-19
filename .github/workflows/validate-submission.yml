@@ -33,17 +33,17 @@ jobs:
 
             // 1. Repo link must look like a public github.com URL
             const repoMatch = body.match(/https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+/);
-            if (!repoMatch) notes.push("⚠️ No valid `https://github.com/<owner>/<repo>` link found in field 5. Add it or judges cannot score you (`needs-fix`).");
+            if (!repoMatch) notes.push("⚠️ No valid `https://github.com/<owner>/<repo>` link found in field 6. Add it or judges cannot score you (`needs-fix`).");
 
             // 2. Demo link (YouTube/Loom/http) should be present
             if (!/https?:\/\/(www\.)?(youtube\.com|youtu\.be|loom\.com|.*)/i.test(body)) {
-              notes.push("⚠️ No demo/live-site link detected in field 8. A link is REQUIRED (direct video upload capped at 10 MB on Free).");
+              notes.push("⚠️ No demo/live-site link detected in field 9. A link is REQUIRED (direct video upload capped at 10 MB on Free).");
             }
 
             // 3. Screenshot count advisory (min 2, max 5) — count CDN image embeds
             const imgs = (body.match(/!\[[^\]]*\]\(https:\/\/user-images\.githubusercontent\.com[^)]+\)/g) || []).length
                        + (body.match(/!\[[^\]]*\]\(https:\/\/github\.com\/user-attachments[^)]+\)/g) || []).length;
-            if (imgs < 2) notes.push(`⚠️ Only ~${imgs} embedded screenshot(s) detected (min 2 required, max 5). Drag-drop images into field 7 (\`needs-fix\`).`);
+            if (imgs < 2) notes.push(`⚠️ Only ~${imgs} embedded screenshot(s) detected (min 2 required, max 5). Drag-drop images into field 8 (\`needs-fix\`).`);
 
             // 4. Grace / late stamping (covers close-cron delay)
             const labelsToAdd = ["needs-review"];
@@ -57,7 +57,7 @@ jobs:
 
             if (body.length < 500) {
               labelsToAdd.push("needs-fix");
-              notes.push("⚠️ Submission looks very short (<500 chars). Check fields 6–7 are complete.");
+              notes.push("⚠️ Submission looks very short (<500 chars). Check fields 7–8 are complete.");
             }
             if (notes.some(n => n.includes("needs-fix")) && !labelsToAdd.includes("needs-fix")) labelsToAdd.push("needs-fix");
 

@@ -37,9 +37,18 @@ body:
       required: true
 
   - type: input
+    id: project-stream
+    attributes:
+      label: 3. Project Stream
+      description: Your industrial stream (must provide).
+      placeholder: e.g. Energy and Infrastructure Systems
+    validations:
+      required: true
+
+  - type: input
     id: project-title
     attributes:
-      label: 3. Project Title
+      label: 4. Project Title
       description: Title of your project (must provide).
       placeholder: e.g. Autonomous 311 Dispatch Agent
     validations:
@@ -48,7 +57,7 @@ body:
   - type: textarea
     id: tagline
     attributes:
-      label: 4. Project Short Description (3 lines max)
+      label: 5. Project Short Description (3 lines max)
       description: Short tagline for showcase. Keep to 3 lines max / ~280 chars. A validator will warn if longer.
       placeholder: One-to-three-line tagline for your project.
     validations:
@@ -57,7 +66,7 @@ body:
   - type: input
     id: repo-link
     attributes:
-      label: 5. GitHub Repository Link
+      label: 6. GitHub Repository Link
       description: Public repo URL, e.g. https://github.com/<owner>/<repo> (must provide, must be public).
       placeholder: https://github.com/<owner>/<repo>
     validations:
@@ -66,7 +75,7 @@ body:
   - type: textarea
     id: about
     attributes:
-      label: 6. About the Project
+      label: 7. About the Project
       description: |
         What inspired you, what you learned, how you built it, challenges faced.
         Markdown supported; LaTeX math supported via $...$ (inline) and $$...$$ (block).
@@ -85,18 +94,18 @@ body:
   - type: upload
     id: screenshots
     attributes:
-      label: 7. Project Pictures / Screenshots
+      label: 8. Project Pictures / Screenshots
       description: |
         REQUIRED: minimum 2, maximum 5 images (PNG/JPG/GIF, 10 MB each on GitHub Free).
         Drag and drop files here. Show proof your app works (UI, terminal output, plots).
-        Longer videos must go in field 8 as a link (Free plan caps direct video upload at 10 MB).
+        Longer videos must go in field 9 as a link (Free plan caps direct video upload at 10 MB).
     validations:
       required: true
 
   - type: input
     id: demo-link
     attributes:
-      label: 8. Link to Demo Video or Live Site
+      label: 9. Link to Demo Video or Live Site
       description: REQUIRED — YouTube (unlisted OK), Loom, or live-site URL.
       placeholder: https://youtube.com/... or https://your-demo-site/...
     validations:
@@ -105,9 +114,9 @@ body:
   - type: textarea
     id: additional
     attributes:
-      label: 9. Any Additional Info
-      description: Optional — stream/track, Option A/B, dataset citations, passwords/test accounts for judges, sponsor tech used (e.g. ElevenLabs).
-      placeholder: "e.g. Stream 2, Option B Case 3; dataset citation; test login"
+      label: 10. Any Additional Info
+      description: Optional — Option A/B, dataset citations, passwords/test accounts for judges, sponsor tech used (e.g. ElevenLabs).
+      placeholder: "e.g. Option B Case 3; dataset citation; test login"
     validations:
       required: false
 
