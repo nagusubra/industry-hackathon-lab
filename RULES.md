@@ -6,5 +6,5 @@
 4. Work must be original and built during the event (prepared case starters and public datasets allowed; cite all data sources).
 5. Submissions are **public**; do not post secrets/API keys. Broken posts may be deleted by organizers on request for resubmission.
 6. Deadline is enforced by issue `created_at`; threads lock at close. Deadline is sharp at 12:00 PM MDT — no exceptions. Late submissions will not be accepted.
-7. Judging per `JUDGING_RUBRIC.md` (100 pts). Winners announced Sun Oct 4, 4:00 PM MDT.
+7. Judging per `JUDGING_RUBRIC.md` (weighted criteria, total 100%). Winners announced Sun Oct 4, 4:00 PM MDT.
 8. Follow the [Code of Conduct](CODE_OF_CONDUCT.md), including behavioral standards, the team-conflict / escalation policy, and the liability release. Contact: nagusubra@ieee.org.

@@ -4,26 +4,26 @@
 **Dates:** October 2–4, 2026 | Collision Space, Hunter Hub, University of Calgary  
 **Hosted by:** IEEE Southern Alberta Section Young Professionals
 
-Judges score projects out of **100 total points**. Option A (bring your own problem) and Option B (prepared case) use **this same rubric**. Submissions must include a **GitHub repository link** and **project details** (a working demo video link is optional but recommended).
+Judges score projects using weighted criteria totaling **100%**. Option A (bring your own problem) and Option B (prepared case) use **this same rubric**. Submissions must include a **GitHub repository link** and **project details** (a working demo video link is optional but recommended).
 
 ---
 
 ## Scoring Summary
 
-| Criteria | Weight | Points |
-|---|---|---|
-| Technical Depth | 20% | 20 |
-| Practical Application / Commercialization in Industry | 15% | 15 |
-| Autonomous Reasoning & Agent Architecture | 30% | 30 |
-| Execution, Code Quality & Practicality | 20% | 20 |
-| Presentation & Demo Quality | 15% | 15 |
-| **Total** | **100%** | **100** |
+| Criteria | Weight |
+|---|---|
+| Technical Depth | 20% |
+| Practical Application / Commercialization in Industry | 15% |
+| Autonomous Reasoning & Agent Architecture | 30% |
+| Execution, Code Quality & Practicality | 20% |
+| Presentation & Demo Quality | 15% |
+| **Total** | **100%** |
 
 ---
 
 ## Criteria & Evaluation Guidance
 
-### 1. Technical Depth — 20% / 20 Points
+### 1. Technical Depth — 20%
 
 Does the solution address a real industrial bottleneck with real data and engineering constraints?
 
@@ -32,7 +32,7 @@ Does the solution address a real industrial bottleneck with real data and engine
 - Clear domain mapping. Not a generic dashboard or productivity wrapper.
 - Integration of a real dataset, a named baseline method, and at least one hard constraint (budget, time, physical bound, legal limit).
 
-### 2. Practical Application / Commercialization in Industry — 15% / 15 Points
+### 2. Practical Application / Commercialization in Industry — 15%
 
 Would an industry stakeholder actually deploy or commercialize this solution?
 
@@ -42,7 +42,7 @@ Would an industry stakeholder actually deploy or commercialize this solution?
 - Defined value proposition (who pays, who saves costs, or what safety/operational risk is reduced).
 - Realistic scaling pathway from a 48-hour prototype to commercial use.
 
-### 3. Autonomous Reasoning & Agent Architecture — 30% / 30 Points
+### 3. Autonomous Reasoning & Agent Architecture — 30%
 
 How well defined is the software architecture? How robust is the agentic loop deployed?
 
@@ -51,7 +51,7 @@ How well defined is the software architecture? How robust is the agentic loop de
 - A defined loop: data ETL → make a plan → score it → change the plan
 - At least one active revision step/epoch based on automated evaluation feedback (e.g., adjusting filters, cutoffs, or routes after scoring).
 
-### 4. Execution, Code Quality & Practicality — 20% / 20 Points
+### 4. Execution, Code Quality & Practicality — 20%
 
 Is the prototype functional, reproducible, and technically sound?
 
@@ -61,7 +61,7 @@ Is the prototype functional, reproducible, and technically sound?
 - Demo is not purely mocked.
 - Effective use of tech stack for the problem.
 
-### 5. Presentation & Demo Quality — 15% / 15 Points
+### 5. Presentation & Demo Quality — 15%
 
 Can the team articulate their solution effectively?
 

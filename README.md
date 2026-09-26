@@ -113,7 +113,7 @@ Choose **one** case from your stream's folder. Follow that case `README.md` and 
 
 ## Judging
 
-Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md). Option A and Option B use the same criteria.
+Projects are scored using weighted criteria totaling **100%**. See [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md). Option A and Option B use the same criteria.
 
 **Required submission package (by Sunday, Oct 4 @ 12:00 PM MDT sharp — no exceptions):**
 

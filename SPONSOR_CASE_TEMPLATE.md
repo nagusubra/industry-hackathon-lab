@@ -142,7 +142,7 @@
 | **Value proposition** (one sentence) | e.g. `Same work, cheaper - by shifting WHEN it happens.` |
 | **Path to real deployment** (2-3 bullets) | e.g. `Pilot on one facility, integrate with work-order system, scale to fleet` |
 
-> Judges award 15/100 pts for *Practical Application / Commercialization* - this section is what they score.
+> Judges award 15% weight for *Practical Application / Commercialization* - this section is what they score.
 
 ---
 
@@ -315,7 +315,7 @@ flowchart LR
 
 ## 12. How we score this case (required)
 
-> Judges use the shared [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md) (100 pts). Add **3-4 case-specific targets** so mentors and judges know what "good" looks like. Must include baseline + loop.
+> Judges use the shared [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md) (weights total 100%). Add **3-4 case-specific targets** so mentors and judges know what "good" looks like. Must include baseline + loop.
 
 | What we look for | Target (concrete, measurable) |
 |---|---|
