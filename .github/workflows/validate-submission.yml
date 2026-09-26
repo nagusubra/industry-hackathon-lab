@@ -1,6 +1,6 @@
 # Validates each new/edited submission issue (runs instantly, no cron delay).
 # Enforces: repo-link shape, tagline length, screenshot count (min 2 advisory), demo link present,
-# grace/late labels (cutoff 18:10 UTC Oct 4 = 12:10 PM MDT), needs-review routing.
+# sharp deadline (cutoff 18:00 UTC Oct 4 = 12:00 PM MDT sharp, no exceptions), needs-review routing.
 # Free-plan safe: ubuntu-latest, read issue body only.
 name: Validate Submission
 
@@ -28,7 +28,7 @@ jobs:
             const issue = context.payload.issue;
             const body = issue.body || "";
             const createdAt = new Date(issue.created_at);
-            const GRACE_END = new Date("2026-10-04T18:10:00Z"); // 12:10 PM MDT
+            const DEADLINE = new Date("2026-10-04T18:00:00Z"); // 12:00 PM MDT sharp — no exceptions
             const notes = [];
 
             // 1. Repo link must look like a public github.com URL
@@ -45,14 +45,11 @@ jobs:
                        + (body.match(/!\[[^\]]*\]\(https:\/\/github\.com\/user-attachments[^)]+\)/g) || []).length;
             if (imgs < 2) notes.push(`⚠️ Only ~${imgs} embedded screenshot(s) detected (min 2 required, max 5). Drag-drop images into field 8 (\`needs-fix\`).`);
 
-            // 4. Grace / late stamping (covers close-cron delay)
+            // 4. Late stamping (sharp deadline — no exceptions)
             const labelsToAdd = ["needs-review"];
-            if (createdAt > GRACE_END) {
+            if (createdAt > DEADLINE) {
               labelsToAdd.push("late");
-              notes.push("⏰ Created after the 12:10 PM MDT grace cutoff — marked `late` (judges decide eligibility).");
-            } else if (createdAt > new Date("2026-10-04T18:00:00Z")) {
-              labelsToAdd.push("grace-period");
-              notes.push("ℹ️ Created in the 12:00–12:10 PM MDT grace window — marked `grace-period`.");
+              notes.push("⏰ Created after the 12:00 PM MDT sharp deadline — marked `late` and will not be accepted (no exceptions).");
             }
 
             if (body.length < 500) {

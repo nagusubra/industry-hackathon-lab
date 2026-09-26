@@ -74,7 +74,9 @@ Can the team articulate their solution effectively?
 
 ## Submission Requirements
 
-Submissions close **Sunday, October 4, 2026 @ 12:00 PM MDT**. Incomplete packages may be ineligible for scoring.
+Submissions close **Sunday, October 4, 2026 @ 12:00 PM MDT sharp — no exceptions**. Incomplete packages may be ineligible for scoring.
+
+> **Fan Favourite ($100)** is decided separately by community vote (most 👍 reactions on the submission issue), not by this rubric. See [FAN_FAVOURITE.md](FAN_FAVOURITE.md).
 
 ### Required Checklist (via the Hackathon Submission issue form — see SUBMISSIONS.md)
 

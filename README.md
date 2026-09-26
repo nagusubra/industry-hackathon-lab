@@ -14,10 +14,12 @@
 
 | Sponsor | Role | Link |
 |---|---|---|
-| **TechConnect** | Venue Sponsor | [techconnect.amgfoundation.ca](https://techconnect.amgfoundation.ca/) |
+| **Hunter Hub** | Venue Sponsor | [ucalgary.ca/hunter-hub](https://www.ucalgary.ca/hunter-hub) |
 | **ElevenLabs** | AI Sponsor | [elevenlabs.io/about](https://elevenlabs.io/about) |
+| **Volaris Group** | Gold Sponsor | [volarisgroup.com](https://www.volarisgroup.com/) |
 | **Databricks** | Cloud Sponsor | [databricks.com](https://www.databricks.com/) |
 | **Eudaimonia** | Community Sponsor | [eudaimoniayyc.vercel.app](https://eudaimoniayyc.vercel.app/) |
+| **TechConnect** | Community Sponsor | [techconnect.amgfoundation.ca](https://techconnect.amgfoundation.ca/) |
 
 ---
 
@@ -51,16 +53,17 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
 
 ## Prizes
 
-- **1st prize:** $200 + 3 months of ElevenLabs Pro tier (~$300 per team member)
-- **2nd prize:** $150
-- **3rd prize:** $100
+- **1st prize:** $800 + 3 months of ElevenLabs Pro tier (~$300 per team member)
+- **2nd prize:** $600
+- **3rd prize:** $500
+- **Fan Favourite:** $100 — decided by most 👍 reactions on the submission issue (see [FAN_FAVOURITE.md](FAN_FAVOURITE.md))
 - **Best Project Built with ElevenLabs:** 3 months of ElevenLabs Scale tier (~$900 per team member)
 
 ---
 
-## Registration
+## Registration Information
 
-**[Register Here!](https://events.vtools.ieee.org/m/572071)**
+Link: https://events.vtools.ieee.org/m/572071
 
 > Please ask your team members to register as well. If you don't have any team members, we will find you a team.
 
@@ -110,7 +113,7 @@ Choose **one** case from your stream's folder. Follow that case `README.md` and 
 
 Projects are scored out of **100 points**. See [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md). Option A and Option B use the same criteria.
 
-**Required submission package (by Sunday, Oct 4 @ 12:00 PM MDT, grace to 12:10 PM MDT):**
+**Required submission package (by Sunday, Oct 4 @ 12:00 PM MDT sharp — no exceptions):**
 
 Submit via **Issues → New Issue → Hackathon Submission** (one issue per team; repo goes public Fri Oct 2 @ 5:00 PM MDT). See [SUBMISSIONS.md](SUBMISSIONS.md) and [RULES.md](RULES.md).
 
@@ -227,7 +230,7 @@ Each prepared case includes a plain-language brief (`README.md` with a flowchart
 
    Read that case `README.md` and `data/README.md`.
 5. Build a loop that reads real data, proposes an action, scores it, and revises at least once.
-6. Submit your Hackathon Submission issue (all 10 fields) by **Sunday, Oct 4 @ 12:00 PM MDT** (grace to 12:10 PM MDT).
+6. Submit your Hackathon Submission issue (all 10 fields) by **Sunday, Oct 4 @ 12:00 PM MDT sharp — no exceptions**.
 
 ---
 

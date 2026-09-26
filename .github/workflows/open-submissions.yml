@@ -40,13 +40,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const title = "Submissions OPEN — due Sun Oct 4, 12:00 PM MDT (grace to 12:10 PM)";
+            const title = "Submissions OPEN — due Sun Oct 4, 12:00 PM MDT sharp (no exceptions)";
             const body = [
               "Submissions are OPEN. One issue per team via **Issues → New Issue → Hackathon Submission**.",
               "",
               "- Required: team name, 2–5 members with @handles, project title, tagline (3 lines max), public repo link, About (Markdown + LaTeX `$...$`), **min 2 / max 5 screenshots**, demo video/live-site **link** (YouTube/Loom), eligibility checkboxes.",
               "- Only the author can edit the issue body; teammates post updates as comments.",
-              "- Deadline: **Sun Oct 4, 12:00 PM MDT** with a 10-min grace to 12:10 PM MDT. Issues lock at close.",
+              "- Deadline: **Sun Oct 4, 12:00 PM MDT sharp — no exceptions**. Issues lock at close.",
               "- Guide: SUBMISSIONS.md. Register all members: https://events.vtools.ieee.org/m/572071"
             ].join("\n");
             const { data: issues } = await github.rest.issues.listForRepo({

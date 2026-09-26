@@ -1,5 +1,5 @@
 name: Hackathon Submission
-description: Submit your team project (open Fri Oct 2 5:00 PM – Sun Oct 4 12:10 PM MDT grace cutoff).
+description: Submit your team project (open Fri Oct 2 5:00 PM – Sun Oct 4 12:00 PM MDT sharp).
 title: "[Submission] <Team Name> - <Project Title>"
 labels: ["submission"]
 
@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         ## IEEE YP Industry Hackathon — Project Submission
-        **Window:** Fri Oct 2, 5:00 PM MDT → Sun Oct 4, 12:00 PM MDT (10-min grace to 12:10 PM MDT).
+        **Window:** Fri Oct 2, 5:00 PM MDT → Sun Oct 4, 12:00 PM MDT sharp — no exceptions.
         **One issue per team.** Only the author can edit this body; teammates post updates as comments. All issues lock at close.
         Repo will be public at 5 PM Oct 2; submissions before that are not accepted.
 

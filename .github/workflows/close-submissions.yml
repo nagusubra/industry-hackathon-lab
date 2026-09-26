@@ -1,7 +1,7 @@
 # Closes submissions: removes the issue form + locks all open submission issues.
 # Primary trigger is MANUAL (organizer clicks Run workflow at 12:00 PM MDT Oct 4).
 # Cron is a safety net: 0 18 4 10 * = 12:00 PM MDT Oct 4 = 18:00 UTC (exact minute; may lag 5–30 min under load).
-# Grace policy (from organizer): issues created <= 18:10 UTC Oct 4 get `grace-period`; after that `late`.
+# Sharp deadline (from organizer): 12:00 PM MDT sharp — no exceptions. Issues created after 12:00 PM MDT get `late`.
 # Free-plan safe: ubuntu-latest standard runner, ~1–2 min/run.
 name: Close Submissions
 
@@ -54,7 +54,7 @@ jobs:
             for (const issue of issues) {
               if (issue.pull_request) continue;
               const msg = [
-                "Submissions are now **CLOSED** (Sun Oct 4, 12:00 PM MDT, grace to 12:10 PM MDT).",
+                "Submissions are now **CLOSED** (Sun Oct 4, 12:00 PM MDT sharp — no exceptions).",
                 "This thread is locked — no further edits or comments. Judging: 1–4 PM MDT. Good luck!"
               ].join("\n");
               if (dryRun) { core.info(`[dry-run] would lock #${issue.number}`); continue; }
@@ -71,7 +71,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const title = "Submissions CLOSED — judging 1–4 PM MDT";
-            const body = "Submission window ended Sun Oct 4, 12:00 PM MDT (grace to 12:10 PM). All submission threads are locked. Judges: export via `python scripts/export_submissions.py`. Winners announced 4 PM MDT.";
+            const body = "Submission window ended Sun Oct 4, 12:00 PM MDT sharp (no exceptions). All submission threads are locked. Judges: export via `python scripts/export_submissions.py`. Winners announced 4 PM MDT.";
             const { data: issues } = await github.rest.issues.listForRepo({
               owner: context.repo.owner, repo: context.repo.repo, state: "open", per_page: 100
             });
