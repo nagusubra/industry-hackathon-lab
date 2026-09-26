@@ -4,7 +4,7 @@
 **Dates:** October 2–4, 2026 | Collision Space, Hunter Hub, University of Calgary  
 **Hosted by:** IEEE Southern Alberta Section Young Professionals
 
-Judges score projects out of **100 total points**. Option A (bring your own problem) and Option B (prepared case) use **this same rubric**. Submissions must include a **GitHub repository link**, **project details**, and a **working demo video link**.
+Judges score projects out of **100 total points**. Option A (bring your own problem) and Option B (prepared case) use **this same rubric**. Submissions must include a **GitHub repository link** and **project details** (a working demo video link is optional but recommended).
 
 ---
 
@@ -84,7 +84,7 @@ Submissions close **Sunday, October 4, 2026 @ 12:00 PM MDT sharp — no exceptio
 - [ ] **GitHub repository link** — public repo containing source code, README, and run instructions
 - [ ] **About the project** — inspiration, learnings, build approach, challenges (Markdown + LaTeX)
 - [ ] **Screenshots** — min 2, max 5 images proving the app works
-- [ ] **Demo video / live-site link** — YouTube/Loom URL (recommended ≤ 5 minutes)
+- [ ] **Demo video / live-site link** — YouTube/Loom URL (optional but recommended, ≤ 5 minutes)
 
 ### Recommended Repository Contents
 

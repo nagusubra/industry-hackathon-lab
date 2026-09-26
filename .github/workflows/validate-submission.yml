@@ -37,7 +37,7 @@ jobs:
 
             // 2. Demo link (YouTube/Loom/http) should be present
             if (!/https?:\/\/(www\.)?(youtube\.com|youtu\.be|loom\.com|.*)/i.test(body)) {
-              notes.push("⚠️ No demo/live-site link detected in field 9. A link is REQUIRED (direct video upload capped at 10 MB on Free).");
+              notes.push("ℹ️ No demo/live-site link detected in field 9. A link is optional but recommended (direct video upload capped at 10 MB on Free).");
             }
 
             // 3. Screenshot count advisory (min 2, max 5) — count CDN image embeds

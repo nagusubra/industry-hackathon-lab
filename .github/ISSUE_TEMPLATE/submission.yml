@@ -106,10 +106,10 @@ body:
     id: demo-link
     attributes:
       label: 9. Link to Demo Video or Live Site
-      description: REQUIRED — YouTube (unlisted OK), Loom, or live-site URL.
+      description: Optional — YouTube (unlisted OK), Loom, or live-site URL (recommended).
       placeholder: https://youtube.com/... or https://your-demo-site/...
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: additional
