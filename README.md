@@ -56,7 +56,7 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
 - **1st prize:** $800 + 3 months of ElevenLabs Pro tier (~$300 per team member)
 - **2nd prize:** $600
 - **3rd prize:** $500
-- **Fan Favourite:** $100 — decided by most 👍 reactions on the submission issue (see [FAN_FAVOURITE.md](FAN_FAVOURITE.md))
+- **Fan Favourite:** $100 — decided by most 👍 reactions on the submission issue (voting ends Sun Oct 4, 4:00 PM MDT; see [FAN_FAVOURITE.md](FAN_FAVOURITE.md))
 - **Best Project Built with ElevenLabs:** 3 months of ElevenLabs Scale tier (~$900 per team member)
 
 ---

@@ -33,7 +33,7 @@ All times are **MDT (Calgary local, UTC-6)**.
 
 - The **Fan Favourite ($100)** winner is decided by community votes, not judges.
 - Anyone can vote by adding a 👍 (**thumbs up**) reaction to the **top post** of a submission issue.
-- The submission issue with the most 👍 reactions wins. See [FAN_FAVOURITE.md](FAN_FAVOURITE.md) for how to vote and how votes are counted.
+- The submission issue with the most 👍 reactions wins. Voting ends **Sun Oct 4, 4:00 PM MDT**. See [FAN_FAVOURITE.md](FAN_FAVOURITE.md) for how to vote and how votes are counted.
 
 ## Organizer runbook
 

@@ -2,7 +2,7 @@
 
 **Prize:** $100 for the **Fan Favourite** team.
 
-The Fan Favourite winner is decided **entirely by community votes** — not by judges. Every project submitted as a **Hackathon Submission issue** can be voted on. The submission issue with the most **👍 (thumbs up)** reactions wins.
+The Fan Favourite winner is decided **entirely by community votes** — not by judges. Every project submitted as a **Hackathon Submission issue** can be voted on. The submission issue with the most **👍 (thumbs up)** reactions wins. Voting ends **Sun Oct 4, 4:00 PM MDT**.
 
 ---
 
