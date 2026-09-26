@@ -47,40 +47,6 @@ Tip: click the 👍 counter on the top post to see the breakdown by emoji — th
 
 ---
 
-## How organizers count the votes
-
-### Option A — No code (GitHub UI, recommended for final call)
-
-1. Open each `[Submission]` issue.
-2. Look at the 👍 count on the **top post**.
-3. The highest 👍 wins.
-
-Or sort all submissions with `sort:reactions-+1-desc` and read off the top result.
-
-### Option B — GitHub CLI (exact 👍 count per issue)
-
-```bash
-# List submissions
-gh issue list --label submission --state all --limit 200 --json number,title,url
-
-# Show reactions for one issue (top post + comments)
-gh api repos/{owner}/{repo}/issues/{issue_number}/reactions --paginate -q '[.[] | .content] | group_by(.) | map({emoji: .[0], count: length})'
-
-# Example: count only THUMBS_UP (+1) on the top post
-gh api repos/{owner}/{repo}/issues/{issue_number}/reactions --paginate -q '[.[] | select(.content=="+1")] | length'
-```
-
-Notes:
-- The REST Reactions API returns reactions on the **issue top post** ( `issues/{n}/reactions` ). Comment reactions live under a different endpoint and are ignored.
-- In GraphQL the same emoji is called `THUMBS_UP`. In REST it appears as `"+1"`.
-- Reaction lists show each voter's `user.login`, so auditing for duplicates/fake accounts is straightforward.
-
-### Option C — Manual audit
-
-Click the 👍 counter on the top post to expand the full voter list and verify one-vote-per-user.
-
----
-
 ## For submitting teams
 
 - Your project is automatically entered for Fan Favourite when you file your **Hackathon Submission** issue — no extra step needed.
