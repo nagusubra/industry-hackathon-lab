@@ -65,6 +65,8 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
 
 Link: https://events.vtools.ieee.org/m/572071
 
+Please complete this pre-flight survey: https://forms.gle/kh93yzkrPAdDMD5v9
+
 > Please ask your team members to register as well. If you don't have any team members, we will find you a team.
 
 ---
