@@ -1,4 +1,4 @@
-# Registration — IEEE YP Industry Hackathon
+# Registration - IEEE YP Industry Hackathon
 
 ## Registration Information
 
@@ -17,7 +17,7 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
   - **1st prize:** $800 + 3 months of ElevenLabs Pro tier (~$300 per team member)
   - **2nd prize:** $600
   - **3rd prize:** $500
-  - **Fan Favourite:** $100 — decided by most 👍 reactions on the submission issue (voting ends Sun Oct 4, 4:00 PM MDT; see [FAN_FAVOURITE.md](FAN_FAVOURITE.md))
+  - **Fan Favourite:** $100 - decided by most 👍 reactions on the submission issue (voting ends Sun Oct 4, 4:00 PM MDT; see [FAN_FAVOURITE.md](FAN_FAVOURITE.md))
   - **Best Project Built with ElevenLabs:** 3 months of ElevenLabs Scale tier (~$900 per team member)
 - **Eligibility:** Open to All! (Innovators, Students, Professionals, and Researchers)
 - **Food:** Meals and refreshments provided!
@@ -47,7 +47,7 @@ Please ask your team members to register as well. If you don't have any team mem
 |---|---|
 | Official Kickoff & Team Formation | Friday, Oct 2 @ 5:00 PM MDT (repo goes public; submissions open) |
 | Hacking, Mentorship & Technical Support | Saturday, Oct 3 (All Day) |
-| Project Submissions Close (submission Issue due; sharp at 12:00 PM MDT — no exceptions) | Sunday, Oct 4 @ 12:00 PM MDT |
+| Project Submissions Close (submission Issue due; sharp at 12:00 PM MDT - no exceptions) | Sunday, Oct 4 @ 12:00 PM MDT |
 | Project Judging & Deliberation | Sunday, Oct 4 @ 1:00 PM – 4:00 PM MDT |
 | Winners Announced & Awards Presentation | Sunday, Oct 4 @ 4:00 PM MDT |
 | Hackathon Wrap-up, Closing Remarks & Networking | Sunday, Oct 4 @ 5:00 PM MDT |

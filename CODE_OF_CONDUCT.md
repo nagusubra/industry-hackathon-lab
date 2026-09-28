@@ -1,4 +1,4 @@
-# Code of Conduct — IEEE YP Industry Hackathon
+# Code of Conduct - IEEE YP Industry Hackathon
 
 Our event follows the IEEE Code of Conduct: treat all participants, mentors, judges, and organizers with respect and professionalism.
 
@@ -7,7 +7,7 @@ Our event follows the IEEE Code of Conduct: treat all participants, mentors, jud
 - Keep submissions and discussions appropriate; no secrets, credentials, or private data in public issues.
 - Organizers may remove content or disqualify participants for violations.
 
-Report concerns to Subramanian Narayanan (IEEE SAS YP Chair) — nagusubra@ieee.org.
+Report concerns to Subramanian Narayanan (IEEE SAS YP Chair) - nagusubra@ieee.org.
 
 ---
 

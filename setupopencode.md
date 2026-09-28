@@ -1,6 +1,6 @@
 # Setup OpenCode
 
-Follow these steps in order. Each command is in its own box — use the copy button in the top-right of the box.
+Follow these steps in order. Each command is in its own box - use the copy button in the top-right of the box.
 
 ## 1. Install Node.js
 

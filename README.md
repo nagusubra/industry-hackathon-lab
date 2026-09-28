@@ -2,10 +2,10 @@
 
 [![Repo traffic](https://raw.githubusercontent.com/nagusubra/traffic/main/doc/metric/industry-hackathon-lab/badge.svg)](https://nagusubra.github.io/traffic/doc/metric/industry-hackathon-lab/)
 
-**Hosted by:** IEEE Southern Alberta Section Young Professionals (IEEE SAS YP)  
-**Dates:** Friday, October 2 – Sunday, October 4, 2026 (Fri, Oct 2nd – Sun, Oct 4th)  
-**Duration:** 48-hour hackathon (48 hours)  
-**Location:** Collision Space, Hunter Hub, University of Calgary  
+**Hosted by:** IEEE Southern Alberta Section Young Professionals (IEEE SAS YP)
+**Dates:** Friday, October 2 – Sunday, October 4, 2026 (Fri, Oct 2nd – Sun, Oct 4th)
+**Duration:** 48-hour hackathon (48 hours)
+**Location:** Collision Space, Hunter Hub, University of Calgary
 **Website:** [southern-alberta.ieeecanada.org](https://southern-alberta.ieeecanada.org/)
 
 ---
@@ -44,7 +44,7 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
 
 ## Eligibility & Teams
 
-- **Eligibility:** Open to all — Innovators, Students, Professionals, and Researchers.
+- **Eligibility:** Open to all - Innovators, Students, Professionals, and Researchers.
 - **Team size:** Collaborative teams of **2 to 5 members**.
 - **Note:** Please ask your team members to register as well. If you don't have any team members, we will find you a team.
 - **Food:** Meals and refreshments provided!
@@ -56,7 +56,7 @@ Join the IEEE Southern Alberta Section Young Professionals for a 48-hour hackath
 - **1st prize:** $800 + 3 months of ElevenLabs Pro tier (~$300 per team member)
 - **2nd prize:** $600
 - **3rd prize:** $500
-- **Fan Favourite:** $100 — decided by most 👍 reactions on the submission issue (voting ends Sun Oct 4, 4:00 PM MDT; see [FAN_FAVOURITE.md](FAN_FAVOURITE.md))
+- **Fan Favourite:** $100 - decided by most 👍 reactions on the submission issue (voting ends Sun Oct 4, 4:00 PM MDT; see [FAN_FAVOURITE.md](FAN_FAVOURITE.md))
 - **Best Project Built with ElevenLabs:** 3 months of ElevenLabs Scale tier (~$900 per team member)
 
 ---
@@ -73,7 +73,7 @@ Please complete this pre-flight survey: https://forms.gle/kh93yzkrPAdDMD5v9
 
 ## Contact
 
-- **Contact / Sponsorship:** Subramanian Narayanan, IEEE SAS YP Chair — [nagusubra@ieee.org](mailto:nagusubra@ieee.org)
+- **Contact / Sponsorship:** Subramanian Narayanan, IEEE SAS YP Chair - [nagusubra@ieee.org](mailto:nagusubra@ieee.org)
 
 ---
 
@@ -89,11 +89,11 @@ flowchart TB
   B --> L
 ```
 
-**Step 1 — Form a team of 2–5 and choose exactly one industrial stream** (the three themes below).
+**Step 1 - Form a team of 2–5 and choose exactly one industrial stream** (the three themes below).
 
-**Step 2 — Choose Option A or Option B.**
+**Step 2 - Choose Option A or Option B.**
 
-### Option A — Bring your own problem
+### Option A - Bring your own problem
 
 Find your own problem statement and public dataset, build a solution, and present it to the judges. Stay inside your stream's theme. You are scored on the **same rubric** as prepared cases.
 
@@ -105,7 +105,7 @@ Your project must:
 4. Run **at least one plan → score → change the plan** cycle in **code** (not a single chat answer).
 5. Name **who would use it** (a City business unit, AESO, a retailer, a plant, a contractor).
 
-### Option B — Pick a prepared case
+### Option B - Pick a prepared case
 
 Choose **one** case from your stream's folder. Follow that case `README.md` and `data/README.md`.
 
@@ -115,7 +115,7 @@ Choose **one** case from your stream's folder. Follow that case `README.md` and 
 
 Projects are scored using weighted criteria totaling **100%**. See [JUDGING_RUBRIC.md](JUDGING_RUBRIC.md). Option A and Option B use the same criteria.
 
-**Required submission package (by Sunday, Oct 4 @ 12:00 PM MDT sharp — no exceptions):**
+**Required submission package (by Sunday, Oct 4 @ 12:00 PM MDT sharp - no exceptions):**
 
 Submit via **Issues → New Issue → Hackathon Submission** (one issue per team; repo goes public Fri Oct 2 @ 5:00 PM MDT). See [SUBMISSIONS.md](SUBMISSIONS.md) and [RULES.md](RULES.md).
 
@@ -125,10 +125,10 @@ Submit via **Issues → New Issue → Hackathon Submission** (one issue per team
 4. Project title
 5. Short tagline (3 lines max)
 6. Public GitHub repository link
-7. About the project (inspiration, what you learned, how you built it, challenges — Markdown + LaTeX)
+7. About the project (inspiration, what you learned, how you built it, challenges - Markdown + LaTeX)
 8. Project pictures/screenshots (min 2, max 5)
 9. Demo video or live-site link (YouTube/Loom URL)
-10. Additional info (Option A/B, datasets, test accounts) — optional
+10. Additional info (Option A/B, datasets, test accounts) - optional
 
 ---
 
@@ -163,7 +163,7 @@ Prepared cases cover: power grid optimization, building retrofits, wind shortage
 
 **Track examples:** Agents that automate the transition to quantum-safe encryption protocols, optimize low-level compiler performance for specialized hardware, or solve high-dimensional optimization problems in industrial logistics and robotics.
 
-**Theme:** Too few crews, trucks, and hours — including **hail, smoke, wildfire, and age-assurance flags**. Build a **schedule, dispatch list, flag list, route, or teen/adult classifier** that still works when a truck breaks, a storm hits, or someone lies about their birthday.
+**Theme:** Too few crews, trucks, and hours - including **hail, smoke, wildfire, and age-assurance flags**. Build a **schedule, dispatch list, flag list, route, or teen/adult classifier** that still works when a truck breaks, a storm hits, or someone lies about their birthday.
 
 | Case | Title |
 |---|---|
@@ -181,7 +181,7 @@ Prepared cases cover: 311 service request dispatching, snowplow and delivery rou
 
 **Track examples:** Agents that autonomously search for new battery cathode materials, optimize catalyst performance in chemical reactors, or design sustainable polymers with specific heat-resistance properties.
 
-**Theme:** Pick a mix, metal, or water sample that is strong enough, clean enough, and cheap enough — **against a number** (strength, voltage, or a legal limit).
+**Theme:** Pick a mix, metal, or water sample that is strong enough, clean enough, and cheap enough - **against a number** (strength, voltage, or a legal limit).
 
 | Case | Title |
 |---|---|
@@ -232,13 +232,13 @@ Each prepared case includes a plain-language brief (`README.md` with a flowchart
 
    Read that case `README.md` and `data/README.md`.
 5. Build a loop that reads real data, proposes an action, scores it, and revises at least once.
-6. Submit your Hackathon Submission issue (all 10 fields) by **Sunday, Oct 4 @ 12:00 PM MDT sharp — no exceptions**.
+6. Submit your Hackathon Submission issue (all 10 fields) by **Sunday, Oct 4 @ 12:00 PM MDT sharp - no exceptions**.
 
 ---
 
 ## License
 
-This laboratory repository is released under the [MIT License](LICENSE).  
+This laboratory repository is released under the [MIT License](LICENSE).
 © 2026 IEEE Southern Alberta Section Young Professionals
 
 ---

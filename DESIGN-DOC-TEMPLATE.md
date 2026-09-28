@@ -1,6 +1,6 @@
 # Software Design Document (SDD)
 
-> **How to use this template:** Copy this file into your project repo, replace every `[bracket]` with your content, and replace the example Mermaid diagrams below with your own. All diagrams below already render on GitHub — just edit them.
+> **How to use this template:** Copy this file into your project repo, replace every `[bracket]` with your content, and replace the example Mermaid diagrams below with your own. All diagrams below already render on GitHub - just edit them.
 > Mermaid comments use `%%`, not `#`.
 
 ## 1. Introduction
@@ -55,7 +55,7 @@
 
 ---
 
-## 4. Detailed Backend Design (logic — include your machine learning algorithm in here as well)
+## 4. Detailed Backend Design (logic - include your machine learning algorithm in here as well)
 For each module/component:
 
 ### [Component Name]
@@ -110,7 +110,7 @@ For each module/component:
 ## 8. Frontend / UX Design
 - **UX Design**: [Mockups for your frontend (note: use SVG files or HTML code so OpenCode can see them)]
 - **Frontend Design (What goes where)**:
-  - *Optional — replace the example below if helpful, otherwise delete it.*
+  - *Optional - replace the example below if helpful, otherwise delete it.*
 
     ```mermaid
     flowchart LR

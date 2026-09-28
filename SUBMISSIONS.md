@@ -1,12 +1,12 @@
-# Submissions Guide — IEEE YP Industry Hackathon
+# Submissions Guide - IEEE YP Industry Hackathon
 
-**Window:** Fri Oct 2, 2026 5:00 PM MDT → Sun Oct 4, 2026 12:00 PM MDT sharp — no exceptions.
+**Window:** Fri Oct 2, 2026 5:00 PM MDT → Sun Oct 4, 2026 12:00 PM MDT sharp - no exceptions.
 All times are **MDT (Calgary local, UTC-6)**.
 
 ## How to submit (one issue per team)
 
 1. Go to **Issues → New Issue → Hackathon Submission → Get started** (repo goes public at 5 PM Oct 2; the form is invisible while private).
-2. Fill all 10 fields: team name, 2–5 members with `@handles`, project stream, project title, tagline (3 lines max), public repo link, About (Markdown + LaTeX `$...$`), **min 2 / max 5 screenshots** (10 MB each on GitHub Free), demo video/live-site **link** (optional but recommended — YouTube unlisted or Loom; direct upload capped at 10 MB on Free), additional info.
+2. Fill all 10 fields: team name, 2–5 members with `@handles`, project stream, project title, tagline (3 lines max), public repo link, About (Markdown + LaTeX `$...$`), **min 2 / max 5 screenshots** (10 MB each on GitHub Free), demo video/live-site **link** (optional but recommended - YouTube unlisted or Loom; direct upload capped at 10 MB on Free), additional info.
 3. The validator bot comments within a minute (`needs-review`, or `needs-fix` / `late` as applicable).
 
 ## Editing rules
@@ -18,9 +18,9 @@ All times are **MDT (Calgary local, UTC-6)**.
 ## Deadlines & freezing
 
 - Cron schedules are UTC: open `55 22 2 10 *` (4:55 PM MDT buffer), close `0 18 4 10 *` (12:00 PM MDT exact).
-- Cron can lag 5–30 min, so the organizer manually triggers open/close workflows at 5 PM Fri / 12 PM Sun — Actions are the safety net.
+- Cron can lag 5–30 min, so the organizer manually triggers open/close workflows at 5 PM Fri / 12 PM Sun - Actions are the safety net.
 - At close the form is removed and every open `submission` issue is **locked** (`resolved`): no further edits or comments.
-- Issues created after 12:00 PM MDT get `late` and will not be accepted — no exceptions. Deadline is sharp at 12:00 PM MDT.
+- Issues created after 12:00 PM MDT get `late` and will not be accepted - no exceptions. Deadline is sharp at 12:00 PM MDT.
 
 ## Judging ops (1–4 PM MDT)
 
@@ -37,7 +37,7 @@ All times are **MDT (Calgary local, UTC-6)**.
 
 ## Organizer runbook
 
-### Late September (wake-up, keeps cron armed — GitHub disables schedules after 60 idle days)
+### Late September (wake-up, keeps cron armed - GitHub disables schedules after 60 idle days)
 - [ ] Push any commit or run `Open/Close Submissions` with `dry_run` to re-arm schedules.
 - [ ] Create labels: `submission, needs-review, under-review, judged, winner, needs-fix, late, duplicate`.
 
