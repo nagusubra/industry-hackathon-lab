@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Design Studio – UI mockup (text transcription)</title>
+<!--
+  WHAT THIS FILE IS
+  A structural transcription of a marketing image showing one product, "AI Design Studio",
+  on three devices: a desktop monitor, a tablet and a phone. All three show the SAME app;
+  only the layout changes. This HTML reproduces the desktop layout, and the CSS media
+  queries reproduce the tablet and phone layouts.
+
+  VISUAL STYLE (from the image)
+  - Font: Inter (clean geometric sans-serif). Headlines semibold, tight letter spacing;
+    body text regular, muted blue-grey.
+  - Dark theme: near-black navy backgrounds (#070b1f to #0f1530), cards slightly lighter,
+    thin borders in dark blue.
+  - Accent: electric blue (#3b6cff) for primary buttons, icons and glowing graphics.
+    Positive stats green, negative red.
+  - Images (all recreated in code, no image files):
+      * Hero: a glowing electric-blue particle wave flowing across the right side,
+        made of thousands of tiny dots forming ribbon-like curves with a soft glow.
+      * About: an abstract "landscape" of layered rolling waves, blue fading into violet,
+        with a light glow on the horizon.
+      * AI avatar: a glowing blue-violet sphere (orb).
+      * Feature cards: small outline icons in blue.
+
+  LAYOUT (desktop, three columns inside an app shell)
+  +------------------------------------------------------------------+
+  | Top bar: logo | device toggles, 1440px | Preview  Publish         |
+  +-------------+--------------------------------+-------------------+
+  | AI Assistant| Website preview (canvas)       | Analytics         |
+  | Suggestions |  nav, hero, 3 feature cards,   | SEO score         |
+  | Design sys. |  About section                 | Automations       |
+  +-------------+--------------------------------+-------------------+
+
+  Small numbers in the image are tiny; values marked data-approx="true" are best readings.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070b1f;--panel:#0d1330;--card:#131a3d;--line:#1f2a5a;--text:#eef1ff;--muted:#8a94c0;--blue:#3b6cff;--blue-hi:#6f93ff;--green:#3ecf8e;--red:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font:inherit;font-weight:500;border-radius:7px;border:1px solid var(--line);background:var(--card);color:var(--text);padding:.5rem .9rem;cursor:pointer}
+  button.primary{background:var(--blue);border-color:var(--blue);box-shadow:0 0 18px rgba(59,108,255,.45)}
+  button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  h1,h2,h3,h4{margin:.2em 0;font-weight:600;letter-spacing:-.02em}
+  h3{font-size:14px} h4{font-size:12px;color:var(--muted);font-weight:500;margin-top:1rem}
+  p{margin:.4em 0;color:var(--muted)}
+  ul{list-style:none;margin:0;padding:0}
+  a{color:var(--blue-hi);text-decoration:none;font-weight:500}
+
+  .app-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1.2rem;border-bottom:1px solid var(--line);background:var(--panel)}
+  .logo{font-weight:600;font-size:15px;display:flex;align-items:center;gap:.5rem}
+  .logo svg{width:18px;height:18px}
+  .device-toggle{display:flex;gap:.3rem;align-items:center}
+  .device-toggle button{padding:.35rem .6rem;font-size:12px}
+  .device-toggle button[aria-pressed="true"]{border-color:var(--blue);color:var(--blue-hi)}
+  .actions{display:flex;gap:.4rem}
+
+  .workspace{display:grid;grid-template-columns:240px 1fr 260px;gap:1rem;padding:1rem}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem}
+  .assistant-head{display:flex;gap:.7rem;align-items:flex-start}
+  .orb{flex:0 0 40px;height:40px}
+  .suggestion{display:flex;justify-content:space-between;align-items:center;gap:.5rem;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.5rem .6rem;margin:.4rem 0;font-weight:500}
+  .suggestion small{color:var(--muted);font-weight:400}
+  .gain{color:var(--green);font-weight:600;font-size:12px}
+  .loss{color:var(--red);font-weight:600;font-size:12px}
+  .assistant-actions button{display:block;width:100%;margin-top:.5rem}
+  .swatches{display:flex;gap:.45rem}
+  .swatch{width:24px;height:24px;border-radius:50%;border:1px solid var(--line)}
+  .type-tiles{display:flex;gap:.5rem}
+  .type-tile{width:64px;height:56px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:20px}
+  .spacing{display:flex;gap:.4rem}.spacing button{flex:1;padding:.35rem 0}
+
+  .canvas{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .site-nav{display:flex;justify-content:flex-end;align-items:center;gap:1.2rem;padding:.9rem 1.4rem;color:var(--text);font-size:12px;font-weight:500;position:relative;z-index:2}
+  .site-nav button{padding:.35rem .8rem;font-size:12px}
+  .hero{position:relative;padding:2.5rem 2rem 3rem;overflow:hidden;min-height:300px}
+  #hero-wave{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero-copy{position:relative;z-index:1;max-width:340px}
+  .hero h1{font-size:30px;line-height:1.15;margin:.3rem 0 .8rem}
+  .hero .buttons{display:flex;gap:.5rem;margin-top:1.2rem}
+  .eyebrow{color:var(--blue-hi);font-size:10px;font-weight:600;letter-spacing:.06em}
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;padding:0 2rem 1.5rem}
+  .feature{background:rgba(19,26,61,.8);border:1px solid var(--line);border-radius:10px;padding:1rem}
+  .feature svg{width:22px;height:22px;margin-bottom:.4rem}
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;padding:1.5rem 2rem 2rem;align-items:center}
+  .about svg{width:100%;height:auto;border-radius:10px;display:block}
+  .about h2{font-size:20px;line-height:1.25}
+
+  .panel-head{display:flex;justify-content:space-between;align-items:baseline}
+  .panel-head small{color:var(--muted);font-size:11px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-top:.6rem}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.45rem;font-size:11px;color:var(--muted)}
+  .stat strong{display:block;font-size:16px;color:var(--text);font-weight:600}
+  .chart{width:100%;height:80px;margin-top:.6rem;display:block}
+  .seo-score{display:flex;align-items:center;gap:.8rem;margin:.6rem 0}
+  .seo-score svg{flex:0 0 58px}
+  .checks li{margin:.35rem 0}
+  .checks li::before{content:"✓";display:inline-grid;place-items:center;width:15px;height:15px;margin-right:.45rem;border-radius:50%;background:var(--green);color:#062;font-size:10px;font-weight:700}
+  .status{color:var(--green);font-size:11px;font-weight:500}
+  .toggle{width:28px;height:16px;border-radius:9px;background:var(--blue);position:relative}
+  .toggle::after{content:"";position:absolute;right:2px;top:2px;width:12px;height:12px;border-radius:50%;background:#fff}
+
+  /* TABLET (~768–1024px): the three columns collapse. AI Assistant spans full width at the top,
+     suggestions show in two columns, "Apply all" and "Regenerate" sit side by side,
+     then the website preview, then Analytics as a horizontal strip. SEO and Automations are not visible. */
+  @media (max-width:1024px){
+    .workspace{grid-template-columns:1fr}
+    #suggestion-list{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+    .assistant-actions{display:flex;gap:.5rem}.assistant-actions button{margin-top:.5rem}
+    #design-system,#seo,#automations,.device-toggle{display:none}
+  }
+  /* PHONE (<600px): single column. Top bar shows only logo and a menu icon.
+     AI Assistant, suggestions stacked in one column, buttons stacked full width, then the hero. */
+  @media (max-width:600px){
+    #suggestion-list{grid-template-columns:1fr}
+    .assistant-actions{display:block}
+    .features,.about,.stats{grid-template-columns:1fr}
+    .app-bar .actions{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){#hero-wave{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- Shared gradients reused by the orb, icons and charts -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="orbGrad" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#cfe0ff"/><stop offset=".35" stop-color="#4d7bff"/>
+      <stop offset=".75" stop-color="#3b1fb0"/><stop offset="1" stop-color="#140c4a"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ============ APP TOP BAR ============ -->
+<header class="app-bar" aria-label="Editor toolbar">
+  <div class="logo">
+    <!-- Logo mark: four-pointed blue sparkle -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 L14.2 9.8 L23 12 L14.2 14.2 L12 23 L9.8 14.2 L1 12 L9.8 9.8Z" fill="#6f93ff"/></svg>
+    AI Design Studio
+  </div>
+  <nav class="device-toggle" aria-label="Preview size">
+    <button aria-pressed="true" title="Desktop view">Desktop</button>
+    <button title="Laptop view">Laptop</button>
+    <button title="Tablet view">Tablet</button>
+    <button title="Phone view">Phone</button>
+    <button title="Canvas width">1440px ▾</button>
+    <button title="Refresh preview">↻</button>
+  </nav>
+  <div class="actions">
+    <button title="Undo">↶</button>
+    <button title="Redo">↷</button>
+    <button>Preview</button>
+    <button class="primary">Publish</button>
+  </div>
+</header>
+
+<main class="workspace">
+
+  <!-- ============ LEFT SIDEBAR ============ -->
+  <aside aria-label="Assistant and design settings">
+    <section class="panel" id="ai-assistant">
+      <h3>AI Assistant</h3>
+      <div class="assistant-head">
+        <!-- AI avatar: glowing blue-violet sphere -->
+        <svg class="orb" viewBox="0 0 40 40" role="img" aria-label="Glowing blue orb avatar representing the AI">
+          <circle cx="20" cy="20" r="15" fill="url(#orbGrad)" filter="url(#glow)"/>
+        </svg>
+        <p>I've analyzed your business and created a design that converts.</p>
+      </div>
+
+      <h4>Smart Suggestions</h4>
+      <!-- Each suggestion: an action, a short reason, and the predicted improvement. -->
+      <ul id="suggestion-list">
+        <li class="suggestion"><span>Stronger hero headline<br><small>Increases engagement</small></span><span class="gain">+23%</span></li>
+        <li class="suggestion"><span>Add social proof section<br><small>Builds trust</small></span><span class="gain">+18%</span></li>
+        <li class="suggestion"><span>Include benefits grid<br><small>Improves clarity</small></span><span class="gain">+31%</span></li>
+      </ul>
+      <div class="assistant-actions">
+        <button class="primary">Apply All Suggestions</button>
+        <button>Regenerate Design</button>
+      </div>
+    </section>
+
+    <section class="panel" id="design-system">
+      <h3>Design System</h3>
+      <h4>Colors</h4>
+      <div class="swatches" role="img" aria-label="Brand palette: bright blue, navy, royal blue, indigo, violet, white, near-black">
+        <span class="swatch" style="background:#3b6cff"></span>
+        <span class="swatch" style="background:#1b2a6b"></span>
+        <span class="swatch" style="background:#2c3fb8"></span>
+        <span class="swatch" style="background:#5b4fe0"></span>
+        <span class="swatch" style="background:#a066ff"></span>
+        <span class="swatch" style="background:#ffffff"></span>
+        <span class="swatch" style="background:#070b1f"></span>
+      </div>
+      <h4>Typography</h4>
+      <!-- Two font samples: heading weight and body weight of the same sans-serif -->
+      <div class="type-tiles">
+        <div class="type-tile" style="font-weight:600" aria-label="Heading font sample">Aa</div>
+        <div class="type-tile" style="font-weight:400" aria-label="Body font sample">Aa</div>
+      </div>
+      <h4>Spacing</h4>
+      <div class="spacing" role="group" aria-label="Spacing scale"><button>S</button><button>M</button><button>L</button><button>XL</button></div>
+    </section>
+  </aside>
+
+  <!-- ============ CENTRE: LIVE WEBSITE PREVIEW ============ -->
+  <!-- This is the website being designed, shown inside the editor canvas. -->
+  <section class="canvas" aria-label="Website preview">
+    <nav class="site-nav" aria-label="Preview site navigation">
+      <span>Home</span><span>Services</span><span>About</span><span>Work</span><span>Blog</span><span>Contact</span>
+      <button class="primary">Get Started</button>
+    </nav>
+
+    <div class="hero">
+      <!-- Hero image: glowing electric-blue particle wave on the right side.
+           Drawn by the script at the bottom of the page (decorative). -->
+      <canvas id="hero-wave" role="img" aria-label="Glowing blue particle wave flowing across the right side"></canvas>
+      <div class="hero-copy">
+        <div class="eyebrow">AI-POWERED SOLUTIONS</div>
+        <h1>Intelligent websites that drive results</h1>
+        <p>We create AI-enhanced digital experiences that engage users, boost conversions, and grow your business.</p>
+        <div class="buttons">
+          <button class="primary">Get Started</button>
+          <button>See How It Works</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <article class="feature">
+        <!-- Icon: brain / chip outline -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6f93ff" stroke-width="1.6" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>
+        <h3>AI Strategy</h3><p>Data-driven insights that shape smarter digital strategies.</p>
+      </article>
+      <article class="feature">
+        <!-- Icon: layout / design outline -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6f93ff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12"/></svg>
+        <h3>Automated Design</h3><p>AI-powered designs tailored to your brand and goals.</p>
+      </article>
+      <article class="feature">
+        <!-- Icon: refresh / optimisation cycle -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6f93ff" stroke-width="1.6" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3"/><path d="M4 4v4h4M20 20v-4h-4"/></svg>
+        <h3>Continuous Optimization</h3><p>Real-time improvements for better performance.</p>
+      </article>
+    </div>
+
+    <div class="about">
+      <!-- About image: layered rolling waves, blue to violet, glowing horizon -->
+      <svg viewBox="0 0 300 180" role="img" aria-label="Abstract landscape of glowing blue and purple rolling waves">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1240"/><stop offset=".6" stop-color="#2a3fb8"/><stop offset="1" stop-color="#7b8cff"/></linearGradient>
+          <linearGradient id="w1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5c7dff"/><stop offset="1" stop-color="#2a1a8a"/></linearGradient>
+          <linearGradient id="w2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b4fd8"/><stop offset="1" stop-color="#1a0f5c"/></linearGradient>
+          <linearGradient id="w3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e2a8c"/><stop offset="1" stop-color="#0a0730"/></linearGradient>
+        </defs>
+        <rect width="300" height="180" fill="url(#sky)"/>
+        <ellipse cx="190" cy="92" rx="90" ry="14" fill="#b8c6ff" opacity=".35" filter="url(#glow)"/>
+        <path d="M0 105 C60 80 110 120 170 98 S260 80 300 95 V180 H0Z" fill="url(#w1)"/>
+        <path d="M0 128 C50 108 120 145 180 120 S265 110 300 124 V180 H0Z" fill="url(#w2)"/>
+        <path d="M0 152 C70 132 130 168 200 146 S270 140 300 150 V180 H0Z" fill="url(#w3)"/>
+        <path d="M0 105 C60 80 110 120 170 98 S260 80 300 95" fill="none" stroke="#c9d5ff" stroke-width="1" opacity=".7"/>
+        <path d="M0 128 C50 108 120 145 180 120 S265 110 300 124" fill="none" stroke="#8fa3ff" stroke-width=".8" opacity=".6"/>
+      </svg>
+      <div>
+        <div class="eyebrow">ABOUT US</div>
+        <h2>We blend creativity with artificial intelligence</h2>
+        <p>Our AI technology analyzes data, predicts user behavior, and automatically optimizes your website for maximum impact and results.</p>
+        <a href="#">Learn More →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RIGHT SIDEBAR ============ -->
+  <aside aria-label="Site performance">
+    <section class="panel" id="analytics">
+      <div class="panel-head"><h3>Analytics</h3><small>Last 30 days ▾</small></div>
+      <div class="stats">
+        <div class="stat">Visitors<strong>24.5K</strong><span class="gain" data-approx="true">+12.5%</span></div>
+        <div class="stat">Conversions<strong>3.2K</strong><span class="gain" data-approx="true">+18.1%</span></div>
+        <div class="stat">Bounce Rate<strong>24%</strong><span class="loss" data-approx="true">-5.2%</span></div>
+      </div>
+      <!-- Line chart: visitors over 30 days, jagged but trending upward, with a blue glow and fading area fill -->
+      <svg class="chart" viewBox="0 0 200 60" preserveAspectRatio="none" role="img" aria-label="Line chart trending upward over 30 days">
+        <defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b6cff" stop-opacity=".45"/><stop offset="1" stop-color="#3b6cff" stop-opacity="0"/></linearGradient></defs>
+        <g stroke="#1f2a5a" stroke-width=".5"><line x1="0" y1="15" x2="200" y2="15"/><line x1="0" y1="30" x2="200" y2="30"/><line x1="0" y1="45" x2="200" y2="45"/></g>
+        <polygon fill="url(#area)" points="0,48 20,40 35,44 55,30 70,36 90,24 110,32 130,18 150,26 170,14 200,10 200,60 0,60"/>
+        <polyline fill="none" stroke="#5b86ff" stroke-width="1.8" filter="url(#glow)" points="0,48 20,40 35,44 55,30 70,36 90,24 110,32 130,18 150,26 170,14 200,10"/>
+      </svg>
+    </section>
+
+    <section class="panel" id="seo">
+      <h3>SEO Optimization</h3>
+      <div class="seo-score">
+        <!-- Circular progress ring, 92% filled in green -->
+        <svg viewBox="0 0 58 58" role="img" aria-label="SEO score 92 out of 100">
+          <circle cx="29" cy="29" r="24" fill="none" stroke="#1f2a5a" stroke-width="5"/>
+          <circle cx="29" cy="29" r="24" fill="none" stroke="#3ecf8e" stroke-width="5" stroke-linecap="round"
+                  stroke-dasharray="138.7 150.8" transform="rotate(-90 29 29)"/>
+          <text x="29" y="34" text-anchor="middle" fill="#eef1ff" font-size="15" font-weight="700" font-family="Inter,sans-serif">92</text>
+        </svg>
+        <div><strong>Excellent</strong><p>Your site is optimized for search engines.</p></div>
+      </div>
+      <ul class="checks">
+        <li>Meta tags optimized</li>
+        <li>Content quality high</li>
+        <li>Mobile friendly</li>
+        <li>Site speed fast</li>
+      </ul>
+      <p><a href="#">View SEO Report</a></p>
+    </section>
+
+    <section class="panel" id="automations">
+      <h3>Automations</h3>
+      <ul>
+        <li class="suggestion"><span>AI Content Updates<br><span class="status">Active</span></span><span class="toggle" role="img" aria-label="Toggle on"></span></li>
+        <li class="suggestion"><span>Performance Monitor<br><span class="status">Active</span></span><span class="toggle" role="img" aria-label="Toggle on"></span></li>
+      </ul>
+    </section>
+  </aside>
+
+</main>
+
+<script>
+/* Draws the hero image: several ribbons of tiny glowing dots that flow as sine waves
+   across the right side of the hero, brightest in the middle, fading at the edges. */
+(function(){
+  const c = document.getElementById('hero-wave'); if(!c) return;
+  const ctx = c.getContext('2d');
+  function draw(){
+    const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    c.width = r.width*dpr; c.height = r.height*dpr; ctx.scale(dpr,dpr);
+    const W = r.width, H = r.height;
+    ctx.clearRect(0,0,W,H);
+    const g = ctx.createRadialGradient(W*.75,H*.5,0,W*.75,H*.5,H*.55);
+    g.addColorStop(0,'rgba(40,80,255,.30)'); g.addColorStop(1,'rgba(7,11,31,0)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'lighter'; ctx.shadowColor = 'rgba(90,140,255,.9)'; ctx.shadowBlur = 6;
+    const lines = 34, pts = 110;
+    for(let l=0;l<lines;l++){
+      const t = l/(lines-1);
+      for(let i=0;i<pts;i++){
+        const u = i/(pts-1), x = W*(.3 + u*.75) + (t-.5)*W*.07 + Math.sin(t*9+u*4)*4;
+        /* ribbon rises to the right and fans out: strands spread further apart as u grows */
+        const y = H*(.72 - .25*u + .09*Math.sin(u*5 + t*2.2) + (t-.5)*.42*(.15+u*u));
+        const fade = Math.pow(Math.sin(Math.PI*u),1.2) * (0.35 + 0.65*Math.sin(Math.PI*t));
+        ctx.fillStyle = `rgba(${110+120*fade|0},${150+95*fade|0},255,${.05+.75*fade})`;
+        ctx.beginPath(); ctx.arc(x,y,.5+1.1*fade,0,Math.PI*2); ctx.fill();
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  draw(); window.addEventListener('resize', draw);
+})();
+</script>
+</body>
+</html>
