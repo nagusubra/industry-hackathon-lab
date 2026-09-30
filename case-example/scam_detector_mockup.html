@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scam Text Risk Studio</title>
+<!--
+  Presentation mockup for the SMS scam detection desktop app (see fullstack-design-doc-tutorial.md).
+  Visual style follows ai_design_studio_mockup.html: dark navy, electric blue accent, Inter, glowing particle wave.
+  Everything is mock data in the page. No backend, no Supabase.
+  Flow: Login -> Upload (progress + popup) -> Clean (progress) -> Train (4 stages) -> Results (ranked list, feedback, info popup) -> Upload new data.
+  Tip for presenters: the stepper in the top bar lets you jump between pages once you are logged in.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070b1f;--panel:#0d1330;--card:#131a3d;--line:#1f2a5a;--text:#eef1ff;--muted:#8a94c0;--blue:#3b6cff;--blue-hi:#6f93ff;--green:#3ecf8e;--red:#ff6b6b;--amber:#f5b94a;--violet:#a066ff}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter","Segoe UI",system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font:inherit;font-weight:500;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);padding:.55rem 1rem;cursor:pointer;transition:border-color .15s,background .15s,transform .05s}
+  button:hover:not(:disabled){border-color:var(--blue-hi)}
+  button:active:not(:disabled){transform:translateY(1px)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.primary{background:var(--blue);border-color:var(--blue);box-shadow:0 0 18px rgba(59,108,255,.45)}
+  button.primary:hover:not(:disabled){background:#5580ff}
+  button:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  h1,h2,h3,h4{margin:.2em 0;font-weight:600;letter-spacing:-.02em}
+  h1{font-size:26px} h2{font-size:20px} h3{font-size:15px}
+  p{margin:.4em 0;color:var(--muted)}
+  ul{list-style:none;margin:0;padding:0}
+  a{color:var(--blue-hi);text-decoration:none;font-weight:500}
+  .eyebrow{color:var(--blue-hi);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+  .hidden{display:none!important}
+
+  /* ---------- desktop window frame ---------- */
+  .window{max-width:1360px;height:100vh;margin:0 auto;display:flex;flex-direction:column;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  .titlebar{display:flex;align-items:center;gap:.6rem;padding:.45rem .9rem;background:#050819;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+  .dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;background:#2a3566;display:block}
+  .titlebar .ttl{flex:1;text-align:center;margin-right:40px}
+  .screen{flex:1;overflow:auto;position:relative}
+
+  /* ---------- login ---------- */
+  #login{display:grid;place-items:center;min-height:100%;padding:2rem;position:relative;overflow:hidden}
+  #login canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .login-card{position:relative;z-index:1;width:380px;max-width:100%;background:rgba(13,19,48,.88);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:16px;padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .brand{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:16px}
+  .brand svg{width:20px;height:20px}
+  label{display:block;font-size:12px;color:var(--muted);margin:1rem 0 .3rem;font-weight:500}
+  input[type=text],input[type=password]{width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem;color:var(--text);font:inherit}
+  input:focus{border-color:var(--blue)}
+  .login-card .primary{width:100%;margin-top:1.3rem;padding:.7rem}
+  .err{color:var(--red);font-size:12px;margin-top:.6rem;min-height:1.2em}
+  .note{font-size:12px;color:var(--muted);text-align:center;margin-top:1rem}
+  .lock{display:inline-flex;gap:.35rem;align-items:center;font-size:11px;color:var(--green);background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.3);padding:.15rem .55rem;border-radius:99px;margin-top:.6rem}
+
+  /* ---------- app shell ---------- */
+  .appbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1.4rem;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+  .stepper{display:flex;gap:.3rem;align-items:center}
+  .step{display:flex;align-items:center;gap:.5rem;padding:.35rem .8rem;border-radius:99px;border:1px solid transparent;background:none;color:var(--muted);font-size:13px}
+  .step .n{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--card);border:1px solid var(--line)}
+  .step.active{color:var(--text);border-color:var(--blue);background:rgba(59,108,255,.12)}
+  .step.active .n{background:var(--blue);border-color:var(--blue)}
+  .step.done .n{background:var(--green);border-color:var(--green);color:#052}
+  .sep{width:18px;height:1px;background:var(--line)}
+  .user{display:flex;align-items:center;gap:.7rem;font-size:12px;color:var(--muted)}
+  .avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));display:grid;place-items:center;color:#fff;font-weight:600;font-size:12px}
+  .role{font-size:10px;padding:.1rem .45rem;border-radius:99px;border:1px solid var(--line);color:var(--blue-hi)}
+  .page{max-width:1080px;margin:0 auto;padding:1.8rem 1.6rem 3rem}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.3rem;margin-top:1.2rem}
+  .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:1.2rem}
+
+  /* upload */
+  .drop{border:1.5px dashed #2c3a7a;border-radius:14px;padding:2.4rem 1rem;text-align:center;background:rgba(19,26,61,.5);cursor:pointer;transition:.15s}
+  .drop:hover{border-color:var(--blue-hi);background:rgba(59,108,255,.08)}
+  .drop svg{width:38px;height:38px;margin-bottom:.4rem}
+  .chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
+  .chip{font-size:11px;font-family:ui-monospace,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.15rem .5rem;color:var(--blue-hi)}
+  .file-row{display:flex;align-items:center;gap:.8rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.7rem 1rem}
+  .file-row .ic{width:34px;height:34px;border-radius:8px;background:rgba(59,108,255,.15);display:grid;place-items:center;color:var(--blue-hi);font-size:11px;font-weight:700}
+  .file-row .meta{flex:1}.file-row .meta strong{display:block}.file-row small{color:var(--muted)}
+  .bar{height:8px;background:var(--card);border:1px solid var(--line);border-radius:99px;overflow:hidden;margin-top:.6rem}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--violet));border-radius:99px;box-shadow:0 0 12px rgba(59,108,255,.7);transition:width .15s linear}
+  .bar.big{height:12px}
+  .prog-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:.8rem}
+
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{text-align:left;color:var(--muted);font-weight:500;padding:.45rem .6rem;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:.5rem .6rem;border-bottom:1px solid rgba(31,42,90,.6);white-space:nowrap}
+  td.txt{white-space:normal;max-width:300px}
+  .tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin-top:.8rem}
+  .mono{font-family:ui-monospace,Consolas,monospace}
+
+  /* clean */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem;font-size:12px;color:var(--muted)}
+  .stat strong{display:block;font-size:24px;color:var(--text);font-weight:600;letter-spacing:-.02em}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1rem}
+  .gain{color:var(--green);font-weight:600;font-size:12px}.loss{color:var(--red);font-weight:600;font-size:12px}
+  .cleanlist li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(31,42,90,.6);font-size:13px}
+  .cleanlist li span:last-child{color:var(--amber);font-weight:600}
+
+  /* train */
+  .stages li{display:flex;gap:.9rem;align-items:center;padding:.8rem 1rem;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-top:.6rem;opacity:.5;transition:.2s}
+  .stages li.run,.stages li.ok{opacity:1}
+  .stages li.run{border-color:var(--blue);box-shadow:0 0 18px rgba(59,108,255,.25)}
+  .stages .ico{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);font-size:12px;font-weight:700;flex:0 0 26px}
+  .stages li.ok .ico{background:var(--green);border-color:var(--green);color:#052}
+  .stages li.run .ico{border-color:var(--blue);border-top-color:transparent;animation:spin .8s linear infinite}
+  .stages .info{flex:1}.stages small{color:var(--muted);display:block}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .orbwrap{display:flex;gap:1rem;align-items:center}
+  .orb{width:56px;height:56px;flex:0 0 56px}
+  .models{width:100%}
+  .models td,.models th{padding:.6rem .7rem}
+  .best{color:var(--green);font-weight:600}
+
+  /* results */
+  .toolbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+  .tabs{display:flex;gap:.4rem}
+  .tab{padding:.35rem .8rem;font-size:12px;border-radius:99px}
+  .tab[aria-pressed="true"]{border-color:var(--blue);color:var(--blue-hi);background:rgba(59,108,255,.12)}
+  .msg{display:grid;grid-template-columns:54px 1fr auto;gap:1rem;align-items:center;background:var(--panel);border:1px solid var(--line);border-left-width:3px;border-radius:12px;padding:.9rem 1rem;margin-top:.7rem;transition:.15s}
+  .msg:hover{background:#101740}
+  .msg.hold{border-left-color:var(--red)}.msg.warn{border-left-color:var(--amber)}.msg.deliver{border-left-color:var(--green)}
+  .ring{position:relative;width:54px;height:54px}
+  .ring svg{width:54px;height:54px;transform:rotate(-90deg)}
+  .ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:14px;font-weight:700}
+  .msg .body .top{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+  .msg .text{margin:.25rem 0 .45rem;color:var(--text);font-size:14px}
+  .badge{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .55rem;border-radius:99px}
+  .badge.hold{background:rgba(255,107,107,.15);color:var(--red)}
+  .badge.warn{background:rgba(245,185,74,.15);color:var(--amber)}
+  .badge.deliver{background:rgba(62,207,142,.15);color:var(--green)}
+  .sig{font-size:11px;padding:.12rem .5rem;border-radius:6px;background:var(--card);border:1px solid var(--line);color:var(--muted);margin-right:.3rem;display:inline-block;margin-top:.15rem}
+  .sig.m{color:#ffd27a;border-color:rgba(245,185,74,.4)}.sig.r{color:#ff9d9d;border-color:rgba(255,107,107,.4)}
+  .fb{display:flex;flex-direction:column;gap:.35rem;min-width:150px}
+  .fb small{color:var(--muted);font-size:11px;text-align:center}
+  .fb button{padding:.35rem .7rem;font-size:12px}
+  .fb button.sel-yes{border-color:var(--green);color:var(--green);background:rgba(62,207,142,.1)}
+  .fb button.sel-no{border-color:var(--red);color:var(--red);background:rgba(255,107,107,.1)}
+  .fbdone{font-size:11px;text-align:center;color:var(--green)}
+  .legend{display:flex;gap:1.2rem;font-size:12px;color:var(--muted);margin-top:.8rem;flex-wrap:wrap}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.4rem}
+  .iconbtn{width:32px;height:32px;padding:0;border-radius:50%;display:inline-grid;place-items:center;font-weight:700;color:var(--blue-hi)}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(3,5,18,.7);backdrop-filter:blur(4px);display:grid;place-items:center;z-index:50;padding:1rem;animation:fade .15s}
+  .modal{width:560px;max-width:100%;max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.6rem;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:pop .18s}
+  .modal .actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:1.3rem}
+  .modal h3{font-size:17px}
+  .modal h4{margin:1.1rem 0 .2rem;font-size:13px;color:var(--blue-hi)}
+  .modal ul.b{list-style:disc;padding-left:1.1rem;color:var(--muted)}.modal ul.b li{margin:.25rem 0}
+  .check{width:54px;height:54px;border-radius:50%;background:rgba(62,207,142,.15);border:1px solid var(--green);display:grid;place-items:center;color:var(--green);font-size:26px;margin-bottom:.6rem}
+  @keyframes fade{from{opacity:0}}@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}
+  .toast{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--green);color:var(--text);padding:.6rem 1.1rem;border-radius:10px;font-size:13px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+
+  @media (max-width:900px){
+    .grid2,.ba{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}
+    .stepper .sep,.user .who{display:none}
+    .msg{grid-template-columns:54px 1fr}.fb{grid-column:1/-1;flex-direction:row;align-items:center;flex-wrap:wrap}
+  }
+  @media (max-width:600px){.step span.l{display:none}.page{padding:1.2rem 1rem 2rem}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="orbGrad" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#cfe0ff"/><stop offset=".35" stop-color="#4d7bff"/>
+      <stop offset=".75" stop-color="#3b1fb0"/><stop offset="1" stop-color="#140c4a"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<div class="window">
+  <div class="titlebar" aria-hidden="true">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <div class="ttl">Scam Text Risk Studio</div>
+  </div>
+
+  <div class="screen" id="screen">
+
+    <!-- ================= LOGIN ================= -->
+    <section id="login">
+      <canvas id="wave" aria-hidden="true"></canvas>
+      <form class="login-card" id="login-form" autocomplete="off">
+        <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 L14.2 9.8 L23 12 L14.2 14.2 L12 23 L9.8 14.2 L1 12 L9.8 9.8Z" fill="#6f93ff"/></svg>Scam Text Risk Studio</div>
+        <h1 style="margin-top:1.2rem">Welcome back</h1>
+        <p>Sign in with the account your administrator created for you.</p>
+        <label for="u">Username</label>
+        <input type="text" id="u" value="analyst.rahul" aria-label="Username">
+        <label for="p">Password</label>
+        <input type="password" id="p" value="correct-horse-battery" aria-label="Password">
+        <div class="err" id="login-err" role="alert"></div>
+        <button class="primary" type="submit" id="login-btn">Sign in</button>
+        <div class="note">No register option. Accounts are added manually by an admin.</div>
+        <div style="text-align:center"><span class="lock">&#128274; Detection logic stays on the server</span></div>
+      </form>
+    </section>
+
+    <!-- ================= APP ================= -->
+    <section id="app" class="hidden">
+      <header class="appbar">
+        <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 L14.2 9.8 L23 12 L14.2 14.2 L12 23 L9.8 14.2 L1 12 L9.8 9.8Z" fill="#6f93ff"/></svg><span class="who">Scam Risk Studio</span></div>
+        <nav class="stepper" id="stepper" aria-label="Workflow"></nav>
+        <div class="user">
+          <span class="role">admin</span>
+          <span class="who">analyst.rahul</span>
+          <span class="avatar">R</span>
+          <button id="logout" style="padding:.3rem .7rem;font-size:12px">Log out</button>
+        </div>
+      </header>
+
+      <!-- Upload -->
+      <main class="page" id="p-upload">
+        <div class="eyebrow">Step 1 of 4</div>
+        <h1>Upload your text message data</h1>
+        <p>Choose a CSV in the <span class="mono" style="color:var(--blue-hi)">sms_scam_joined.csv</span> format. Nothing is scored until you clean and train.</p>
+
+        <div class="grid2">
+          <div>
+            <div class="panel" style="margin-top:1.2rem">
+              <div id="drop" class="drop" tabindex="0" role="button" aria-label="Choose CSV file">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6f93ff" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+                <div><strong>Drop a CSV here</strong> or click to browse</div>
+                <p>Mock demo: clicking loads <span class="mono">sms_scam_joined.csv</span></p>
+              </div>
+              <div id="file-info" class="hidden">
+                <div class="file-row">
+                  <div class="ic">CSV</div>
+                  <div class="meta"><strong>sms_scam_joined.csv</strong><small>1,240 rows &middot; 10 columns &middot; 312 KB</small></div>
+                  <span class="gain">&#10003; Format valid</span>
+                </div>
+                <div class="tscroll"><table aria-label="CSV preview"><thead><tr><th>message_id</th><th>text</th><th>acct_age_d</th><th>sent_1h</th><th>uniq_rcpt_24h</th><th>% not in contacts</th><th>reply_7d</th><th>hour</th><th>label</th><th>family</th></tr></thead><tbody id="prev"></tbody></table></div>
+                <div id="save-area" class="hidden">
+                  <div class="prog-label"><span id="save-txt">Saving to database...</span><span id="save-pct">0%</span></div>
+                  <div class="bar big"><i id="save-bar"></i></div>
+                </div>
+                <div style="margin-top:1rem;display:flex;gap:.5rem;justify-content:flex-end">
+                  <button id="clear-file">Choose another file</button>
+                  <button class="primary" id="save-btn">Save to database</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Expected columns</h3>
+            <p>The file must include all ten columns.</p>
+            <div class="chips">
+              <span class="chip">message_id</span><span class="chip">text</span><span class="chip">sender_account_age_days</span><span class="chip">msgs_sent_last_hour</span><span class="chip">unique_recipients_24h</span><span class="chip">pct_recipients_not_in_contacts</span><span class="chip">reply_rate_7d</span><span class="chip">sent_hour</span><span class="chip">label_scam</span><span class="chip">message_family</span>
+            </div>
+            <h3 style="margin-top:1.4rem">Recent datasets</h3>
+            <ul class="cleanlist">
+              <li><span>march_batch.csv</span><span style="color:var(--muted);font-weight:400">Mar 12 &middot; 980 rows</span></li>
+              <li><span>carrier_sample_q2.csv</span><span style="color:var(--muted);font-weight:400">Jun 03 &middot; 1,410 rows</span></li>
+              <li><span>tax_season_extra.csv</span><span style="color:var(--muted);font-weight:400">Apr 29 &middot; 622 rows</span></li>
+            </ul>
+          </div>
+        </div>
+      </main>
+
+      <!-- Clean -->
+      <main class="page hidden" id="p-clean">
+        <div class="eyebrow">Step 2 of 4</div>
+        <h1>Clean the data</h1>
+        <p>Removes blank and duplicate rows and standardises formats so the data can be used for training and scoring.</p>
+        <div class="panel">
+          <div class="prog-label" style="margin-top:0"><span id="clean-txt">Ready to clean 1,240 rows</span><span id="clean-pct">0%</span></div>
+          <div class="bar big"><i id="clean-bar"></i></div>
+          <div class="ba">
+            <div class="stat">StoreDataRaw<strong id="raw-n">1,240</strong>rows before cleaning</div>
+            <div class="stat">StoreDataCleaned<strong id="clean-n">&ndash;</strong>rows after cleaning</div>
+          </div>
+          <ul class="cleanlist hidden" id="clean-log" style="margin-top:1rem">
+            <li><span>Blank or empty text removed</span><span>&minus;37</span></li>
+            <li><span>Duplicate rows removed</span><span>&minus;52</span></li>
+            <li><span>Phone numbers standardised (E.164)</span><span>418 fixed</span></li>
+            <li><span>Timestamps and hours normalised</span><span>1,151 fixed</span></li>
+          </ul>
+          <div style="margin-top:1.2rem;display:flex;justify-content:flex-end;gap:.5rem">
+            <button class="primary" id="clean-btn">Clean data</button>
+            <button class="primary hidden" id="to-train">Continue to training</button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Train -->
+      <main class="page hidden" id="p-train">
+        <div class="eyebrow">Step 3 of 4</div>
+        <h1>Train the model</h1>
+        <p>Trains on the cleaned, labelled data. Training runs on the server in the background, and you will see each stage as it completes.</p>
+        <div class="grid2">
+          <div class="panel">
+            <div class="orbwrap">
+              <svg class="orb" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="url(#orbGrad)" filter="url(#glow)"/></svg>
+              <div><strong id="train-head">Ready to train</strong><p id="train-sub" style="margin:0">Gradient-boosted trees, compared against a logistic regression baseline.</p></div>
+            </div>
+            <div class="bar big" style="margin-top:1rem"><i id="train-bar"></i></div>
+            <ul class="stages" id="stages">
+              <li data-i="0"><span class="ico">1</span><span class="info"><strong>Preparing features</strong><small>Money indicators, repetition across recipients, sender stats</small></span></li>
+              <li data-i="1"><span class="ico">2</span><span class="info"><strong>Training model</strong><small>70% of labelled messages, scam class weighted up</small></span></li>
+              <li data-i="2"><span class="ico">3</span><span class="info"><strong>Evaluating results</strong><small>30% held out, compared with the hand-rule baseline</small></span></li>
+              <li data-i="3"><span class="ico">4</span><span class="info"><strong>Scoring messages</strong><small>Risk score and label for every message</small></span></li>
+            </ul>
+            <div style="margin-top:1.2rem;display:flex;justify-content:flex-end;gap:.5rem">
+              <button class="primary" id="train-btn">Start training</button>
+              <button class="primary hidden" id="to-results">View results</button>
+            </div>
+          </div>
+          <div class="panel" style="margin-top:1.2rem">
+            <h3>Held-out test metrics</h3>
+            <p>Scams are about 13% of messages, so accuracy alone would mislead.</p>
+            <table class="models" id="metrics" style="margin-top:.6rem">
+              <thead><tr><th>Metric</th><th>Hand rule</th><th>Logistic</th><th>Boosted trees</th></tr></thead>
+              <tbody>
+                <tr><td>Precision</td><td>0.61</td><td>0.78</td><td class="best">0.91</td></tr>
+                <tr><td>Recall</td><td>0.54</td><td>0.72</td><td class="best">0.88</td></tr>
+                <tr><td>False-block rate</td><td>6.1%</td><td>3.4%</td><td class="best">1.2%</td></tr>
+                <tr><td>Missed-scam rate</td><td>46%</td><td>28%</td><td class="best">12%</td></tr>
+              </tbody>
+            </table>
+            <p id="metrics-note" style="font-size:12px">Metrics appear after the evaluation stage completes.</p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Results -->
+      <main class="page hidden" id="p-results">
+        <div class="toolbar">
+          <div>
+            <div class="eyebrow">Step 4 of 4</div>
+            <h1>Results</h1>
+            <p style="margin:0">Most suspicious first. Tell us whether you agree, and we store it as a label for future retraining.</p>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <button class="iconbtn" id="info-btn" title="How was this scored?" aria-label="How these results were produced">i</button>
+            <button class="primary" id="new-data">Upload new data</button>
+          </div>
+        </div>
+        <div class="stats" id="sum"></div>
+        <div class="legend">
+          <span><i style="background:var(--red)"></i>Hold &ge; 0.75</span>
+          <span><i style="background:var(--amber)"></i>Warn 0.35 to 0.75</span>
+          <span><i style="background:var(--green)"></i>Deliver &lt; 0.35</span>
+          <span style="margin-left:auto" id="fb-count">0 reviewed</span>
+        </div>
+        <div class="toolbar" style="margin-top:1rem">
+          <div class="tabs" id="tabs" role="group" aria-label="Filter by label">
+            <button class="tab" data-f="all" aria-pressed="true">All</button>
+            <button class="tab" data-f="hold" aria-pressed="false">Hold</button>
+            <button class="tab" data-f="warn" aria-pressed="false">Warn</button>
+            <button class="tab" data-f="deliver" aria-pressed="false">Deliver</button>
+          </div>
+          <small style="color:var(--muted)">Showing 14 of 1,151 scored messages (mock sample)</small>
+        </div>
+        <div id="list"></div>
+      </main>
+    </section>
+  </div>
+</div>
+
+<div id="modal-root"></div>
+
+<script>
+/* ---------------- mock data ---------------- */
+const MESSAGES = [
+  {id:'m-0412',sender:'+1 (647) 555-0198',age:2,when:'Tue 02:14',score:.97,text:'CANADA POST: Your parcel is on hold. Pay the $3.49 redelivery fee now: cp-track-delivery.co/pay',m:['$3.49 fee','link + pay'],r:['212 recipients / 24h','91% not in contacts','0% replies']},
+  {id:'m-0877',sender:'+1 (416) 555-0133',age:1,when:'Wed 03:40',score:.96,text:'CRA refund notice: you are owed $1,284.10. Verify your identity to claim: cra-refunds.help/claim',m:['$1,284.10 refund','verify + link'],r:['340 recipients / 24h','97% not in contacts','0% replies']},
+  {id:'m-0231',sender:'+1 (204) 555-0167',age:9,when:'Mon 11:05',score:.93,text:'Hi mum, I lost my phone. This is my new number. Can you e-transfer me $400 for a replacement?',m:['$400 e-transfer'],r:['58 recipients / 24h','88% not in contacts','2% replies']},
+  {id:'m-1009',sender:'+1 (587) 555-0102',age:4,when:'Fri 09:22',score:.91,text:'RBC ALERT: unusual sign-in blocked. Confirm your card now to avoid suspension: rbc-secure-verify.net',m:['link + verify'],r:['174 recipients / 24h','93% not in contacts','1% replies']},
+  {id:'m-0655',sender:'+1 (778) 555-0144',age:3,when:'Sat 14:51',score:.88,text:'Earn $300/day working from home. No experience needed. Reply YES to get started.',m:['$300/day'],r:['96 recipients / 24h','84% not in contacts','1% replies']},
+  {id:'m-0190',sender:'+1 (905) 555-0121',age:12,when:'Thu 08:30',score:.79,text:'Hi, it is Dad. My phone broke so I am using a friend\'s. Can you buy gift cards for me? I will pay you back.',m:['gift cards'],r:['41 recipients / 24h','79% not in contacts','4% replies']},
+  {id:'m-0731',sender:'+1 (613) 555-0175',age:26,when:'Sun 16:12',score:.64,text:'You have 1 unclaimed prize from Loyalty Rewards. Claim before midnight: loyalty-claims.ca/win',m:['reward','link + claim'],r:['63 recipients / 24h','52% not in contacts','6% replies']},
+  {id:'m-0502',sender:'+1 (403) 555-0188',age:34,when:'Mon 10:47',score:.52,text:'Your package could not be delivered. Update your address to reschedule: bit.ly/3xYzA9',m:['link'],r:['37 recipients / 24h','48% not in contacts','9% replies']},
+  {id:'m-0944',sender:'+1 (514) 555-0109',age:61,when:'Wed 12:00',score:.41,text:'Limited time: 40% off all winter boots this weekend at NorthTrail Outfitters. Reply STOP to opt out.',m:['discount'],r:['28 recipients / 24h','31% not in contacts','14% replies']},
+  {id:'m-0318',sender:'+1 (416) 555-0144',age:880,when:'Tue 09:00',score:.27,text:'Hydro One: your bill of $142.66 is due Oct 14. Pay at hydroone.com or by phone. Reply STOP to opt out.',m:['$142.66 bill'],r:['long-standing sender','opt-out present']},
+  {id:'m-0823',sender:'+1 (250) 555-0116',age:1420,when:'Thu 15:32',score:.18,text:'Purchase alert: $58.19 at SHOPPERS DRUG MART on card ending 4471. Not you? Call the number on your card.',m:['$58.19 purchase'],r:['known bank sender','high reply rate']},
+  {id:'m-0067',sender:'+1 (902) 555-0153',age:365,when:'Fri 18:20',score:.11,text:'Reminder: your dentist appointment is tomorrow at 2:30 PM. Reply C to confirm.',m:[],r:['clinic sender','82% replies']},
+  {id:'m-0599',sender:'+1 (306) 555-0127',age:240,when:'Sat 11:44',score:.08,text:'Hey! Still on for dinner at 7? I booked the table at the Thai place.',m:[],r:['saved contact','reply thread']},
+  {id:'m-0140',sender:'+1 (819) 555-0181',age:1980,when:'Mon 07:15',score:.04,text:'Your verification code is 482913. It expires in 10 minutes. Do not share this code.',m:[],r:['known sender','transactional']}
+];
+const CSV_ROWS = [
+  ['m-0001','Your parcel is on hold. Pay $3.49...',2,212,212,'91%','0%',2,1,'parcel_fee'],
+  ['m-0002','Hydro One: your bill of $142.66...',880,4210,4210,'3%','12%',9,0,'utility_bill'],
+  ['m-0003','Hi mum, I lost my phone...',9,58,58,'88%','2%',11,1,'family_impersonation'],
+  ['m-0004','Hey! Still on for dinner at 7?',240,6,3,'0%','100%',11,0,'personal'],
+  ['m-0005','CRA refund notice: you are owed...',1,340,340,'97%','0%',3,1,'tax_refund']
+];
+const fmt = n => n.toLocaleString('en-CA');
+const label = s => s >= .75 ? 'hold' : s >= .35 ? 'warn' : 'deliver';
+const LABEL_TXT = {hold:'Hold',warn:'Deliver with warning',deliver:'Deliver'};
+const COLOR = {hold:'#ff6b6b',warn:'#f5b94a',deliver:'#3ecf8e'};
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------------- stepper / navigation ---------------- */
+const PAGES = ['upload','clean','train','results'];
+const NAMES = ['Upload','Clean','Train','Results'];
+let current = 'upload', reached = 0;
+
+function renderStepper(){
+  $('stepper').innerHTML = NAMES.map((n,i) =>
+    (i ? '<span class="sep"></span>' : '') +
+    `<button class="step ${PAGES[i]===current?'active':''} ${i<PAGES.indexOf(current)?'done':''}" data-p="${PAGES[i]}" aria-current="${PAGES[i]===current}">
+       <span class="n">${i<PAGES.indexOf(current)?'&#10003;':i+1}</span><span class="l">${n}</span></button>`).join('');
+  $('stepper').querySelectorAll('.step').forEach(b => b.onclick = () => go(b.dataset.p));
+}
+function go(p){
+  current = p;
+  PAGES.forEach(x => $('p-'+x).classList.toggle('hidden', x!==p));
+  renderStepper();
+  $('screen').scrollTop = 0;
+  if(p==='results') renderResults();
+}
+
+/* ---------------- login ---------------- */
+$('login-form').onsubmit = e => {
+  e.preventDefault();
+  const btn = $('login-btn'); btn.disabled = true; btn.textContent = 'Signing in...';
+  $('login-err').textContent = '';
+  setTimeout(() => {
+    if(!$('u').value.trim() || !$('p').value){
+      $('login-err').textContent = 'Invalid username or password.';
+      btn.disabled = false; btn.textContent = 'Sign in'; return;
+    }
+    $('login').classList.add('hidden'); $('app').classList.remove('hidden');
+    btn.disabled = false; btn.textContent = 'Sign in';
+    go('upload');
+  }, 700);
+};
+$('logout').onclick = () => { $('app').classList.add('hidden'); $('login').classList.remove('hidden'); resetFlow(); drawWave(); };
+
+/* ---------------- generic progress animation ---------------- */
+function animate(bar, pctEl, ms, onTick, done){
+  const start = performance.now();
+  (function step(now){
+    const t = Math.min(1,(now-start)/ms);
+    const eased = t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+    bar.style.width = (eased*100)+'%';
+    if(pctEl) pctEl.textContent = Math.round(eased*100)+'%';
+    if(onTick) onTick(eased);
+    t<1 ? requestAnimationFrame(step) : done && done();
+  })(start);
+}
+
+/* ---------------- upload ---------------- */
+function loadFile(){
+  $('drop').classList.add('hidden'); $('file-info').classList.remove('hidden');
+  $('prev').innerHTML = CSV_ROWS.map(r => '<tr>'+r.map((c,i)=>`<td class="${i===1?'txt':'mono'}">${esc(String(c))}</td>`).join('')+'</tr>').join('');
+}
+$('drop').onclick = loadFile;
+$('drop').onkeydown = e => (e.key==='Enter'||e.key===' ') && (e.preventDefault(), loadFile());
+$('clear-file').onclick = () => { $('file-info').classList.add('hidden'); $('drop').classList.remove('hidden'); };
+$('save-btn').onclick = () => {
+  $('save-btn').disabled = true; $('clear-file').disabled = true;
+  $('save-area').classList.remove('hidden');
+  animate($('save-bar'), $('save-pct'), 2400, p => $('save-txt').textContent = `Saving to database... ${fmt(Math.round(p*1240))} / 1,240 rows`, () => {
+    $('save-txt').textContent = 'Saved 1,240 rows to StoreDataRaw';
+    modal(`<div class="check">&#10003;</div><h3>Upload complete</h3><p>1,240 rows from <span class="mono">sms_scam_joined.csv</span> were saved. Next, clean the data so it can be used for training.</p>`,
+      [{t:'Not now'},{t:'Clean data',primary:true,fn:() => go('clean')}]);
+  });
+};
+
+/* ---------------- clean ---------------- */
+$('clean-btn').onclick = () => {
+  $('clean-btn').disabled = true;
+  const stages = ['Removing blank rows...','Removing duplicates...','Standardising phone numbers...','Normalising timestamps...'];
+  animate($('clean-bar'), $('clean-pct'), 3200, p => {
+    $('clean-txt').textContent = stages[Math.min(3,Math.floor(p*4))];
+    $('clean-n').textContent = fmt(Math.round(1240 - p*89));
+  }, () => {
+    $('clean-txt').textContent = 'Cleaning complete: 1,151 rows ready for training';
+    $('clean-n').textContent = '1,151'; $('clean-log').classList.remove('hidden');
+    $('clean-btn').classList.add('hidden'); $('to-train').classList.remove('hidden');
+    toast('Data cleaned and saved to StoreDataCleaned');
+  });
+};
+$('to-train').onclick = () => go('train');
+
+/* ---------------- train ---------------- */
+$('train-btn').onclick = () => {
+  $('train-btn').disabled = true;
+  const items = [...document.querySelectorAll('#stages li')];
+  const heads = ['Preparing features...','Training model...','Evaluating results...','Scoring messages...'];
+  const durs = [1400,2600,1600,1400];
+  let i = 0;
+  (function next(){
+    if(i===4){
+      $('train-head').textContent = 'Training complete'; $('train-sub').textContent = 'Model v3 is now in use. 1,151 messages scored.';
+      $('metrics-note').textContent = 'Boosted trees beat both the logistic baseline and the hand rule on every metric.';
+      $('train-btn').classList.add('hidden'); $('to-results').classList.remove('hidden');
+      return toast('Training finished');
+    }
+    items[i].classList.add('run'); $('train-head').textContent = heads[i];
+    if(i===2) $('metrics').style.opacity = 1;
+    const base = i/4*100, span = 25;
+    animate(document.createElement('i'), null, durs[i], p => $('train-bar').style.width = (base+p*span)+'%', () => {
+      items[i].classList.remove('run'); items[i].classList.add('ok'); items[i].querySelector('.ico').innerHTML = '&#10003;';
+      i++; next();
+    });
+  })();
+};
+$('metrics').style.opacity = .35;
+$('to-results').onclick = () => go('results');
+
+/* ---------------- results ---------------- */
+const feedback = {}; let filter = 'all';
+function ring(s,l){
+  const c = 2*Math.PI*21;
+  return `<div class="ring"><svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="21" fill="none" stroke="#1f2a5a" stroke-width="5"/><circle cx="27" cy="27" r="21" fill="none" stroke="${COLOR[l]}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(c*s).toFixed(1)} ${c.toFixed(1)}"/></svg><b>${Math.round(s*100)}</b></div>`;
+}
+function renderResults(){
+  const counts = {hold:0,warn:0,deliver:0}; MESSAGES.forEach(m => counts[label(m.score)]++);
+  $('sum').innerHTML = `
+    <div class="stat">Messages scored<strong>1,151</strong><span class="gain">model v3</span></div>
+    <div class="stat">Held<strong style="color:var(--red)">148</strong>12.9% of messages</div>
+    <div class="stat">Deliver with warning<strong style="color:var(--amber)">96</strong>8.3% of messages</div>
+    <div class="stat">Delivered<strong style="color:var(--green)">907</strong>78.8% of messages</div>`;
+  const rows = MESSAGES.filter(m => filter==='all' || label(m.score)===filter);
+  $('list').innerHTML = rows.map(m => {
+    const l = label(m.score), f = feedback[m.id];
+    return `<article class="msg ${l}">
+      ${ring(m.score,l)}
+      <div class="body">
+        <div class="top"><span class="badge ${l}">${LABEL_TXT[l]}</span><span class="mono">${m.sender}</span><span>&middot; account ${m.age<30?m.age+' days old':Math.round(m.age/30)+' months old'}</span><span>&middot; ${m.when}</span></div>
+        <div class="text">${esc(m.text)}</div>
+        <div>${m.m.map(x=>`<span class="sig m">$ ${esc(x)}</span>`).join('')}${m.r.map(x=>`<span class="sig r">&#8635; ${esc(x)}</span>`).join('')}</div>
+      </div>
+      <div class="fb">
+        ${f ? `<div class="fbdone">&#10003; Saved as ${f==='yes'?'agreed':'disagreed'}</div>` : '<small>Do you agree with this assessment?</small>'}
+        <div style="display:flex;gap:.35rem">
+          <button data-id="${m.id}" data-v="yes" class="${f==='yes'?'sel-yes':''}" style="flex:1">Agree</button>
+          <button data-id="${m.id}" data-v="no" class="${f==='no'?'sel-no':''}" style="flex:1">Disagree</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  $('list').querySelectorAll('.fb button').forEach(b => b.onclick = () => {
+    feedback[b.dataset.id] = b.dataset.v; renderResults();
+    $('fb-count').textContent = Object.keys(feedback).length + ' reviewed';
+  });
+  $('fb-count').textContent = Object.keys(feedback).length + ' reviewed';
+}
+$('tabs').querySelectorAll('.tab').forEach(t => t.onclick = () => {
+  filter = t.dataset.f;
+  $('tabs').querySelectorAll('.tab').forEach(x => x.setAttribute('aria-pressed', x===t));
+  renderResults();
+});
+$('new-data').onclick = () => { resetFlow(); go('upload'); };
+$('info-btn').onclick = () => modal(`
+  <div class="eyebrow">About these results</div><h3>How the scores were produced</h3>
+  <h4>How the model was trained</h4>
+  <ul class="b"><li>Gradient-boosted decision trees, compared against a logistic regression baseline.</li>
+  <li>70% of labelled messages for training, 30% held out for testing.</li>
+  <li>Scams are about 13% of the data, so the scam class is weighted up and judged on precision, recall, false-block and missed-scam rates.</li></ul>
+  <h4>How the scores were calculated</h4>
+  <ul class="b"><li>Money signals (amounts, refund, fee, e-transfer) count most alongside a link or request to act.</li>
+  <li>Repetition signals: near-identical text to many recipients, new sender, few replies.</li>
+  <li>The model weighs all signals together. Scores map to Deliver, Warn or Hold bands.</li></ul>
+  <h4>Drawbacks</h4>
+  <ul class="b"><li>It estimates likelihood. It cannot confirm that a message is a scam.</li>
+  <li>Scammers change tactics, so the model needs regular retraining.</li>
+  <li>Legitimate bulk senders (bills, alerts) can look similar and may be over-flagged.</li>
+  <li>Quality depends on how well the training labels were made.</li></ul>`,
+  [{t:'Close',primary:true}]);
+
+/* ---------------- reset ---------------- */
+function resetFlow(){
+  $('file-info').classList.add('hidden'); $('drop').classList.remove('hidden');
+  $('save-area').classList.add('hidden'); $('save-bar').style.width = '0'; $('save-btn').disabled = false; $('clear-file').disabled = false;
+  $('clean-bar').style.width = '0'; $('clean-pct').textContent = '0%'; $('clean-txt').textContent = 'Ready to clean 1,240 rows'; $('clean-n').innerHTML = '&ndash;';
+  $('clean-log').classList.add('hidden'); $('clean-btn').disabled = false; $('clean-btn').classList.remove('hidden'); $('to-train').classList.add('hidden');
+  $('train-bar').style.width = '0'; $('train-btn').disabled = false; $('train-btn').classList.remove('hidden'); $('to-results').classList.add('hidden');
+  $('train-head').textContent = 'Ready to train'; $('train-sub').textContent = 'Gradient-boosted trees, compared against a logistic regression baseline.';
+  $('metrics').style.opacity = .35; $('metrics-note').textContent = 'Metrics appear after the evaluation stage completes.';
+  document.querySelectorAll('#stages li').forEach((li,i) => { li.className = ''; li.querySelector('.ico').textContent = i+1; });
+  for(const k in feedback) delete feedback[k]; filter = 'all';
+  $('tabs').querySelectorAll('.tab').forEach(x => x.setAttribute('aria-pressed', x.dataset.f==='all'));
+}
+
+/* ---------------- modal / toast ---------------- */
+function modal(html, buttons){
+  const root = $('modal-root');
+  root.innerHTML = `<div class="overlay" role="dialog" aria-modal="true"><div class="modal">${html}<div class="actions"></div></div></div>`;
+  const close = () => root.innerHTML = '';
+  const acts = root.querySelector('.actions');
+  buttons.forEach(b => { const el = document.createElement('button'); el.textContent = b.t; if(b.primary) el.className='primary';
+    el.onclick = () => { close(); b.fn && b.fn(); }; acts.appendChild(el); });
+  root.querySelector('.overlay').onclick = e => e.target.classList.contains('overlay') && close();
+  acts.querySelector('button:last-child').focus();
+}
+document.addEventListener('keydown', e => e.key==='Escape' && ($('modal-root').innerHTML = ''));
+function toast(t){ const el = document.createElement('div'); el.className='toast'; el.textContent=t; document.body.appendChild(el); setTimeout(()=>el.remove(),2400); }
+
+/* ---------------- login background wave (same style as design reference) ---------------- */
+function drawWave(){
+  const c = $('wave'); if(!c) return; const ctx = c.getContext('2d');
+  const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio||1;
+  if(!r.width) return;
+  c.width = r.width*dpr; c.height = r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  const W = r.width, H = r.height; ctx.clearRect(0,0,W,H);
+  const g = ctx.createRadialGradient(W*.5,H*.6,0,W*.5,H*.6,H*.8);
+  g.addColorStop(0,'rgba(40,80,255,.28)'); g.addColorStop(1,'rgba(7,11,31,0)'); ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+  ctx.globalCompositeOperation='lighter'; ctx.shadowColor='rgba(90,140,255,.9)'; ctx.shadowBlur=6;
+  const lines=38, pts=160;
+  for(let l=0;l<lines;l++){ const t=l/(lines-1);
+    for(let i=0;i<pts;i++){ const u=i/(pts-1), x=W*(u*1.1-.05)+Math.sin(t*9+u*4)*4;
+      const y=H*(.78-.35*u+.1*Math.sin(u*5+t*2.2)+(t-.5)*.5*(.15+u*u));
+      const fade=Math.pow(Math.sin(Math.PI*u),1.2)*(.35+.65*Math.sin(Math.PI*t));
+      ctx.fillStyle=`rgba(${110+120*fade|0},${150+95*fade|0},255,${.05+.75*fade})`;
+      ctx.beginPath(); ctx.arc(x,y,.5+1.1*fade,0,Math.PI*2); ctx.fill(); } }
+  ctx.globalCompositeOperation='source-over';
+}
+drawWave(); window.addEventListener('resize', drawWave);
+</script>
+</body>
+</html>
