@@ -1,6 +1,7 @@
 # Validates each new/edited submission issue (runs instantly, no cron delay).
-# Enforces: tagline length, screenshot count (min 2 advisory), demo link present,
+# Enforces: tagline length, screenshot count (min 2 advisory, Markdown + HTML embeds), demo link present,
 # sharp deadline (cutoff 18:00 UTC Oct 4 = 12:00 PM MDT sharp, no exceptions), needs-review routing.
+# Anti-spam: keeps ONE bot comment per thread (updates in place, deletes older duplicates).
 # Free-plan safe: ubuntu-latest, read issue body only.
 name: Validate Submission
 
@@ -36,10 +37,13 @@ jobs:
               notes.push("ℹ️ No demo/live-site link detected in field 8. A link is optional but recommended (direct video upload capped at 10 MB on Free).");
             }
 
-            // 2. Screenshot count advisory (min 2, max 5) - count CDN image embeds
-            const imgs = (body.match(/!\[[^\]]*\]\(https:\/\/user-images\.githubusercontent\.com[^)]+\)/g) || []).length
-                       + (body.match(/!\[[^\]]*\]\(https:\/\/github\.com\/user-attachments[^)]+\)/g) || []).length;
-            if (imgs < 2) notes.push(`⚠️ Only ~${imgs} embedded screenshot(s) detected (min 2 required, max 5). Drag-drop images into field 7 (\`needs-fix\`).`);
+            // 2. Screenshot count advisory (min 2, max 5) - count Markdown AND HTML embeds.
+            // GitHub paste can produce <img src="...user-attachments..."> (no leading !) or bare links;
+            // only real embeds count. Bare [text](url) links without `!` do NOT render inline.
+            const mdImgs = (body.match(/!\[[^\]]*\]\(https:\/\/(user-images\.githubusercontent\.com|github\.com\/user-attachments)[^)]+\)/g) || []).length;
+            const htmlImgs = (body.match(/<img\b[^>]*src="https:\/\/(user-images\.githubusercontent\.com|github\.com\/user-attachments)[^"]*"/gi) || []).length;
+            const imgs = mdImgs + htmlImgs;
+            if (imgs < 2) notes.push(`⚠️ Only ~${imgs} embedded screenshot(s) detected (min 2 required, max 5). Drag-drop images into field 7 (\`needs-fix\`). Tip: images must be Markdown embeds (\`![desc](url)\`) or \`<img>\` tags — bare links without \`!\` don't count.`);
 
             // 3. Late stamping (sharp deadline - no exceptions)
             const labelsToAdd = ["needs-review"];
@@ -57,10 +61,27 @@ jobs:
             try {
               await github.rest.issues.addLabels({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, labels: [...new Set(labelsToAdd)] });
             } catch (e) { core.warning("label failed: " + e.message); }
-            if (notes.length) {
-              try {
-                await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, body: ["**Submission check:**", "", ...notes].join("\n") });
-              } catch (e) { core.warning("comment failed: " + e.message); }
-            } else {
-              core.info("submission looks complete");
-            }
+            // Single upsert comment (no spam): keep ONE bot message per thread.
+            // Update the existing check in place and delete older duplicates instead of posting again.
+            const MARKER = "<!-- submission-check -->";
+            const newBody = notes.length
+              ? ["**Submission check:**", "", ...notes].join("\n") + `\n\n${MARKER}`
+              : ["**Submission check:**", "", "✅ All automated checks passed. Good luck!", "", "_(This bot keeps a single comment per thread — it updates this message instead of posting again.)_", "", MARKER].join("\n");
+            try {
+              const { data: comments } = await github.rest.issues.listComments({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, per_page: 100 });
+              const botChecks = comments.filter(c => (c.body || "").includes(MARKER) || ((c.body || "").startsWith("**Submission check:**") && c.user && (c.user.type === "Bot" || String(c.user.login || "").endsWith("[bot]"))));
+              if (notes.length === 0 && botChecks.length === 0) {
+                core.info("submission looks complete (no prior bot comment to update)");
+              } else if (botChecks.length) {
+                const latest = botChecks[botChecks.length - 1];
+                for (const dup of botChecks.slice(0, -1)) {
+                  try { await github.rest.issues.deleteComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: dup.id }); }
+                  catch (e) { core.warning(`delete dup failed ${dup.id}: ${e.message}`); }
+                }
+                if ((latest.body || "").trim() !== newBody.trim()) {
+                  await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: latest.id, body: newBody });
+                } else { core.info("bot comment already up to date"); }
+              } else {
+                await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, body: newBody });
+              }
+            } catch (e) { core.warning(`comment upsert failed: ${e.message}`); }
