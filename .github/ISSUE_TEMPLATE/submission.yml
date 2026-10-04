@@ -48,9 +48,9 @@ body:
   - type: input
     id: project-title
     attributes:
-      label: 4. Project Title
-      description: Title of your project (must provide).
-      placeholder: e.g. Autonomous 311 Dispatch Agent
+      label: 4. Case Title
+      description: Title of your case (must provide).
+      placeholder: "e.g. Case 1 - Who should 311 send next? or Own case: Can AI Detect Changes in a Patient's Mobility?"
     validations:
       required: true
 
@@ -69,6 +69,7 @@ body:
       label: 6. About the Project
       description: |
         What inspired you, what you learned, how you built it, challenges faced.
+        Please include links to the public datasets and any public models or public information you used.
         Markdown supported; LaTeX math supported via $...$ (inline) and $$...$$ (block).
       placeholder: |
         ## Inspiration
@@ -79,6 +80,9 @@ body:
         ...
         ## Challenges
         ...
+        ## Datasets, Models & Sources (links required)
+        - Dataset: <name + URL>
+        - Model / public info: <name + URL>
     validations:
       required: true
 
